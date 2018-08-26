@@ -280,6 +280,1187 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/26/Dijsktra详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jiayu Zhang">
+      <meta itemprop="description" content="生如逆旅 不止行人">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jiayu | Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/26/Dijsktra详解/" itemprop="url">
+                  Dijsktra详解
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-26 15:21:15 / Modified: 15:43:05" itemprop="dateCreated datePublished" datetime="2018-08-26T15:21:15+08:00">2018-08-26</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Dijsktra算法详解"><a href="#Dijsktra算法详解" class="headerlink" title="Dijsktra算法详解"></a>Dijsktra算法详解</h1><p>DDL真是最好的驱动力，发现现在到了我这个年纪，必须得靠理解力+记录才能彻底记住事情，单纯地靠记忆力已经不足以拯救我这日益死亡的脑细胞了。这个算法看了很多次，却总是有种浮萍的感觉，借着准备面试的契机，整理一下记录下来。</p>
+<h2 id="算法描述"><a href="#算法描述" class="headerlink" title="算法描述"></a>算法描述</h2><ul>
+<li><p><strong>算法条件及要求</strong><br>Dijsktra算法是一个比较基础、应用比较广泛的带权无向最短路径路由算法。其给定的数据是一定个数的点以及相互连接的点之间的权值，要求的结果是给定一个源点，求源点到任意给定的点的最短距离。</p>
+</li>
+<li><p><strong>算法求解原理</strong><br>Dijsktra算法的原理是维护两个列表，分别为nodes和visited，其。初始的时候nodes中只有一个源点，nodes则是除了源点之外的其他点，每个点带有一个数值，该数值代表与源点的距离。<br>基于以下两个准则：</p>
+<ul>
+<li>nodes中的点与与visited中的点没有边时，其距离为$+\infty$</li>
+<li>visited中点的值一定比nodes中点的值小，或者说源点至visited中的点的距离一定比源点至nodes的点的距离小</li>
+</ul>
+</li>
+</ul>
+<p>每次从nodes取出一个nodes中值最小的点放入visited，同时更新nodes中的点至源点的距离，直至nodes中没有点。<br>至此，nodes中的所有点都已经搬至visited中，且都带有与源点的距离</p>
+<h2 id="算法实例"><a href="#算法实例" class="headerlink" title="算法实例"></a>算法实例</h2><p>以图1为例，说明Dijsktra算法的流程<br><img src="https://ws2.sinaimg.cn/large/006tNbRwgy1fumidkr5xyj30aj07eaat.jpg" alt="">  </p>
+<center>图1 Dijsktra算法实例</center>  
+
+<p>图2为Dijsktra算法的执行过程：<br><img src="https://ws3.sinaimg.cn/large/006tNbRwgy1fumieitllej30jz184dmg.jpg" alt=""></p>
+<center>图2 Dijsktra算法的执行过程</center>
+
+<h2 id="算法代码"><a href="#算法代码" class="headerlink" title="算法代码"></a>算法代码</h2><p>以下是Dijsktra算法的python代码实现：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义一个图类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Graph</span>:</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 图类有三个属性：节点nodes（set），边edges（list[(fromNode,[sourceNode]]），距离distances（dict[(from_node, to_node), distace]）</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">    self.nodes = set()</span><br><span class="line">    self.edges = defaultdict(list)</span><br><span class="line">    self.distances = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加一个node</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">add_node</span><span class="params">(self, value)</span>:</span></span><br><span class="line">    self.nodes.add(value)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加一条带权的边</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">add_edge</span><span class="params">(self, from_node, to_node, distance)</span>:</span></span><br><span class="line">    self.edges[from_node].append(to_node)</span><br><span class="line">    self.edges[to_node].append(from_node)</span><br><span class="line">    self.distances[(from_node, to_node)] = distance</span><br><span class="line"></span><br><span class="line"><span class="comment"># Dijsktra算法</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dijsktra</span><span class="params">(graph, initial)</span>:</span></span><br><span class="line">  <span class="comment"># 首先将源点放至visited</span></span><br><span class="line">  visited = &#123;initial: <span class="number">0</span>&#125;</span><br><span class="line">  <span class="comment"># 存放每一条带权路径</span></span><br><span class="line">  path = &#123;&#125;</span><br><span class="line">  <span class="comment"># 放入所有节点至nodes，包括源点（这里与上述介绍稍有不同，主要是为了下面的循环方便）</span></span><br><span class="line">  nodes = set(graph.nodes)</span><br><span class="line"></span><br><span class="line">  <span class="comment"># 每次取出处于visited中的nodes中的最小值节点</span></span><br><span class="line">  <span class="keyword">while</span> nodes: </span><br><span class="line">    min_node = <span class="keyword">None</span></span><br><span class="line">    <span class="keyword">for</span> node <span class="keyword">in</span> nodes:</span><br><span class="line">      <span class="keyword">if</span> node <span class="keyword">in</span> visited:</span><br><span class="line">        <span class="keyword">if</span> min_node <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">          min_node = node</span><br><span class="line">        <span class="keyword">elif</span> visited[node] &lt; visited[min_node]:</span><br><span class="line">          min_node = node</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> min_node <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">      <span class="keyword">break</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 将该最小值节点从nodes中剔除，同时将当前距离设为此最小值节点的距离，供接下来计算与最小值节点相邻的节点的值</span></span><br><span class="line">    nodes.remove(min_node)</span><br><span class="line">    current_weight = visited[min_node]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 对于所有与最小值节点相连的节点，若不在visited或在visited中但该节点通过min_node再到源点的值比他本身到源点的值小（否则后者就会违反准则2），则将其放入至visited中</span></span><br><span class="line">    <span class="keyword">for</span> edge <span class="keyword">in</span> graph.edges[min_node]:</span><br><span class="line">      weight = current_weight + graph.distance[(min_node, edge)]</span><br><span class="line">      <span class="keyword">if</span> edge <span class="keyword">not</span> <span class="keyword">in</span> visited <span class="keyword">or</span> weight &lt; visited[edge]:</span><br><span class="line">        visited[edge] = weight</span><br><span class="line">        path[edge] = min_node</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> visited, path</span><br></pre></td></tr></table></figure></p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ul>
+<li><a href="https://blog.csdn.net/yalishadaa/article/details/55827681" target="_blank" rel="noopener">CSDN: Dijkstra算法原理</a></li>
+<li><a href="https://gist.github.com/econchick/4666413" target="_blank" rel="noopener">GitHub: Dijsktra Source Code</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/26/Word2Vec/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jiayu Zhang">
+      <meta itemprop="description" content="生如逆旅 不止行人">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jiayu | Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/26/Word2Vec/" itemprop="url">
+                  Word2Vec
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-26 15:20:39 / Modified: 15:39:16" itemprop="dateCreated datePublished" datetime="2018-08-26T15:20:39+08:00">2018-08-26</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="带加速的word2vec详解"><a href="#带加速的word2vec详解" class="headerlink" title="带加速的word2vec详解"></a>带加速的word2vec详解</h1><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<p>不带加速的Word2Vec模型很简单，以CBOW模型为例，随机初始化的词向量经过一个W到达隐层后输出，与\(W^{‘}\)相乘后得到输出，输出的维度与语料库的大小相等，做一个softmax即可获得最大概率对应的单词。其梯度更新的损失函数是交叉熵。  </p>
+<h1 id="1-CBOW模型的Hierarchical-Softmax"><a href="#1-CBOW模型的Hierarchical-Softmax" class="headerlink" title="1. CBOW模型的Hierarchical Softmax"></a>1. CBOW模型的Hierarchical Softmax</h1><p>这也算是一个神经网络吧，在此也说明一下以后关于深度学习方法的总结路线：网络结构-&gt;梯度计算-&gt;Tricks。</p>
+<h2 id="1-1-网络结构"><a href="#1-1-网络结构" class="headerlink" title="1.1 网络结构"></a>1.1 网络结构</h2><ul>
+<li><p><strong>CBOW With Hierarchical Softmax</strong>  </p>
+<ul>
+<li><p><strong>结构综述</strong><br>与神经概率语言的结构类似，以下是带有Hierarchical Softmax的CBOW模型的结构：<br><img src="https://ws2.sinaimg.cn/large/006tNbRwgy1fuizukpgs0j312e0wqju3.jpg" alt="CBOW Structure With Hierarchical Softmax"><br><center>图1  CBOW With Hierarchical Softmax模型的结构</center><br>概括地来看，CBOW模型是输入2C个单词的词向量（C为前后窗口的大小），在投影层将其简单地相加求平均，输出到输出层后经由Hierarchical Softmax结构选取到最有可能的单词作为中心词w。</p>
+</li>
+<li><p><strong>Hierarchical Softmax简介</strong><br>这里的Hierarchical Softmax其实就是一颗霍夫曼树叶节点权值的softmax，该霍夫曼树以语料库中出现的单词作为叶节点，以该单词出现的频率作为叶节点的权值。而“hierarchical”的意思是从根节点（输出层）到叶节点的路径是一步步按层次抉择的。其中的抉择其实就是一个logistic二分类。 </p>
+</li>
+<li><p><strong>原理阐述</strong><br>Hierarchical Softmax主要是用来节省时间的。原始的神经网络概率模型输出层经过一个softmax，输出\(||Corpus||\)个概率，而使用Hierarchical Softmax则只需计算\(\log ||Corpus||\)个概率；其次，因为霍夫曼树的特性，出现频率越高的词离根节点越近，而这恰好符合贪心的思想。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-2-梯度计算"><a href="#1-2-梯度计算" class="headerlink" title="1.2 梯度计算"></a>1.2 梯度计算</h2><ul>
+<li><p><strong>变量预定义</strong><br>需要明确的是，神经概率语言模型的目标函数是：<br>$$Obj = \sum_{w\in C}\log{P(w|Context(w)} \tag{1}$$<br>在梯度计算前，非常有必要定义好各个变量的数学定义。故针对此霍夫曼树，有：  </p>
+<ul>
+<li>\(p^w\): 根节点至某个叶节点的w的路径</li>
+<li>\(l^w\): 路径\(p^w\)中节点的个数，包括根节点和叶节点</li>
+<li>\(p_j^w\): 路径\(p^w\)中第j个节点</li>
+<li>\(\theta_j^w\): 第j个节点的\theta值，相当于logistic分类中权值w，j = 1 ~  (\(l^w\)-1)</li>
+<li><p>\(d_j^w\): 路径\(p^w\)中第j个节点的编码，j = 2 ~ \(l^w\)，根节点没有编码</p>
+<p>同时约定编码为1的节点为左节点，为负类；编码为0的节点为右节点，为正类。即：<br>$$<br>  label(p_j^w) =<br>  \begin{cases}<br>  \sigma(\theta _{j-1}^w <em> x_w)  &amp; \text{if d_j^w = 0} \\<br>  1 - \sigma(\theta _{j-1}^w </em> x_w)  &amp; \text{if d_j^w = 1}<br>  \end{cases} \tag{2}<br>$$</p>
+</li>
+</ul>
+</li>
+<li><p><strong>梯度求解</strong><br>针对$p^w$上第$j$个节点，由Logistic Regression可得：<br>$$P(d_j^w|\theta _{j-1}^w,x_w) = \sigma(\theta _{j-1}^w <em> x_w)^{(1-d_j^w)}+ (1 - \sigma(\theta _{j-1}^w </em> x_w))^{d_j^w} \tag{3}$$</p>
+</li>
+</ul>
+<p>故成功预测某个单词的概率为：<br>$$P(w|Context(w)) = \prod _{j=2}^{l^w}P(d_j^w|\theta _{j-1}^w,x_w) \tag{4}$$<br>将其带入公式(1)即可得：<br>\begin{equation}<br>\begin{split}<br>Obj &amp;= \sum_{w\in C}\log \prod _{j=2}^{l^w}P(d_j^w|\theta _{j-1}^w,x_w)\\<br>&amp;= \sum_{w\in C}\log \prod [\sigma(\theta _{j-1}^w <em> x_w)^{(1-d_j^w)}+ (1 - \sigma(\theta _{j-1}^w </em> x_w))^{d_j^w}]\\<br>&amp;= \sum_{w\in C} \sum_{j=2}^{l^w}[(1-d _j^w)\log \sigma(\theta _{j-1}^w <em> x_w) + d _j^w\log[1-\sigma(\theta _{j-1}^w </em> x_w)]]<br>\end{split}\tag{5}<br>\end{equation}<br>为求导方便，令双重求和后的内容简记为：<br>$$Obj(w,j) = (1-d _j^w)\log \sigma(\theta _{j-1}^w <em> x_w) + d _j^w\log[1-\sigma(\theta _{j-1}^w </em> x_w)] \tag{6}$$<br>则为了使\(Obj(w,j)\)最大，需对参数求偏导获得最优参数, 结合公式\(\sigma\)求导特性有：<br>\begin{equation}<br>\begin{split}<br>\frac{\partial Obj}{\partial \theta _{j-1}^w} &amp;= (1-d _j^w)[1-\sigma(\theta _{j-1}^w <em> x_w)]x_w -d _j^w \sigma(\theta _{j-1}^w </em> x_w) x_w \\<br>&amp;= [1 - d _j^w - \sigma(\theta _{j-1}^w * x_w)]\ x^w<br>\end{split}\tag{7}<br>\end{equation}</p>
+<p>由公式(6)可知\(x_w\)与\(\theta _{j-1}^w\)具有对称性，则可得：<br>$$\frac{\partial Obj}{\partial x _w} = [1 - d _j^w - \sigma(\theta _{j-1}^w * x_w)]\ \theta _{j-1}^w \tag{8}$$</p>
+<p>更新梯度的时候，\(\theta _{j-1}^w\)的更新就是传统的用学习率更新的方式，而输入词向量的更新是如何通过\(x_w\)来更新的呢？Word2Vec采用的策略是：<br>$$v(\check{w}) = v(\check{w}) + \eta \sum _{j=1}^{l^w} \frac{\partial Obj}{\partial x_w},\ \check{w} \in Context(w) \tag{9}$$<br>将关于\(x_w\)的梯度贡献到Context(w)的每一个词向量上。</p>
+<ul>
+<li><p><strong>Hierarchical Softmax SGD</strong></p>
+<ul>
+<li>\(e = 0\)</li>
+<li>\(x_w = \sum _{u \in Context}v(u)\)</li>
+<li><p>\(for\ j\ =\ 2\ to\ l^w:\)</p>
+<ul>
+<li>\( q = \sigma(\theta _{j-1}^w * x_w)\)</li>
+<li>\( g = \eta (1 - d _j^w - q)\)</li>
+<li>\( e = e + g \theta _{j-1}^w\)</li>
+<li>\( \theta _{j-1}^w = \theta _{j-1}^w + g x_w\)</li>
+</ul>
+</li>
+<li><p>\(for\ u\ in\ Context(w):\)</p>
+<ul>
+<li>\(    v(u) = v(u) + e\)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>\(\theta _{j-1}^w\)的更新必须在\(x^w\)的更新后。</p>
+<h1 id="2-CBOW模型的Negative-Sampling"><a href="#2-CBOW模型的Negative-Sampling" class="headerlink" title="2. CBOW模型的Negative Sampling"></a>2. CBOW模型的Negative Sampling</h1><h2 id="2-1-网络结构"><a href="#2-1-网络结构" class="headerlink" title="2.1 网络结构"></a>2.1 网络结构</h2><ul>
+<li><p><strong>结构综述</strong><br>负采样算法与Hierarchical Softmax算法原理不同，它试图凑出\(||NEG||+1\)个样本，其中的”1”代表的是正样本，即\(Context(w)\)中的w，另外的\(||NEG||\)个样本为随机采样的带有类别为0的负样本，即从语料库中抽取出来的非w的\(\check {w}\)。<br><img src="https://ws1.sinaimg.cn/large/006tNbRwgy1fultqhtnd6j30ee0hymxq.jpg" alt="CBOW Model"></p>
+<center>图2  CBOW With Negative Sampling模型的结构</center>
+</li>
+<li><p><strong>负采样算法简介</strong><br>负采样算法的原理暂不赘述（其实是还没看），这里主要阐述其基本操作。<br><img src="https://ws1.sinaimg.cn/large/006tNbRwgy1fuluocoa2gj30q409aacx.jpg" alt=""></p>
+<center>图3  负采样模型</center>  
+
+</li>
+</ul>
+<p>如图所述，根据词频将词库映射为长度为1、分为N份(N为单词的个数)的单位线段1，同时再将同样的单位线段2分为M份，M &gt;&gt; N，故在线段2上从[1,M-1]里随机选取一个整数即可获得单位1上的一个词，若遇到了w自己，则跳过重选。<br>值得一提的是，关于按词频映射：<br>$$len(w) = \frac{|count(w)|^{\alpha}}{\sum _{u \in dictionary} |count(u)|^{\alpha}}  \tag{10} $$<br>Word2Vec中加入了一个超参数\(\alpha\)，并在实现中将其取为0.75，称之为最好的参数。</p>
+<ul>
+<li><strong>原理阐述</strong><br>看了其希望最大化的目标函数就可知道，其实思想很简单：<br>$$g(w) = \prod _{u \in \ {w} \bigcup NEG(w)} p(u|Context(w))  \tag{11} $$<br>其中：<br>$$p(u|Context(w)) = \sigma (x_w^T \theta^u)\ if\ L^w(u) = 1\ else\ (1- \sigma (x_w^T \theta^u))  \tag{12} $$<br>这里的\(L^w(u)\)是指u的标签，正样本为0，负样本为1。<br>将g(w)展开会发现：<br>$$g(w) =  \sigma (x_w^T \theta^w) \prod _{u \in NEG(w)} (1 -  \sigma (x_w^T \theta^u)) \tag{13} $$<br>故可以发现最大化g的过程即是最大化正样本标签为1、负样本标签为0的过程。</li>
+</ul>
+<h2 id="2-2-梯度计算"><a href="#2-2-梯度计算" class="headerlink" title="2.2 梯度计算"></a>2.2 梯度计算</h2><p>针对一个给定的语料库C，整体优化的目标函数为：<br>$$\log G =  \log [ \prod _{w \in C} g(w)]  \tag{14} $$<br>梯度计算同1.2</p>
+<h1 id="3-若干源码细节"><a href="#3-若干源码细节" class="headerlink" title="3. 若干源码细节"></a>3. 若干源码细节</h1><ul>
+<li><p><strong>\(\sigma (x)\)的近似计算</strong></p>
+<ul>
+<li>避免指数运算，在[-6,6]区间的x按照步长计算其值，区间之外的则为0或1，可加快运算速度</li>
+</ul>
+</li>
+<li><p><strong>根据词频进行预处理</strong></p>
+<ul>
+<li>针对低频词：<ul>
+<li>可设置参数min_count的值，代表若某个词在语料中出现的次数小于min_count，则将其在词典中删除。</li>
+<li>利用语料构建词典时，预先设置一个阈值参数min_reduce，若当前词典规模满足 D{current} &gt; 0.7 <em> vocabHashSize时，则删除所有出现次数小于等于\(min \underline{} reduce\) 的词。其中vocabHashSize为词典哈希存储时分配的整形数组长度，默认为\(3 </em> 10^7\)</li>
+</ul>
+</li>
+<li>针对高频词，则设置一个sample变量，指代一个阈值参数，代表将对词频高于sample的 按概率舍弃。具体做法是计算出\(ran = \sqrt {\frac{sample}{f(w)}} + \frac{sample}{f(w)}\)，再从(0,1)中随机选取一个数r，若r大于ran，则舍弃该词。原理是在(0,1)中取出一个数大于ran的概率即是1-ran，这样即是以1-ran的概率舍弃该词。</li>
+</ul>
+</li>
+<li><p><strong>窗口及上下文</strong><br>模型是以行为单位训练的。每行有多少个词，即有多少个训练样本。<br>关于Context(w)，事先设置一个窗口阈值window，考虑构造Context(w)的时候，生成区间[1,window]上的一个随机数random，然后w前后各取random个词即构成了Context(w)。</p>
+</li>
+<li><p><strong>自适应学习率</strong><br>Word2Vec源码中指定每处理完10000行则对\(\eta\)更新一次：<br>$$\eta = \eta_0 (1-\frac{||trainedWord||}{||dictionary|| + 1})\ if\ (\eta &gt;= \eta _{min})\ else\ \eta _{min} \tag{15}$$</p>
+</li>
+<li><p><strong>参数初始化与训练</strong><br>模型训练采用的是随机梯度上升法，且只对语料遍历一次，故而较为高效。<br>而关于参数初始化，词向量四随机初始化，参数是零初始化。</p>
+</li>
+</ul>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ul>
+<li><a href="https://blog.csdn.net/itplus/article/details/37969519" target="_blank" rel="noopener">word2vec中的数学原理详解</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/26/GBDT-and-XGBoost/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jiayu Zhang">
+      <meta itemprop="description" content="生如逆旅 不止行人">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jiayu | Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/26/GBDT-and-XGBoost/" itemprop="url">
+                  GBDT and XGBoost
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-26 15:19:58 / Modified: 15:35:00" itemprop="dateCreated datePublished" datetime="2018-08-26T15:19:58+08:00">2018-08-26</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="GBDT详解"><a href="#GBDT详解" class="headerlink" title="GBDT详解"></a>GBDT详解</h1><h1 id="1-传统机器学习分析路线"><a href="#1-传统机器学习分析路线" class="headerlink" title="1. 传统机器学习分析路线"></a>1. 传统机器学习分析路线</h1><p>想要对经典机器学习方法做一个总结，回看之前做的总结较为杂乱，没有一个清晰的思路。<br>综合思考了下，接下来的文章都按照模型-&gt;目标函数设计及求解的路线走。</p>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<h1 id="2-GBDT-amp-amp-XGBoost"><a href="#2-GBDT-amp-amp-XGBoost" class="headerlink" title="2. GBDT &amp;&amp; XGBoost"></a>2. GBDT &amp;&amp; XGBoost</h1><p>GBDT是一种boosting方法，xgboost则是针对GBDT做的优化，考虑到xgboost的推导更为tricky，这里主要介绍xgboost，最后则会指出GBDT与xgboost的异同。</p>
+<h2 id="2-1-xgbost模型"><a href="#2-1-xgbost模型" class="headerlink" title="2.1 xgbost模型"></a>2.1 xgbost模型</h2><p>Boosting模型通用公式为：$$\check{y}<em>i =\sum</em>{i=1} ^Kf_k(x_i)$$传统的boosting模型如AdaBoost，构造每一个模型是基于不同权重的样本，GBDT则是通过拟合上一轮模型的损失构造出当前的新模型。<br>模型的基学习器一般是CART树，xgboost也可以选择线性学习器。<br>那么假设已经获取了t-1个模型，如何获取第t个模型呢？按照上述的“拟合损失”来说，则是通过最小化目标损失函数来获得\(f_t(x_i)\)。</p>
+<h2 id="2-2-目标函数及其求解"><a href="#2-2-目标函数及其求解" class="headerlink" title="2.2 目标函数及其求解"></a>2.2 目标函数及其求解</h2><ul>
+<li><p><strong>损失函数</strong><br>损失函数的设计是很重要的一步。关于损失函数，需要视不同的应用选择不同的损失函数</p>
+<ul>
+<li><strong>用于分类</strong><ul>
+<li>Logistic Loss</li>
+<li>Kullback-Leibler Divergence</li>
+<li>Exponential Loss</li>
+</ul>
+</li>
+<li><strong>用于回归</strong><ul>
+<li><strong>对异常点不健壮</strong><ul>
+<li>Square Loss </li>
+</ul>
+</li>
+<li><strong>对异常点健壮</strong><ul>
+<li>Huber Loss</li>
+<li>Absolute Loss </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>正则项</strong><br>GBDT里并没有正则项，xgboost里则显式地加入了正则项：$$Obj(\theta) = \sum_{i=1}^nl(y_i,\check{y}<em>i^t) + \gamma T + \frac{\lambda}{2}\sum</em>{j=1}^Tw_j^2 \tag{1}$$<br>其中T是第t棵树叶节点的个数，w是每个叶节点代表的值。假设一个特征序列经过CART树的映射函数q(x)后变为某个叶节点的序号j，则$$w_{q(x)}=w_j,\  x\in{I_j} \tag{2}$$</p>
+</li>
+<li><p><strong>求解</strong>  </p>
+<ul>
+<li><p><strong>假设第t轮模型树的结构已经确定，求解树的叶节点数值使目标函数最小</strong><br>针对公式(1)，有<br>\begin{equation}<br>\begin{split}<br>Obj(\theta) &amp;= \sum_{i=1} ^nl(y_i,\check{y}_i^t) + \gamma T + \frac{\lambda}{2}\sum_{j=1}^Tw_j^2\\<br>&amp;= \sum_{i=1} ^nl(y_i, \check{y}_i^{t-1}+f_t(x_i)) + \gamma T + \frac{\lambda}{2}\sum_{j=1}^Tw_j^2<br>\end{split}\tag{3}<br>\end{equation}<br>接下来针对公式(3)中的\(l(y_i, \check{y}_i^{t-1}+f_t(x_i))\)做二次泰勒展开（这是xgboost的做法，GBDT只做一阶泰勒展开）：<br>\begin{equation}<br>\begin{split}<br>Obj(\theta) &amp;= \sum_{i=1}^nl(y_i, \check{y}_i^{t-1}+f_t(x_i)) + \gamma T + \frac{\lambda}{2}\sum_{j=1}^Tw_j^2\\<br>&amp;= \sum_{i=1}^n[l(y_i, \check{y}_i^{t-1}) + g(x_i)f_t(x_i) + h(x_i)f_t^2(x_i) ] + \gamma T + \frac{\lambda}{2}\sum_{j=1}^Tw_j^2\\<br>\end{split}\tag{4}<br>\end{equation}<br>其中$$g(x_i) = \frac{\partial l}{\partial \check{y}_i^{t-1}}，h(x_i) = \frac{\partial^2 l}{\partial^2 \check{y}_i^{t-1}} \tag{5}$$<br>忽略掉\(Obj(\theta)\)中的常数项\(l(y_i, \check{y}_i^{t-1})\)，则将公式(2)、公式(5)带入公式4可得：<br>\begin{equation}<br>\begin{split}<br>Obj(\theta) &amp;= \sum_{i=1}^n[l(y_i, \check{y}_i^{t-1}) + g(x_i)f_t(x_i) + h(x_i)f_t^2(x_i) ] + \gamma T + \frac{\lambda}{2}\sum_{j=1}^Tw_j^2\\<br>&amp;\approx \sum_{i=1}^n[\sum_{x\in{I_j}}g(x_i)w_j+ \sum_{x\in{I_j}}h(x_i)w_j^2  + \frac{\lambda}{2}w_j^2] + \gamma T\\<br>\end{split}\tag{6}<br>\end{equation}<br>令$$G_j = \sum_{x\in{I_j}}g(x_i), H_j = \sum_{x\in{I_j}}h(x_i) \tag{7}$$<br>将式(7)带入式(6)则可得：<br>\begin{equation}<br>\begin{split}<br>Obj(\theta) &amp;= \sum_{j=1}^T[\sum_{x\in{I_j}}g(x_i)w_j+ \sum_{x\in{I_j}}h(x_i)w_j^2  + \frac{\lambda}{2}w_j^2] + \gamma T\\<br>&amp;= \sum_{j=1}^T[G_j w_j+ H_jw_j^2  + \frac{\lambda}{2}w_j^2] + \gamma T\\<br>&amp;= \sum_{j=1}^T[G_j w_j+ \frac{1}{2}(H_j + \lambda )w_j^2 ] + \gamma T\\<br>\end{split}\tag{8}<br>\end{equation}<br><strong>假设q(x)即树的结构已经确定</strong>，则由 \(\frac{\partial Obj(\theta)}{\partial w_j} = 0\)可得$$w_j^* = -\frac{G_j}{H_j + \lambda} \tag{9}$$<br>此时$$Obj(\theta) = -\frac{1}{2}\sum_{j=1}^T\frac{G_j^2}{H_j + \lambda} + \gamma T \tag{10}$$<br>那么也就是说q(x)即树的结构确定，\(w_j\)的值即叶节点的数值确定，从而可得本次模型完全建立。然而q(x)的结构并没有确定，于是接下来的工作便是求解树的结构。  </p>
+</li>
+<li><p><strong>求解树的结构</strong><br>求解一个树的结构，最直接的办法就是暴力求解，遍历所有可能性，最后可以获得一个全局最优解。然而这样复杂度太高。这里采用了一个贪心的办法，针对某一个节点，随机选择一个特征，对特征的所有属性值扫描，计算分裂前和分裂后<strong>指标增益</strong>的大小，选择最大的增益对应的属性值作为分裂点，对所有的特征如法炮制，选择增益最大的特征，从而该节点的分裂特征和分裂点即可确定。<br>那么上述的“<strong>指标增益</strong>”是什么呢？<br>在xgboost中，选择公式(10)作为分裂指标，则指标增益为$$Gain = \frac{1}{2}[\frac{G_L^2}{H_L + \lambda} + \frac{G_R^2}{H_R + \lambda} - \frac{(G_L + G_R)^2}{(H_L +H_R) + \lambda}] - \lambda \tag{11}$$<br>在GBDT中则是简单的均方误差。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-3-应用"><a href="#2-3-应用" class="headerlink" title="2.3 应用"></a>2.3 应用</h2><ul>
+<li><strong>分类</strong><ul>
+<li><strong>二分类</strong><br>用于分类时，其思路也是回归，即每个决策树预测出的值最后加起来转换为一个概率值。<br>此时样本的loss可以用logloss来表示。</li>
+<li><strong>多分类</strong><br>用于K(K&gt;2)分类时，需要注意的是：每一轮都训练K个树，表示每个类别的输出，再用softmax归一化得到每一个类别的概率，使用logloss得到每一个类别的残差，计算出梯度供下一轮学习。</li>
+</ul>
+</li>
+<li><strong>回归</strong><br>回归自然就是2.2节所述。</li>
+</ul>
+<h2 id="2-4-GBDT与xgboost的异同、优缺点"><a href="#2-4-GBDT与xgboost的异同、优缺点" class="headerlink" title="2.4 GBDT与xgboost的异同、优缺点"></a>2.4 GBDT与xgboost的异同、优缺点</h2><ul>
+<li><strong>相同点</strong><ul>
+<li>支持Shrinkage，相当于学习速率，主要是为了削弱每棵树的影响，让后面有更大的学习空间 </li>
+<li>其实相同点太多了，毕竟xgboost是GBDT的优化版，这里主要讲一下不同点</li>
+</ul>
+</li>
+<li><strong>不同点</strong><ul>
+<li>在目标函数里，GBDT对损失函数是一阶泰勒展开，而xgboost是二阶展开</li>
+<li>xgboost显式地加入了正则项，包括树的深度和叶节点的值（L2正则）</li>
+<li>构造CART树的时候，选取分裂点的指标不同。GBDT是用均方误差，xgboost则是使用公式(10)。</li>
+<li>传统GBDT只支持CART树作为基学习器，而xgboost还支持线性分类器，这个时候xgboost相当于带了L1和L2正则的逻辑回归（分类问题）或线性回归（回归问题）</li>
+<li>xgboost仿照随机森林引入了列抽样，不仅能降低过拟合，还能减少计算</li>
+<li>对于特征值有缺失的样本，xgboost可以自动学习出它的分裂方向。学习方法是分别将缺失样本放到左边、右边，然后计算损失大小，default direction则是损失较小的一边。对于测试时缺失值输入直接归为右边。</li>
+<li>xgboost支持并行。这里的并行并不是模型上的并行（因为boosting模型都是串行进行的），而是指特征粒度上的并行。在决策树的学习中，最耗时的一个步骤就是对特征的属性值进行排序。xgboost则是在训练之前预先对数据进行了排序，然后保存为block结构，后序在对特征求增益的过程中，就可以开多线程通过查询该block进行特征计算。</li>
+<li>可并行的近似直方图算法。利用贪心计算每个特征的每个分割点对应的增益时，若数据无法一次载入内存则会使贪心效率变低，词算法可以用于高效地生成候选的分割点。</li>
+</ul>
+</li>
+<li><strong>关于xgboost的的正则是否比CART树的剪枝更优？</strong><br>这个问题，可以去看这篇<a href="http://wepon.me/2016/05/07/XGBoost%E6%B5%85%E5%85%A5%E6%B5%85%E5%87%BA/" target="_blank" rel="noopener">文章</a>的解释。</li>
+</ul>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ul>
+<li><a href="https://arxiv.org/pdf/1603.02754.pdf" target="_blank" rel="noopener">XGBoost: A Scalable Tree Boosting System</a></li>
+<li><a href="http://wepon.me/2016/05/07/XGBoost%E6%B5%85%E5%85%A5%E6%B5%85%E5%87%BA/" target="_blank" rel="noopener">xgboost深入浅出</a></li>
+<li><a href="http://www.ccs.neu.edu/home/vip/teach/MLcourse/4_boosting/slides/gradient_boosting.pdf" target="_blank" rel="noopener">A Gentle Introduction to Gradient Boosting</a></li>
+<li><a href="http://www.52cs.org/?p=429" target="_blank" rel="noopener">xgboost中文版介绍</a></li>
+<li><a href="https://statweb.stanford.edu/~jhf/ftp/trebst.pdf" target="_blank" rel="noopener">https://statweb.stanford.edu/~jhf/ftp/trebst.pdf</a></li>
+<li><a href="https://blog.csdn.net/qq_22238533/article/details/79192579" target="_blank" rel="noopener">GBDT原理与Sklearn源码分析-分类篇</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/26/RNNs/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jiayu Zhang">
+      <meta itemprop="description" content="生如逆旅 不止行人">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jiayu | Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/26/RNNs/" itemprop="url">
+                  RNNs
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-26 15:19:09 / Modified: 15:32:08" itemprop="dateCreated datePublished" datetime="2018-08-26T15:19:09+08:00">2018-08-26</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="RNN详解"><a href="#RNN详解" class="headerlink" title="RNN详解"></a>RNN详解</h1><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<h2 id="RNN"><a href="#RNN" class="headerlink" title="RNN"></a>RNN</h2><p>RNN(Recurrent Neural Network)是递归神经网络，又称循环神经网络，用来解决序列问题，如命名实体识别、语音文字转换、机器翻译等。<br>RNN的思想说起来其实就是当前的判断用到了之前的信息，下图是RNN的结构：</p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fueustrosqj31kw0eywgr.jpg" alt="">  </p>
+<center>图1 RNN横铺结构</center>  
+
+<p>但是RNN有个缺点：当层数过多时，会发生梯度消失，这样比较远的信息就难以“记住”，替换激活函数只是治标不治本。而使用LSTM(Long Short Term Memory)则可以避免这个问题。</p>
+<h2 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h2><p>LSTM之所以可以解决长期记忆问题，是因为其特有的结构：遗忘门、输入门、输出门，当然还要加上一个记忆细胞C。<br>其单元内部结构为  </p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNbRwly1fueute20s9j31kw0ldag0.jpg" alt=""></p>
+<center>图2 LSTM单元结构</center>  
+
+<p>概括地来说，记忆细胞C的状态经过遗忘门会遗忘一些不需要的信息，而输入门会对输入的候选\(\tilde{C}\)决定其中哪些可以输入，将遗忘门的输出与输入门的输出相加，经过输出门筛选后，即作为本轮隐状态\(h_t\)的输出，也即下一轮的输入。<br>下面将逐步介绍LSTM中，信息在一个单元中从输入到输出的过程。</p>
+<p>###记忆细胞<br>LSTM中比较核心的一点就是记忆细胞。记忆中细信息的流向横穿整个单元。如下图所示：  </p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNbRwly1fueuue4zbaj31eq0fo0tv.jpg" alt=""></p>
+<center>图3 记忆细胞</center>  
+
+<h3 id="门"><a href="#门" class="headerlink" title="门"></a>门</h3><p>门，用数学的语言表达，就是一个Sigmoid函数，经过这个函数会输出一个0~1的比例数字，实现筛选的功能。而LSTM单元中门的输入，都是由上一个单元的输出\(h_{t-1}\)与本单元的输入\(x\)经过线性组合得到的。也就是说，决定遗忘、输入、输出的门都是由前面的信息和本轮的信息决定的，直觉上还是有些道理的。  </p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fueuun8qeyj305i06q3yd.jpg" alt=""></p>
+<center>图4 门控单元</center>  
+
+<h4 id="遗忘门"><a href="#遗忘门" class="headerlink" title="遗忘门"></a>遗忘门</h4><p>遗忘门，顾名思义，即决定遗忘哪些信息的门。这里的信息是指记忆细胞\(C\)带有的前面若干单元的信息\(C_{t-1}\)。  </p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNbRwly1fueuuwffgjj31eq0fogn3.jpg" alt=""></p>
+<center>图5 遗忘门</center>
+
+<h4 id="输入门"><a href="#输入门" class="headerlink" title="输入门"></a>输入门</h4><p>输入门，决定哪些信息会被输入进来。  </p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fueuv4k810j31eq0fomz1.jpg" alt=""></p>
+<center>图6 输入门</center>
+
+<h4 id="输出门"><a href="#输出门" class="headerlink" title="输出门"></a>输出门</h4><p>输出门决定输出哪些信息，有趣的是输出门的输入，在将遗忘门和输入门输出的信息相加后，需要用Tanh函数激活，使其值在\([-1,1]\)之间，然后再由输出门决定输出的信息。  </p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fueuvfq8fkj31eq0fo0ub.jpg" alt=""></p>
+<center>图7 本轮神经单元的细胞状态</center>  
+
+<p><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fueuw8izi4j31eq0fomz1.jpg" alt=""></p>
+<center>图8 输出门</center>  
+
+<h3 id="误差传播的BPTT-Back-Propagation-Through-Time-算法"><a href="#误差传播的BPTT-Back-Propagation-Through-Time-算法" class="headerlink" title="误差传播的BPTT(Back Propagation Through Time)算法"></a>误差传播的BPTT(Back Propagation Through Time)算法</h3><p>BPTT是RNN的反向传播算法，梯度消失也是从这里引出来的。推荐一篇讲的很清楚的<a href="http://www.wildml.com/2015/10/recurrent-neural-networks-tutorial-part-3-backpropagation-through-time-and-vanishing-gradients/" target="_blank" rel="noopener">文章</a>吧。我就不献丑了，以及公式是真的多。</p>
+<h2 id="Peephole-LSTM"><a href="#Peephole-LSTM" class="headerlink" title="Peephole LSTM"></a>Peephole LSTM</h2><p>针对Standard LSTM，有很多变种，Peephole LSTM则是其中的一种。它的思想是将门控单元的控制功能分出些许给上个单元记忆细胞的输出。  </p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fueuwfqng8j31eq0foq5e.jpg" alt=""></p>
+<center>图9 Peephole LSTM</center>
+
+<h2 id="Coupled-Input-Gates-and-Forget-Gates"><a href="#Coupled-Input-Gates-and-Forget-Gates" class="headerlink" title="Coupled Input Gates and Forget Gates"></a>Coupled Input Gates and Forget Gates</h2><p>Standard LSTM的遗忘门和输入门是独立决断的。这里将其耦合：只在输入新信息的时候遗忘旧信息，只在遗忘旧信息的时候输入新信息。  </p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fueuwlyp3vj31eq0fodhg.jpg" alt=""></p>
+<center>图10 Coupled Input Gates and Forget Gates</center>
+
+<h2 id="GRU-Gated-Recurrent-Units"><a href="#GRU-Gated-Recurrent-Units" class="headerlink" title="GRU(Gated Recurrent Units)"></a>GRU(Gated Recurrent Units)</h2><p>GRU则是将输入门和遗忘门合为了一个更新门，同时加入了一个reset门，去除了输出门。同时将输入的隐层状态\(h_{t-1}\)、\(C_{t-1}\)也耦合为一个状态。  </p>
+<p><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fueuwtxgknj31eq0fognw.jpg" alt=""></p>
+<center>图11 GRU</center><br>### 每个门的作用<br><em> \(\tilde{h_{t-1}}\)是候选的隐层状态
+</em> \(r_t\)是一个reset门，它决定在候选隐层状态中加入多少新的信息<br><em>  \(z_t\)是一个update门，它决定最终的隐层状态中要加入多少候选隐层状态的新信息
+</em>  需要注意的是GRU没有输出门，它直接将输出传递到下一个神经单元<br><br><br>## BI-LSTM<br>LSTM固然强大，但其也因只能记忆前向信息而有所局限。若再添加一个反向的LSTM岂不是就可以学习到后来的信息？BI-LSTM应运而生。BI-LSTM添加了另一层LSTM，方向完全相反，与之对应的，每个神经元输出的状态\(y\)也要综合双向单元的输出计算。<br><br><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fueux2ndilj30ih09ewfn.jpg" alt=""><br><center>图12 BI-lSTM</center>  
+
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这里比较LSTM与GRU的异同点  </p>
+<ul>
+<li>相同点  <ul>
+<li>在从t-1到t的更新过程中都引入了加法，可以防止梯度弥散</li>
+</ul>
+</li>
+<li>不同点<ul>
+<li>计算\(\tilde{C_{t}}\)时，LSTM没有用到\(\tilde{C_{t-1}}\)的信息，而GRU计算\(\tilde{h_{t}}\)则用到了\(\tilde{h_{t-1}}\)</li>
+<li>输出时LSTM要经过输出门的筛选，而GRU则是直接输出</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/26/机器学习之激活函数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jiayu Zhang">
+      <meta itemprop="description" content="生如逆旅 不止行人">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jiayu | Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/26/机器学习之激活函数/" itemprop="url">
+                  机器学习之激活函数
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-26 15:18:39 / Modified: 15:29:44" itemprop="dateCreated datePublished" datetime="2018-08-26T15:18:39+08:00">2018-08-26</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="机器学习中的激活函数"><a href="#机器学习中的激活函数" class="headerlink" title="机器学习中的激活函数"></a>机器学习中的激活函数</h1><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<h2 id="激活函数的必要性"><a href="#激活函数的必要性" class="headerlink" title="激活函数的必要性"></a>激活函数的必要性</h2><p>最简单的感知机其实就是一个线性单元，输入\(x\)，输出\(y=w*x+b\)，如果在深度学习中简单地将多个感知机串联起来，很明显最后一定可以用一个感知机表示这个”深度网络”。<br>而如果在感知机的输出端加上一个激活函数，是非线性变为线性，则深度神经网络可以探索到的空间就大大增加了，不再是输入元素的线性组合。<br>以下则介绍各个神经网络及其应用的优缺点。</p>
+<h2 id="Sigmoid"><a href="#Sigmoid" class="headerlink" title="Sigmoid"></a>Sigmoid</h2><p>Sigmiod函数公式为$$g(x) = \frac{1}{1 + e^{-x}} \tag{1}$$<br>其导数公式为$$g{‘}(x) = g(x) * (1-g(x)) \tag{2}$$<br>其图像为  </p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNbRwgy1fuctycwx78j311w0cqt9p.jpg" alt="sigmoid及其导数"></p>
+<center>图1 Sigmoid函数及其导数</center>
+
+<ul>
+<li><p><strong>特点</strong><br>从左图可以看出，Sigmoid函数输出值一定非负，且在\([-5,5]\)区间内的值变化较为迅速，而此区间之外的值则趋向0或1，这一点对应到右图其导数来看，则反映为\([-5,5]\)区间内的导数变化较为明显且大于0，而区间之外的值则趋向于0。</p>
+</li>
+<li><p><strong>优点</strong>  </p>
+<ul>
+<li>化线性为非线性</li>
+</ul>
+</li>
+<li><p><strong>缺点</strong>  </p>
+<ul>
+<li><p><strong>梯度消失</strong><br>如图1右部所示，实数范围内，梯度最大值为0.25，则当网络层数较多时，假设层数为50且所有层的梯度绝对值都是0.25，则梯度回传到首层时变为\(0.25^{50}=7.888609052210118e-31\)，梯度便“消失”了。<br>实际上梯度消失远远不用25层，一是因为\(0.25^{10}=9.5367431640625e-07\) ；二是因为绝大部分导数值难以取到0.25。</p>
+</li>
+<li><p><strong>输出不是zero-centered</strong><br>zero-centered是指数据有正有负，以零为中心。Sigmoid函数做不到这一点，Sigmoid的输出全是正值。这会带来优化上的问题。<br>具体来说，在误差反向传播计算梯度的过程中，我们可以得到$$\frac{\partial L}{\partial w} = \frac{\partial L}{\partial g} <em> \frac{\partial g}{\partial w} \tag{3}$$式(1)中\(\frac{\partial g}{\partial w} = x\)，\(\frac{\partial L}{\partial g} = g </em> (1-g) &gt; 0\)，从而式(1)的值完全取决于输入\(x\)的值。<br>那么假设现在有\(w_{1、2}\)， 为了达到最优的参数，当前的权值1、2分别需要增大、减小，然而因为输入全为正值或负值，导致二者更新方向总是同时增大或同时减小，优化的过程会变成经典的zig-zag过程。如图2所示：</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNbRwgy1fud3vad5ftj30i80gcjrs.jpg" alt="zig-zag-gradient"></p>
+<center>图2 zig-zag-gradient</center>  
+</li>
+<li><p><strong>计算耗时</strong><br>Sigmoid中有关于指数的运算，而Relu只是判断与阈值的大小比较，故相对来说计算比较耗时。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Tanh函数"><a href="#Tanh函数" class="headerlink" title="Tanh函数"></a>Tanh函数</h2><p>Tanh函数公式为$$g(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}} \tag{4}$$其导数公式为$$g{‘}(x) = 1 - g(x)^2 \tag{5}$$<br>其图像为  </p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNbRwgy1fud3gyqqnlj30y00eo75b.jpg" alt="Tanh及其导数"></p>
+<center>图3 Tanh及其导数</center>  
+
+<ul>
+<li><strong>特点</strong><br>输出的值从-1至正1，导数最大值也变成了1。</li>
+<li><strong>优点</strong><ul>
+<li>输出是zero-centered，能够有效缓解优化过程。</li>
+</ul>
+</li>
+<li><strong>缺点</strong><ul>
+<li>一样会发生梯度消失的问题；</li>
+<li>一样会有计算耗时的问题。</li>
+</ul>
+</li>
+</ul>
+<h2 id="ReLU函数"><a href="#ReLU函数" class="headerlink" title="ReLU函数"></a>ReLU函数</h2><p>ReLU函数的公式为$$g(x) = max(x, 0) \tag{6}$$其导数公式为$$g{‘}(x) = 1\ if x &gt; 0\ else\ 0 \tag{7}$$<br>其图像为： </p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNbRwgy1fud6t4zcfgj31080bggm9.jpg" alt="ReLU及其导数"></p>
+<center>图4 ReLU及其导数</center>  
+
+<ul>
+<li><strong>特点</strong><br>以0为界，负值为0，正值为等值大小；导数则是负值为0，正值为1。  </li>
+<li><strong>优点</strong><ul>
+<li>避免了梯度消失，从而计算SGD时速度比较快；</li>
+<li>计算大大加快。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>   <ul>
+<li>依然有输出非zero-centered的问题；</li>
+<li>“Dying ReLu” problem：<ul>
+<li>什么是“Dying ReLU” problem：指神经元“沉寂”下去不再被激活；  </li>
+<li>原因是：假设初始权值为\(w_0\)，乘上样本后对应着分布\(\theta_0\)，假设分布\(\theta_0\)是一个低方差、中心在0.1的高斯分布，假设有一个巨大的梯度经过一个‘打开的’神经元，使得梯度更新后，样本乘上新的梯度\(w_1\)变为了一个低方差、中心在-0.1的高斯分布\(\theta_1\)，这个时候\(\theta_1\)的大部分都为负值，那么\(\theta_1\)对应的样本通过ReLu后，很多会得到一个0的输出，从而不能通过反向传播得到更新的梯度，从而“get dying”。 </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="变种之Leaky-ReLU"><a href="#变种之Leaky-ReLU" class="headerlink" title="变种之Leaky ReLU"></a>变种之Leaky ReLU</h2><p>Leaky ReLU公式为$$g(x) = max(\alpha x, x)\ ,\ 0 &lt; \alpha &lt; 1 \tag{8}$$其图像为：</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNbRwgy1fud7ueqrhwj30xk0bcjry.jpg" alt="Leaky ReLU及其导数"></p>
+<center>图5 Leaky ReLU及其导数</center>
+
+<ul>
+<li><strong>特点</strong><br>当x&lt;0时，y不再为0，而是一个比例函数。</li>
+<li><strong>优点</strong><ul>
+<li>理论上来说含有ReLU的一切优点，并且去除了“Dying ReLu” problem。</li>
+</ul>
+</li>
+<li><strong>缺点</strong><ul>
+<li>not zero-centered。</li>
+</ul>
+</li>
+</ul>
+<h2 id="ELU（Expontional-Linear-Units）"><a href="#ELU（Expontional-Linear-Units）" class="headerlink" title="ELU（Expontional Linear Units）"></a>ELU（Expontional Linear Units）</h2><p>ELU公式为$$g(x) = x\ if\ x &gt; 0\ else\ \alpha * (e^x - 1) \tag{9}$$其图像为:<br><img src="https://ws4.sinaimg.cn/large/006tNbRwgy1fud86m0tuhj31080dm0ti.jpg" alt="ELU及其导数"></p>
+<p align="center">图6 ELU及其导数</p>
+
+<ul>
+<li><strong>特点</strong><br>当x&lt;0时，y为指数函数。</li>
+<li><strong>优点</strong><br>理论上来说含有ReLU的一切优点，并且去除了“Dying ReLu” problem，同时输出近似zero-centered。</li>
+<li><strong>缺点</strong>  -<br>计算耗时。</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>建议使用ReLU函数，但要注意权值初始化以及学习率大小设置。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/26/剑指offer之“和为S的连续正数数列”/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jiayu Zhang">
+      <meta itemprop="description" content="生如逆旅 不止行人">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jiayu | Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/26/剑指offer之“和为S的连续正数数列”/" itemprop="url">
+                  剑指offer之“和为S的连续正数数列”
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-26 15:17:37 / Modified: 15:24:45" itemprop="dateCreated datePublished" datetime="2018-08-26T15:17:37+08:00">2018-08-26</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="剑指offer之“和为S的连续正数数列”"><a href="#剑指offer之“和为S的连续正数数列”" class="headerlink" title="剑指offer之“和为S的连续正数数列”"></a>剑指offer之“和为S的连续正数数列”</h1><p>给定一个正整数，返回所有和为该正整数的序列</p>
+<h1 id="解"><a href="#解" class="headerlink" title="解"></a>解</h1><p>一组连续的数：a, a+1, a+2,…, b, 其和为(b+a)*(b-a+1)/2，故可以设置low和high两个指针，sum_item为low至high这组连续序列的和，判断sum_item与S的大小对low和high进行加减操作即可：sum_item &lt; S时，应增大high，以扩大序列的长度；反之则应该增大low，减小序列的长度。</p>
+<h1 id="Python代码"><a href="#Python代码" class="headerlink" title="Python代码"></a>Python代码</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">FindContinusSequence</span><span class="params">(S)</span>:</span>  </span><br><span class="line">	low = <span class="number">1</span>  </span><br><span class="line">	high = <span class="number">2</span>  </span><br><span class="line">	res = [] </span><br><span class="line">	<span class="keyword">while</span> low &lt; high:</span><br><span class="line">		sum_item = (low + high) * (high - low + <span class="number">1</span>) / <span class="number">2</span></span><br><span class="line">		<span class="keyword">if</span> sum_item == S:</span><br><span class="line">			res.append([i <span class="keyword">for</span> i <span class="keyword">in</span> range(low, high+<span class="number">1</span>)])</span><br><span class="line">		<span class="keyword">if</span> sum_item &lt; S:</span><br><span class="line">			high += <span class="number">1</span></span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			low += <span class="number">1</span></span><br><span class="line">			</span><br><span class="line">	<span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/26/报上名来/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -407,150 +1588,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/26/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jiayu Zhang">
-      <meta itemprop="description" content="生如逆旅 不止行人">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jiayu | Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/26/hello-world/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-08-26 12:12:20" itemprop="dateCreated datePublished" datetime="2018-08-26T12:12:20+08:00">2018-08-26</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -594,7 +1631,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -617,7 +1654,39 @@
                     
                       
                     
-                    <span class="site-state-item-count">4</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">tags</span>
                   
                 </div>

@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="机器学习中的激活函数  激活函数的必要性最简单的感知机其实就是一个线性单元，输入\(x\)，输出\(y=w*x+b\)，如果在深度学习中简单地将多个感知机串联起来，很明显最后一定可以用一个感知机表示这个”深度网络”。而如果在感知机的输出端加上一个激活函数，是非线性变为线性，则深度神经网络可以探索到的空间就大大增加了，不再是输入元素的线性组合。以下则介绍各个神经网络及其应用的优缺点。 Sigmoid">
+<meta name="keywords" content="梯度消失,激活函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习之激活函数">
+<meta property="og:url" content="http://yoursite.com/2018/08/26/机器学习之激活函数/index.html">
+<meta property="og:site_name" content="Jiayu | Blog">
+<meta property="og:description" content="机器学习中的激活函数  激活函数的必要性最简单的感知机其实就是一个线性单元，输入\(x\)，输出\(y=w*x+b\)，如果在深度学习中简单地将多个感知机串联起来，很明显最后一定可以用一个感知机表示这个”深度网络”。而如果在感知机的输出端加上一个激活函数，是非线性变为线性，则深度神经网络可以探索到的空间就大大增加了，不再是输入元素的线性组合。以下则介绍各个神经网络及其应用的优缺点。 Sigmoid">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNbRwgy1fuctycwx78j311w0cqt9p.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNbRwgy1fud3vad5ftj30i80gcjrs.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNbRwgy1fud3gyqqnlj30y00eo75b.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNbRwgy1fud6t4zcfgj31080bggm9.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNbRwgy1fud7ueqrhwj30xk0bcjry.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNbRwgy1fud86m0tuhj31080dm0ti.jpg">
+<meta property="og:updated_time" content="2018-08-26T07:29:44.338Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习之激活函数">
+<meta name="twitter:description" content="机器学习中的激活函数  激活函数的必要性最简单的感知机其实就是一个线性单元，输入\(x\)，输出\(y=w*x+b\)，如果在深度学习中简单地将多个感知机串联起来，很明显最后一定可以用一个感知机表示这个”深度网络”。而如果在感知机的输出端加上一个激活函数，是非线性变为线性，则深度神经网络可以探索到的空间就大大增加了，不再是输入元素的线性组合。以下则介绍各个神经网络及其应用的优缺点。 Sigmoid">
+<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/006tNbRwgy1fuctycwx78j311w0cqt9p.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/26/机器学习之激活函数/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>机器学习之激活函数 | Jiayu | Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jiayu | Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/26/机器学习之激活函数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jiayu Zhang">
+      <meta itemprop="description" content="生如逆旅 不止行人">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jiayu | Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">机器学习之激活函数
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-26 15:18:39 / Modified: 15:29:44" itemprop="dateCreated datePublished" datetime="2018-08-26T15:18:39+08:00">2018-08-26</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="机器学习中的激活函数"><a href="#机器学习中的激活函数" class="headerlink" title="机器学习中的激活函数"></a>机器学习中的激活函数</h1><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<h2 id="激活函数的必要性"><a href="#激活函数的必要性" class="headerlink" title="激活函数的必要性"></a>激活函数的必要性</h2><p>最简单的感知机其实就是一个线性单元，输入\(x\)，输出\(y=w*x+b\)，如果在深度学习中简单地将多个感知机串联起来，很明显最后一定可以用一个感知机表示这个”深度网络”。<br>而如果在感知机的输出端加上一个激活函数，是非线性变为线性，则深度神经网络可以探索到的空间就大大增加了，不再是输入元素的线性组合。<br>以下则介绍各个神经网络及其应用的优缺点。</p>
+<h2 id="Sigmoid"><a href="#Sigmoid" class="headerlink" title="Sigmoid"></a>Sigmoid</h2><p>Sigmiod函数公式为$$g(x) = \frac{1}{1 + e^{-x}} \tag{1}$$<br>其导数公式为$$g{‘}(x) = g(x) * (1-g(x)) \tag{2}$$<br>其图像为  </p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNbRwgy1fuctycwx78j311w0cqt9p.jpg" alt="sigmoid及其导数"></p>
+<center>图1 Sigmoid函数及其导数</center>
+
+<ul>
+<li><p><strong>特点</strong><br>从左图可以看出，Sigmoid函数输出值一定非负，且在\([-5,5]\)区间内的值变化较为迅速，而此区间之外的值则趋向0或1，这一点对应到右图其导数来看，则反映为\([-5,5]\)区间内的导数变化较为明显且大于0，而区间之外的值则趋向于0。</p>
+</li>
+<li><p><strong>优点</strong>  </p>
+<ul>
+<li>化线性为非线性</li>
+</ul>
+</li>
+<li><p><strong>缺点</strong>  </p>
+<ul>
+<li><p><strong>梯度消失</strong><br>如图1右部所示，实数范围内，梯度最大值为0.25，则当网络层数较多时，假设层数为50且所有层的梯度绝对值都是0.25，则梯度回传到首层时变为\(0.25^{50}=7.888609052210118e-31\)，梯度便“消失”了。<br>实际上梯度消失远远不用25层，一是因为\(0.25^{10}=9.5367431640625e-07\) ；二是因为绝大部分导数值难以取到0.25。</p>
+</li>
+<li><p><strong>输出不是zero-centered</strong><br>zero-centered是指数据有正有负，以零为中心。Sigmoid函数做不到这一点，Sigmoid的输出全是正值。这会带来优化上的问题。<br>具体来说，在误差反向传播计算梯度的过程中，我们可以得到$$\frac{\partial L}{\partial w} = \frac{\partial L}{\partial g} <em> \frac{\partial g}{\partial w} \tag{3}$$式(1)中\(\frac{\partial g}{\partial w} = x\)，\(\frac{\partial L}{\partial g} = g </em> (1-g) &gt; 0\)，从而式(1)的值完全取决于输入\(x\)的值。<br>那么假设现在有\(w_{1、2}\)， 为了达到最优的参数，当前的权值1、2分别需要增大、减小，然而因为输入全为正值或负值，导致二者更新方向总是同时增大或同时减小，优化的过程会变成经典的zig-zag过程。如图2所示：</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNbRwgy1fud3vad5ftj30i80gcjrs.jpg" alt="zig-zag-gradient"></p>
+<center>图2 zig-zag-gradient</center>  
+</li>
+<li><p><strong>计算耗时</strong><br>Sigmoid中有关于指数的运算，而Relu只是判断与阈值的大小比较，故相对来说计算比较耗时。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Tanh函数"><a href="#Tanh函数" class="headerlink" title="Tanh函数"></a>Tanh函数</h2><p>Tanh函数公式为$$g(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}} \tag{4}$$其导数公式为$$g{‘}(x) = 1 - g(x)^2 \tag{5}$$<br>其图像为  </p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNbRwgy1fud3gyqqnlj30y00eo75b.jpg" alt="Tanh及其导数"></p>
+<center>图3 Tanh及其导数</center>  
+
+<ul>
+<li><strong>特点</strong><br>输出的值从-1至正1，导数最大值也变成了1。</li>
+<li><strong>优点</strong><ul>
+<li>输出是zero-centered，能够有效缓解优化过程。</li>
+</ul>
+</li>
+<li><strong>缺点</strong><ul>
+<li>一样会发生梯度消失的问题；</li>
+<li>一样会有计算耗时的问题。</li>
+</ul>
+</li>
+</ul>
+<h2 id="ReLU函数"><a href="#ReLU函数" class="headerlink" title="ReLU函数"></a>ReLU函数</h2><p>ReLU函数的公式为$$g(x) = max(x, 0) \tag{6}$$其导数公式为$$g{‘}(x) = 1\ if x &gt; 0\ else\ 0 \tag{7}$$<br>其图像为： </p>
+<p><img src="https://ws1.sinaimg.cn/large/006tNbRwgy1fud6t4zcfgj31080bggm9.jpg" alt="ReLU及其导数"></p>
+<center>图4 ReLU及其导数</center>  
+
+<ul>
+<li><strong>特点</strong><br>以0为界，负值为0，正值为等值大小；导数则是负值为0，正值为1。  </li>
+<li><strong>优点</strong><ul>
+<li>避免了梯度消失，从而计算SGD时速度比较快；</li>
+<li>计算大大加快。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>   <ul>
+<li>依然有输出非zero-centered的问题；</li>
+<li>“Dying ReLu” problem：<ul>
+<li>什么是“Dying ReLU” problem：指神经元“沉寂”下去不再被激活；  </li>
+<li>原因是：假设初始权值为\(w_0\)，乘上样本后对应着分布\(\theta_0\)，假设分布\(\theta_0\)是一个低方差、中心在0.1的高斯分布，假设有一个巨大的梯度经过一个‘打开的’神经元，使得梯度更新后，样本乘上新的梯度\(w_1\)变为了一个低方差、中心在-0.1的高斯分布\(\theta_1\)，这个时候\(\theta_1\)的大部分都为负值，那么\(\theta_1\)对应的样本通过ReLu后，很多会得到一个0的输出，从而不能通过反向传播得到更新的梯度，从而“get dying”。 </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="变种之Leaky-ReLU"><a href="#变种之Leaky-ReLU" class="headerlink" title="变种之Leaky ReLU"></a>变种之Leaky ReLU</h2><p>Leaky ReLU公式为$$g(x) = max(\alpha x, x)\ ,\ 0 &lt; \alpha &lt; 1 \tag{8}$$其图像为：</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNbRwgy1fud7ueqrhwj30xk0bcjry.jpg" alt="Leaky ReLU及其导数"></p>
+<center>图5 Leaky ReLU及其导数</center>
+
+<ul>
+<li><strong>特点</strong><br>当x&lt;0时，y不再为0，而是一个比例函数。</li>
+<li><strong>优点</strong><ul>
+<li>理论上来说含有ReLU的一切优点，并且去除了“Dying ReLu” problem。</li>
+</ul>
+</li>
+<li><strong>缺点</strong><ul>
+<li>not zero-centered。</li>
+</ul>
+</li>
+</ul>
+<h2 id="ELU（Expontional-Linear-Units）"><a href="#ELU（Expontional-Linear-Units）" class="headerlink" title="ELU（Expontional Linear Units）"></a>ELU（Expontional Linear Units）</h2><p>ELU公式为$$g(x) = x\ if\ x &gt; 0\ else\ \alpha * (e^x - 1) \tag{9}$$其图像为:<br><img src="https://ws4.sinaimg.cn/large/006tNbRwgy1fud86m0tuhj31080dm0ti.jpg" alt="ELU及其导数"></p>
+<p align="center">图6 ELU及其导数</p>
+
+<ul>
+<li><strong>特点</strong><br>当x&lt;0时，y为指数函数。</li>
+<li><strong>优点</strong><br>理论上来说含有ReLU的一切优点，并且去除了“Dying ReLu” problem，同时输出近似zero-centered。</li>
+<li><strong>缺点</strong>  -<br>计算耗时。</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>建议使用ReLU函数，但要注意权值初始化以及学习率大小设置。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/梯度消失/" rel="tag"># 梯度消失</a>
+          
+            <a href="/tags/激活函数/" rel="tag"># 激活函数</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/26/剑指offer之“和为S的连续正数数列”/" rel="next" title="剑指offer之“和为S的连续正数数列”">
+                <i class="fa fa-chevron-left"></i> 剑指offer之“和为S的连续正数数列”
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/26/RNNs/" rel="prev" title="RNNs">
+                RNNs <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jiayu Zhang</p>
+              <p class="site-description motion-element" itemprop="description">生如逆旅 不止行人</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#机器学习中的激活函数"><span class="nav-number">1.</span> <span class="nav-text">机器学习中的激活函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#激活函数的必要性"><span class="nav-number">1.1.</span> <span class="nav-text">激活函数的必要性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sigmoid"><span class="nav-number">1.2.</span> <span class="nav-text">Sigmoid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tanh函数"><span class="nav-number">1.3.</span> <span class="nav-text">Tanh函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ReLU函数"><span class="nav-number">1.4.</span> <span class="nav-text">ReLU函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变种之Leaky-ReLU"><span class="nav-number">1.5.</span> <span class="nav-text">变种之Leaky ReLU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ELU（Expontional-Linear-Units）"><span class="nav-number">1.6.</span> <span class="nav-text">ELU（Expontional Linear Units）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.7.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jiayu Zhang</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

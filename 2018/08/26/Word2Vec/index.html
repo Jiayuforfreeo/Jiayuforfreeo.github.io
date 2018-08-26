@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="带加速的word2vec详解  不带加速的Word2Vec模型很简单，以CBOW模型为例，随机初始化的词向量经过一个W到达隐层后输出，与\(W^{‘}\)相乘后得到输出，输出的维度与语料库的大小相等，做一个softmax即可获得最大概率对应的单词。其梯度更新的损失函数是交叉熵。   1. CBOW模型的Hierarchical Softmax这也算是一个神经网络吧，在此也说明一下以后关于深度学习方">
+<meta name="keywords" content="word2vec,skip-gram,cbow,negative sampling,hierarchical softmax">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Word2Vec">
+<meta property="og:url" content="http://yoursite.com/2018/08/26/Word2Vec/index.html">
+<meta property="og:site_name" content="Jiayu | Blog">
+<meta property="og:description" content="带加速的word2vec详解  不带加速的Word2Vec模型很简单，以CBOW模型为例，随机初始化的词向量经过一个W到达隐层后输出，与\(W^{‘}\)相乘后得到输出，输出的维度与语料库的大小相等，做一个softmax即可获得最大概率对应的单词。其梯度更新的损失函数是交叉熵。   1. CBOW模型的Hierarchical Softmax这也算是一个神经网络吧，在此也说明一下以后关于深度学习方">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNbRwgy1fuizukpgs0j312e0wqju3.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNbRwgy1fultqhtnd6j30ee0hymxq.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNbRwgy1fuluocoa2gj30q409aacx.jpg">
+<meta property="og:updated_time" content="2018-08-26T07:39:16.676Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Word2Vec">
+<meta name="twitter:description" content="带加速的word2vec详解  不带加速的Word2Vec模型很简单，以CBOW模型为例，随机初始化的词向量经过一个W到达隐层后输出，与\(W^{‘}\)相乘后得到输出，输出的维度与语料库的大小相等，做一个softmax即可获得最大概率对应的单词。其梯度更新的损失函数是交叉熵。   1. CBOW模型的Hierarchical Softmax这也算是一个神经网络吧，在此也说明一下以后关于深度学习方">
+<meta name="twitter:image" content="https://ws2.sinaimg.cn/large/006tNbRwgy1fuizukpgs0j312e0wqju3.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/26/Word2Vec/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Word2Vec | Jiayu | Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jiayu | Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/26/Word2Vec/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jiayu Zhang">
+      <meta itemprop="description" content="生如逆旅 不止行人">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jiayu | Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Word2Vec
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-08-26 15:20:39 / Modified: 15:39:16" itemprop="dateCreated datePublished" datetime="2018-08-26T15:20:39+08:00">2018-08-26</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="带加速的word2vec详解"><a href="#带加速的word2vec详解" class="headerlink" title="带加速的word2vec详解"></a>带加速的word2vec详解</h1><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
+
+<p>不带加速的Word2Vec模型很简单，以CBOW模型为例，随机初始化的词向量经过一个W到达隐层后输出，与\(W^{‘}\)相乘后得到输出，输出的维度与语料库的大小相等，做一个softmax即可获得最大概率对应的单词。其梯度更新的损失函数是交叉熵。  </p>
+<h1 id="1-CBOW模型的Hierarchical-Softmax"><a href="#1-CBOW模型的Hierarchical-Softmax" class="headerlink" title="1. CBOW模型的Hierarchical Softmax"></a>1. CBOW模型的Hierarchical Softmax</h1><p>这也算是一个神经网络吧，在此也说明一下以后关于深度学习方法的总结路线：网络结构-&gt;梯度计算-&gt;Tricks。</p>
+<h2 id="1-1-网络结构"><a href="#1-1-网络结构" class="headerlink" title="1.1 网络结构"></a>1.1 网络结构</h2><ul>
+<li><p><strong>CBOW With Hierarchical Softmax</strong>  </p>
+<ul>
+<li><p><strong>结构综述</strong><br>与神经概率语言的结构类似，以下是带有Hierarchical Softmax的CBOW模型的结构：<br><img src="https://ws2.sinaimg.cn/large/006tNbRwgy1fuizukpgs0j312e0wqju3.jpg" alt="CBOW Structure With Hierarchical Softmax"><br><center>图1  CBOW With Hierarchical Softmax模型的结构</center><br>概括地来看，CBOW模型是输入2C个单词的词向量（C为前后窗口的大小），在投影层将其简单地相加求平均，输出到输出层后经由Hierarchical Softmax结构选取到最有可能的单词作为中心词w。</p>
+</li>
+<li><p><strong>Hierarchical Softmax简介</strong><br>这里的Hierarchical Softmax其实就是一颗霍夫曼树叶节点权值的softmax，该霍夫曼树以语料库中出现的单词作为叶节点，以该单词出现的频率作为叶节点的权值。而“hierarchical”的意思是从根节点（输出层）到叶节点的路径是一步步按层次抉择的。其中的抉择其实就是一个logistic二分类。 </p>
+</li>
+<li><p><strong>原理阐述</strong><br>Hierarchical Softmax主要是用来节省时间的。原始的神经网络概率模型输出层经过一个softmax，输出\(||Corpus||\)个概率，而使用Hierarchical Softmax则只需计算\(\log ||Corpus||\)个概率；其次，因为霍夫曼树的特性，出现频率越高的词离根节点越近，而这恰好符合贪心的思想。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="1-2-梯度计算"><a href="#1-2-梯度计算" class="headerlink" title="1.2 梯度计算"></a>1.2 梯度计算</h2><ul>
+<li><p><strong>变量预定义</strong><br>需要明确的是，神经概率语言模型的目标函数是：<br>$$Obj = \sum_{w\in C}\log{P(w|Context(w)} \tag{1}$$<br>在梯度计算前，非常有必要定义好各个变量的数学定义。故针对此霍夫曼树，有：  </p>
+<ul>
+<li>\(p^w\): 根节点至某个叶节点的w的路径</li>
+<li>\(l^w\): 路径\(p^w\)中节点的个数，包括根节点和叶节点</li>
+<li>\(p_j^w\): 路径\(p^w\)中第j个节点</li>
+<li>\(\theta_j^w\): 第j个节点的\theta值，相当于logistic分类中权值w，j = 1 ~  (\(l^w\)-1)</li>
+<li><p>\(d_j^w\): 路径\(p^w\)中第j个节点的编码，j = 2 ~ \(l^w\)，根节点没有编码</p>
+<p>同时约定编码为1的节点为左节点，为负类；编码为0的节点为右节点，为正类。即：<br>$$<br>  label(p_j^w) =<br>  \begin{cases}<br>  \sigma(\theta _{j-1}^w <em> x_w)  &amp; \text{if d_j^w = 0} \\<br>  1 - \sigma(\theta _{j-1}^w </em> x_w)  &amp; \text{if d_j^w = 1}<br>  \end{cases} \tag{2}<br>$$</p>
+</li>
+</ul>
+</li>
+<li><p><strong>梯度求解</strong><br>针对$p^w$上第$j$个节点，由Logistic Regression可得：<br>$$P(d_j^w|\theta _{j-1}^w,x_w) = \sigma(\theta _{j-1}^w <em> x_w)^{(1-d_j^w)}+ (1 - \sigma(\theta _{j-1}^w </em> x_w))^{d_j^w} \tag{3}$$</p>
+</li>
+</ul>
+<p>故成功预测某个单词的概率为：<br>$$P(w|Context(w)) = \prod _{j=2}^{l^w}P(d_j^w|\theta _{j-1}^w,x_w) \tag{4}$$<br>将其带入公式(1)即可得：<br>\begin{equation}<br>\begin{split}<br>Obj &amp;= \sum_{w\in C}\log \prod _{j=2}^{l^w}P(d_j^w|\theta _{j-1}^w,x_w)\\<br>&amp;= \sum_{w\in C}\log \prod [\sigma(\theta _{j-1}^w <em> x_w)^{(1-d_j^w)}+ (1 - \sigma(\theta _{j-1}^w </em> x_w))^{d_j^w}]\\<br>&amp;= \sum_{w\in C} \sum_{j=2}^{l^w}[(1-d _j^w)\log \sigma(\theta _{j-1}^w <em> x_w) + d _j^w\log[1-\sigma(\theta _{j-1}^w </em> x_w)]]<br>\end{split}\tag{5}<br>\end{equation}<br>为求导方便，令双重求和后的内容简记为：<br>$$Obj(w,j) = (1-d _j^w)\log \sigma(\theta _{j-1}^w <em> x_w) + d _j^w\log[1-\sigma(\theta _{j-1}^w </em> x_w)] \tag{6}$$<br>则为了使\(Obj(w,j)\)最大，需对参数求偏导获得最优参数, 结合公式\(\sigma\)求导特性有：<br>\begin{equation}<br>\begin{split}<br>\frac{\partial Obj}{\partial \theta _{j-1}^w} &amp;= (1-d _j^w)[1-\sigma(\theta _{j-1}^w <em> x_w)]x_w -d _j^w \sigma(\theta _{j-1}^w </em> x_w) x_w \\<br>&amp;= [1 - d _j^w - \sigma(\theta _{j-1}^w * x_w)]\ x^w<br>\end{split}\tag{7}<br>\end{equation}</p>
+<p>由公式(6)可知\(x_w\)与\(\theta _{j-1}^w\)具有对称性，则可得：<br>$$\frac{\partial Obj}{\partial x _w} = [1 - d _j^w - \sigma(\theta _{j-1}^w * x_w)]\ \theta _{j-1}^w \tag{8}$$</p>
+<p>更新梯度的时候，\(\theta _{j-1}^w\)的更新就是传统的用学习率更新的方式，而输入词向量的更新是如何通过\(x_w\)来更新的呢？Word2Vec采用的策略是：<br>$$v(\check{w}) = v(\check{w}) + \eta \sum _{j=1}^{l^w} \frac{\partial Obj}{\partial x_w},\ \check{w} \in Context(w) \tag{9}$$<br>将关于\(x_w\)的梯度贡献到Context(w)的每一个词向量上。</p>
+<ul>
+<li><p><strong>Hierarchical Softmax SGD</strong></p>
+<ul>
+<li>\(e = 0\)</li>
+<li>\(x_w = \sum _{u \in Context}v(u)\)</li>
+<li><p>\(for\ j\ =\ 2\ to\ l^w:\)</p>
+<ul>
+<li>\( q = \sigma(\theta _{j-1}^w * x_w)\)</li>
+<li>\( g = \eta (1 - d _j^w - q)\)</li>
+<li>\( e = e + g \theta _{j-1}^w\)</li>
+<li>\( \theta _{j-1}^w = \theta _{j-1}^w + g x_w\)</li>
+</ul>
+</li>
+<li><p>\(for\ u\ in\ Context(w):\)</p>
+<ul>
+<li>\(    v(u) = v(u) + e\)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>\(\theta _{j-1}^w\)的更新必须在\(x^w\)的更新后。</p>
+<h1 id="2-CBOW模型的Negative-Sampling"><a href="#2-CBOW模型的Negative-Sampling" class="headerlink" title="2. CBOW模型的Negative Sampling"></a>2. CBOW模型的Negative Sampling</h1><h2 id="2-1-网络结构"><a href="#2-1-网络结构" class="headerlink" title="2.1 网络结构"></a>2.1 网络结构</h2><ul>
+<li><p><strong>结构综述</strong><br>负采样算法与Hierarchical Softmax算法原理不同，它试图凑出\(||NEG||+1\)个样本，其中的”1”代表的是正样本，即\(Context(w)\)中的w，另外的\(||NEG||\)个样本为随机采样的带有类别为0的负样本，即从语料库中抽取出来的非w的\(\check {w}\)。<br><img src="https://ws1.sinaimg.cn/large/006tNbRwgy1fultqhtnd6j30ee0hymxq.jpg" alt="CBOW Model"></p>
+<center>图2  CBOW With Negative Sampling模型的结构</center>
+</li>
+<li><p><strong>负采样算法简介</strong><br>负采样算法的原理暂不赘述（其实是还没看），这里主要阐述其基本操作。<br><img src="https://ws1.sinaimg.cn/large/006tNbRwgy1fuluocoa2gj30q409aacx.jpg" alt=""></p>
+<center>图3  负采样模型</center>  
+
+</li>
+</ul>
+<p>如图所述，根据词频将词库映射为长度为1、分为N份(N为单词的个数)的单位线段1，同时再将同样的单位线段2分为M份，M &gt;&gt; N，故在线段2上从[1,M-1]里随机选取一个整数即可获得单位1上的一个词，若遇到了w自己，则跳过重选。<br>值得一提的是，关于按词频映射：<br>$$len(w) = \frac{|count(w)|^{\alpha}}{\sum _{u \in dictionary} |count(u)|^{\alpha}}  \tag{10} $$<br>Word2Vec中加入了一个超参数\(\alpha\)，并在实现中将其取为0.75，称之为最好的参数。</p>
+<ul>
+<li><strong>原理阐述</strong><br>看了其希望最大化的目标函数就可知道，其实思想很简单：<br>$$g(w) = \prod _{u \in \ {w} \bigcup NEG(w)} p(u|Context(w))  \tag{11} $$<br>其中：<br>$$p(u|Context(w)) = \sigma (x_w^T \theta^u)\ if\ L^w(u) = 1\ else\ (1- \sigma (x_w^T \theta^u))  \tag{12} $$<br>这里的\(L^w(u)\)是指u的标签，正样本为0，负样本为1。<br>将g(w)展开会发现：<br>$$g(w) =  \sigma (x_w^T \theta^w) \prod _{u \in NEG(w)} (1 -  \sigma (x_w^T \theta^u)) \tag{13} $$<br>故可以发现最大化g的过程即是最大化正样本标签为1、负样本标签为0的过程。</li>
+</ul>
+<h2 id="2-2-梯度计算"><a href="#2-2-梯度计算" class="headerlink" title="2.2 梯度计算"></a>2.2 梯度计算</h2><p>针对一个给定的语料库C，整体优化的目标函数为：<br>$$\log G =  \log [ \prod _{w \in C} g(w)]  \tag{14} $$<br>梯度计算同1.2</p>
+<h1 id="3-若干源码细节"><a href="#3-若干源码细节" class="headerlink" title="3. 若干源码细节"></a>3. 若干源码细节</h1><ul>
+<li><p><strong>\(\sigma (x)\)的近似计算</strong></p>
+<ul>
+<li>避免指数运算，在[-6,6]区间的x按照步长计算其值，区间之外的则为0或1，可加快运算速度</li>
+</ul>
+</li>
+<li><p><strong>根据词频进行预处理</strong></p>
+<ul>
+<li>针对低频词：<ul>
+<li>可设置参数min_count的值，代表若某个词在语料中出现的次数小于min_count，则将其在词典中删除。</li>
+<li>利用语料构建词典时，预先设置一个阈值参数min_reduce，若当前词典规模满足 D{current} &gt; 0.7 <em> vocabHashSize时，则删除所有出现次数小于等于\(min \underline{} reduce\) 的词。其中vocabHashSize为词典哈希存储时分配的整形数组长度，默认为\(3 </em> 10^7\)</li>
+</ul>
+</li>
+<li>针对高频词，则设置一个sample变量，指代一个阈值参数，代表将对词频高于sample的 按概率舍弃。具体做法是计算出\(ran = \sqrt {\frac{sample}{f(w)}} + \frac{sample}{f(w)}\)，再从(0,1)中随机选取一个数r，若r大于ran，则舍弃该词。原理是在(0,1)中取出一个数大于ran的概率即是1-ran，这样即是以1-ran的概率舍弃该词。</li>
+</ul>
+</li>
+<li><p><strong>窗口及上下文</strong><br>模型是以行为单位训练的。每行有多少个词，即有多少个训练样本。<br>关于Context(w)，事先设置一个窗口阈值window，考虑构造Context(w)的时候，生成区间[1,window]上的一个随机数random，然后w前后各取random个词即构成了Context(w)。</p>
+</li>
+<li><p><strong>自适应学习率</strong><br>Word2Vec源码中指定每处理完10000行则对\(\eta\)更新一次：<br>$$\eta = \eta_0 (1-\frac{||trainedWord||}{||dictionary|| + 1})\ if\ (\eta &gt;= \eta _{min})\ else\ \eta _{min} \tag{15}$$</p>
+</li>
+<li><p><strong>参数初始化与训练</strong><br>模型训练采用的是随机梯度上升法，且只对语料遍历一次，故而较为高效。<br>而关于参数初始化，词向量四随机初始化，参数是零初始化。</p>
+</li>
+</ul>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ul>
+<li><a href="https://blog.csdn.net/itplus/article/details/37969519" target="_blank" rel="noopener">word2vec中的数学原理详解</a></li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/word2vec/" rel="tag"># word2vec</a>
+          
+            <a href="/tags/skip-gram/" rel="tag"># skip-gram</a>
+          
+            <a href="/tags/cbow/" rel="tag"># cbow</a>
+          
+            <a href="/tags/negative-sampling/" rel="tag"># negative sampling</a>
+          
+            <a href="/tags/hierarchical-softmax/" rel="tag"># hierarchical softmax</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/26/GBDT-and-XGBoost/" rel="next" title="GBDT and XGBoost">
+                <i class="fa fa-chevron-left"></i> GBDT and XGBoost
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/26/Dijsktra详解/" rel="prev" title="Dijsktra详解">
+                Dijsktra详解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Jiayu Zhang</p>
+              <p class="site-description motion-element" itemprop="description">生如逆旅 不止行人</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">tags</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#带加速的word2vec详解"><span class="nav-number">1.</span> <span class="nav-text">带加速的word2vec详解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-CBOW模型的Hierarchical-Softmax"><span class="nav-number">2.</span> <span class="nav-text">1. CBOW模型的Hierarchical Softmax</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-网络结构"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 网络结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-梯度计算"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 梯度计算</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-CBOW模型的Negative-Sampling"><span class="nav-number">3.</span> <span class="nav-text">2. CBOW模型的Negative Sampling</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-网络结构"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 网络结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-梯度计算"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 梯度计算</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-若干源码细节"><span class="nav-number">4.</span> <span class="nav-text">3. 若干源码细节</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">5.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jiayu Zhang</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
