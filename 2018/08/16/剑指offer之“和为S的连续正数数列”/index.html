@@ -108,23 +108,24 @@
 
 
 
-  <meta name="description" content="生如逆旅 不止行人">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Jiayu | Blog">
-<meta property="og:url" content="http://yoursite.com/tags/hierarchical-softmax/index.html">
+  <meta name="description" content="剑指offer之“和为S的连续正数数列”给定一个正整数，返回所有和为该正整数的序列 解一组连续的数：a, a+1, a+2,…, b, 其和为(b+a)*(b-a+1)/2，故可以设置low和high两个指针，sum_item为low至high这组连续序列的和，判断sum_item与S的大小对low和high进行加减操作即可：sum_item &amp;lt; S时，应增大high，以扩大序列的长度；反之">
+<meta property="og:type" content="article">
+<meta property="og:title" content="剑指offer之“和为S的连续正数数列”">
+<meta property="og:url" content="http://yoursite.com/2018/08/16/剑指offer之“和为S的连续正数数列”/index.html">
 <meta property="og:site_name" content="Jiayu | Blog">
-<meta property="og:description" content="生如逆旅 不止行人">
+<meta property="og:description" content="剑指offer之“和为S的连续正数数列”给定一个正整数，返回所有和为该正整数的序列 解一组连续的数：a, a+1, a+2,…, b, 其和为(b+a)*(b-a+1)/2，故可以设置low和high两个指针，sum_item为low至high这组连续序列的和，判断sum_item与S的大小对low和high进行加减操作即可：sum_item &amp;lt; S时，应增大high，以扩大序列的长度；反之">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-08-26T11:29:46.680Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jiayu | Blog">
-<meta name="twitter:description" content="生如逆旅 不止行人">
+<meta name="twitter:title" content="剑指offer之“和为S的连续正数数列”">
+<meta name="twitter:description" content="剑指offer之“和为S的连续正数数列”给定一个正整数，返回所有和为该正整数的序列 解一组连续的数：a, a+1, a+2,…, b, 其和为(b+a)*(b-a+1)/2，故可以设置low和high两个指针，sum_item为low至high这组连续序列的和，判断sum_item与S的大小对low和high进行加减操作即可：sum_item &amp;lt; S时，应增大high，以扩大序列的长度；反之">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/hierarchical-softmax/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/16/剑指offer之“和为S的连续正数数列”/"/>
 
 
 
@@ -134,7 +135,7 @@
   };
 </script>
 
-  <title>Tag: hierarchical softmax | Jiayu | Blog</title>
+  <title>剑指offer之“和为S的连续正数数列” | Jiayu | Blog</title>
   
 
 
@@ -181,7 +182,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -226,7 +227,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
     <a href="/tags/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
   </li>
@@ -255,25 +256,6 @@
   
     
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
   
 
   
@@ -298,58 +280,176 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>hierarchical softmax<small>Tag</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/16/剑指offer之“和为S的连续正数数列”/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jiayu Zhang">
+      <meta itemprop="description" content="生如逆旅 不止行人">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jiayu | Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/08/25/Word2Vec/" itemprop="url">
-              
-                <span itemprop="name">Word2Vec</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">剑指offer之“和为S的连续正数数列”
+              
+            
+          </h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-25T15:20:39+08:00"
-              content="2018-08-25" >
-          08-25
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
 
-    </header>
-  </article>
+            
+            
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
 
+              
+                
+              
+
+              <time title="Created: 2018-08-16 13:10:30" itemprop="dateCreated datePublished" datetime="2018-08-16T13:10:30+08:00">2018-08-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-08-26 19:29:46" itemprop="dateModified" datetime="2018-08-26T19:29:46+08:00">2018-08-26</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="剑指offer之“和为S的连续正数数列”"><a href="#剑指offer之“和为S的连续正数数列”" class="headerlink" title="剑指offer之“和为S的连续正数数列”"></a>剑指offer之“和为S的连续正数数列”</h1><p>给定一个正整数，返回所有和为该正整数的序列</p>
+<h1 id="解"><a href="#解" class="headerlink" title="解"></a>解</h1><p>一组连续的数：a, a+1, a+2,…, b, 其和为(b+a)*(b-a+1)/2，故可以设置low和high两个指针，sum_item为low至high这组连续序列的和，判断sum_item与S的大小对low和high进行加减操作即可：sum_item &lt; S时，应增大high，以扩大序列的长度；反之则应该增大low，减小序列的长度。</p>
+<h1 id="Python代码"><a href="#Python代码" class="headerlink" title="Python代码"></a>Python代码</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">FindContinusSequence</span><span class="params">(S)</span>:</span>  </span><br><span class="line">	low = <span class="number">1</span>  </span><br><span class="line">	high = <span class="number">2</span>  </span><br><span class="line">	res = [] </span><br><span class="line">	<span class="keyword">while</span> low &lt; high:</span><br><span class="line">		sum_item = (low + high) * (high - low + <span class="number">1</span>) / <span class="number">2</span></span><br><span class="line">		<span class="keyword">if</span> sum_item == S:</span><br><span class="line">			res.append([i <span class="keyword">for</span> i <span class="keyword">in</span> range(low, high+<span class="number">1</span>)])</span><br><span class="line">		<span class="keyword">if</span> sum_item &lt; S:</span><br><span class="line">			high += <span class="number">1</span></span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			low += <span class="number">1</span></span><br><span class="line">			</span><br><span class="line">	<span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/17/机器学习之激活函数/" rel="prev" title="机器学习之激活函数">
+                机器学习之激活函数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -370,8 +470,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -467,6 +576,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#剑指offer之“和为S的连续正数数列”"><span class="nav-number">1.</span> <span class="nav-text">剑指offer之“和为S的连续正数数列”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解"><span class="nav-number">2.</span> <span class="nav-text">解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Python代码"><span class="nav-number">3.</span> <span class="nav-text">Python代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -599,6 +724,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.0"></script>
+
+
 
   
 

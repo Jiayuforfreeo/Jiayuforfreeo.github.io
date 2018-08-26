@@ -14,7 +14,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh">
+<html class="theme-next muse use-motion" lang="en">
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -112,10 +112,10 @@
 <meta name="keywords" content="RNN,LSTM,BI-LSTM,GRU,梯度消失">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RNNs">
-<meta property="og:url" content="http://yoursite.com/2018/08/26/RNNs/index.html">
+<meta property="og:url" content="http://yoursite.com/2018/08/18/RNNs/index.html">
 <meta property="og:site_name" content="Jiayu | Blog">
 <meta property="og:description" content="RNN详解  RNNRNN(Recurrent Neural Network)是递归神经网络，又称循环神经网络，用来解决序列问题，如命名实体识别、语音文字转换、机器翻译等。RNN的思想说起来其实就是当前的判断用到了之前的信息，下图是RNN的结构：    图1 RNN横铺结构    但是RNN有个缺点：当层数过多时，会发生梯度消失，这样比较远的信息就难以“记住”，替换激活函数只是治标不治本。而使用L">
-<meta property="og:locale" content="zh">
+<meta property="og:locale" content="en">
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNbRwly1fueustrosqj31kw0eywgr.jpg">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNbRwly1fueute20s9j31kw0ldag0.jpg">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNbRwly1fueuue4zbaj31eq0fo0tv.jpg">
@@ -128,7 +128,7 @@
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNbRwly1fueuwlyp3vj31eq0fodhg.jpg">
 <meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNbRwly1fueuwtxgknj31eq0fognw.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNbRwly1fueux2ndilj30ih09ewfn.jpg">
-<meta property="og:updated_time" content="2018-08-26T08:25:18.406Z">
+<meta property="og:updated_time" content="2018-08-26T11:29:28.479Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RNNs">
 <meta name="twitter:description" content="RNN详解  RNNRNN(Recurrent Neural Network)是递归神经网络，又称循环神经网络，用来解决序列问题，如命名实体识别、语音文字转换、机器翻译等。RNN的思想说起来其实就是当前的判断用到了之前的信息，下图是RNN的结构：    图1 RNN横铺结构    但是RNN有个缺点：当层数过多时，会发生梯度消失，这样比较远的信息就难以“记住”，替换激活函数只是治标不治本。而使用L">
@@ -139,7 +139,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/26/RNNs/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/18/RNNs/"/>
 
 
 
@@ -189,7 +189,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh">
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
 
   
   
@@ -236,6 +236,22 @@
           <li class="menu-item menu-item-home">
     <a href="/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
   </li>
         
         
@@ -294,7 +310,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/26/RNNs/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/18/RNNs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jiayu Zhang">
@@ -336,12 +352,24 @@
                 
               
 
-              <time title="Created: 2018-08-26 15:19:09 / Modified: 16:25:18" itemprop="dateCreated datePublished" datetime="2018-08-26T15:19:09+08:00">2018-08-26</time>
+              <time title="Created: 2018-08-18 13:18:09" itemprop="dateCreated datePublished" datetime="2018-08-18T13:18:09+08:00">2018-08-18</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-08-26 19:29:28" itemprop="dateModified" datetime="2018-08-26T19:29:28+08:00">2018-08-26</time>
               
             
           </span>
@@ -386,7 +414,7 @@
 <center>图2 LSTM单元结构</center>  
 
 <p>概括地来说，记忆细胞C的状态经过遗忘门会遗忘一些不需要的信息，而输入门会对输入的候选\(\tilde{C}\)决定其中哪些可以输入，将遗忘门的输出与输入门的输出相加，经过输出门筛选后，即作为本轮隐状态\(h_t\)的输出，也即下一轮的输入。<br>下面将逐步介绍LSTM中，信息在一个单元中从输入到输出的过程。</p>
-<p>###记忆细胞<br>LSTM中比较核心的一点就是记忆细胞。记忆中细信息的流向横穿整个单元。如下图所示：  </p>
+<h3 id="记忆细胞"><a href="#记忆细胞" class="headerlink" title="记忆细胞"></a>记忆细胞</h3><p>LSTM中比较核心的一点就是记忆细胞。记忆中细信息的流向横穿整个单元。如下图所示：  </p>
 <p><img src="https://ws2.sinaimg.cn/large/006tNbRwly1fueuue4zbaj31eq0fo0tv.jpg" alt=""></p>
 <center>图3 记忆细胞</center>  
 
@@ -420,9 +448,17 @@
 
 <h2 id="GRU-Gated-Recurrent-Units"><a href="#GRU-Gated-Recurrent-Units" class="headerlink" title="GRU(Gated Recurrent Units)"></a>GRU(Gated Recurrent Units)</h2><p>GRU则是将输入门和遗忘门合为了一个更新门，同时加入了一个reset门，去除了输出门。同时将输入的隐层状态\(h_{t-1}\)、\(C_{t-1}\)也耦合为一个状态。  </p>
 <p><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fueuwtxgknj31eq0fognw.jpg" alt=""></p>
-<center>图11 GRU</center><br>### 每个门的作用<br><em> \(\tilde{h}_{t-1}\)是候选的隐层状态
-</em> \(r_t\)是一个reset门，它决定在候选隐层状态中加入多少新的信息<br><em>  \(z_t\)是一个update门，它决定最终的隐层状态中要加入多少候选隐层状态的新信息
-</em>  需要注意的是GRU没有输出门，它直接将输出传递到下一个神经单元<br><br><br>## BI-LSTM<br>LSTM固然强大，但其也因只能记忆前向信息而有所局限。若再添加一个反向的LSTM岂不是就可以学习到后来的信息？BI-LSTM应运而生。BI-LSTM添加了另一层LSTM，方向完全相反，与之对应的，每个神经元输出的状态\(y\)也要综合双向单元的输出计算。<br><br><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fueux2ndilj30ih09ewfn.jpg" alt=""><br><center>图12 BI-lSTM</center>  
+<center>图11 GRU</center>  
+
+<h3 id="每个门的作用"><a href="#每个门的作用" class="headerlink" title="每个门的作用"></a>每个门的作用</h3><ul>
+<li>\(\tilde{h}_{t-1}\)是候选的隐层状态</li>
+<li>\(r_t\)是一个reset门，它决定在候选隐层状态中加入多少新的信息</li>
+<li>\(z_t\)是一个update门，它决定最终的隐层状态中要加入多少候选隐层状态的新信息</li>
+<li>需要注意的是GRU没有输出门，它直接将输出传递到下一个神经单元</li>
+</ul>
+<h2 id="BI-LSTM"><a href="#BI-LSTM" class="headerlink" title="BI-LSTM"></a>BI-LSTM</h2><p>LSTM固然强大，但其也因只能记忆前向信息而有所局限。若再添加一个反向的LSTM岂不是就可以学习到后来的信息？BI-LSTM应运而生。BI-LSTM添加了另一层LSTM，方向完全相反，与之对应的，每个神经元输出的状态\(y\)也要综合双向单元的输出计算。  </p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fueux2ndilj30ih09ewfn.jpg" alt=""></p>
+<center>图12 BI-lSTM</center>  
 
 
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这里比较LSTM与GRU的异同点  </p>
@@ -432,7 +468,7 @@
 </ul>
 </li>
 <li>不同点<ul>
-<li>计算$\tilde{C_{t}}$时，LSTM没有用到$\tilde{C}<em>{t-1}$的信息，而GRU计算$\tilde{h</em>{t}}$则用到了$\tilde{h}_{t-1}$</li>
+<li>计算$\tilde{C} _{t}$时，LSTM没有用到$\tilde{C} _{t-1}$的信息，而GRU计算$\tilde{h} _{t}$则用到了$\tilde{h} _{t-1}$</li>
 <li>输出时LSTM要经过输出门的筛选，而GRU则是直接输出</li>
 </ul>
 </li>
@@ -478,7 +514,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/26/机器学习之激活函数/" rel="next" title="机器学习之激活函数">
+              <a href="/2018/08/17/机器学习之激活函数/" rel="next" title="机器学习之激活函数">
                 <i class="fa fa-chevron-left"></i> 机器学习之激活函数
               </a>
             
@@ -488,7 +524,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/26/GBDT-and-XGBoost/" rel="prev" title="GBDT and XGBoost">
+              <a href="/2018/08/19/GBDT-and-XGBoost/" rel="prev" title="GBDT and XGBoost">
                 GBDT and XGBoost <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -651,7 +687,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RNN详解"><span class="nav-number">1.</span> <span class="nav-text">RNN详解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RNN"><span class="nav-number">1.1.</span> <span class="nav-text">RNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LSTM"><span class="nav-number">1.2.</span> <span class="nav-text">LSTM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#门"><span class="nav-number">1.2.1.</span> <span class="nav-text">门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#遗忘门"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">遗忘门</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输入门"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">输入门</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输出门"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">输出门</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#误差传播的BPTT-Back-Propagation-Through-Time-算法"><span class="nav-number">1.2.2.</span> <span class="nav-text">误差传播的BPTT(Back Propagation Through Time)算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Peephole-LSTM"><span class="nav-number">1.3.</span> <span class="nav-text">Peephole LSTM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Coupled-Input-Gates-and-Forget-Gates"><span class="nav-number">1.4.</span> <span class="nav-text">Coupled Input Gates and Forget Gates</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GRU-Gated-Recurrent-Units"><span class="nav-number">1.5.</span> <span class="nav-text">GRU(Gated Recurrent Units)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.6.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RNN详解"><span class="nav-number">1.</span> <span class="nav-text">RNN详解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RNN"><span class="nav-number">1.1.</span> <span class="nav-text">RNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LSTM"><span class="nav-number">1.2.</span> <span class="nav-text">LSTM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#记忆细胞"><span class="nav-number">1.2.1.</span> <span class="nav-text">记忆细胞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#门"><span class="nav-number">1.2.2.</span> <span class="nav-text">门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#遗忘门"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">遗忘门</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输入门"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">输入门</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输出门"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">输出门</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#误差传播的BPTT-Back-Propagation-Through-Time-算法"><span class="nav-number">1.2.3.</span> <span class="nav-text">误差传播的BPTT(Back Propagation Through Time)算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Peephole-LSTM"><span class="nav-number">1.3.</span> <span class="nav-text">Peephole LSTM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Coupled-Input-Gates-and-Forget-Gates"><span class="nav-number">1.4.</span> <span class="nav-text">Coupled Input Gates and Forget Gates</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GRU-Gated-Recurrent-Units"><span class="nav-number">1.5.</span> <span class="nav-text">GRU(Gated Recurrent Units)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#每个门的作用"><span class="nav-number">1.5.1.</span> <span class="nav-text">每个门的作用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BI-LSTM"><span class="nav-number">1.6.</span> <span class="nav-text">BI-LSTM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.7.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -671,7 +707,9 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
