@@ -936,7 +936,7 @@
                 
               
 
-              <time title="Created: 2018-08-26 15:19:09 / Modified: 15:32:08" itemprop="dateCreated datePublished" datetime="2018-08-26T15:19:09+08:00">2018-08-26</time>
+              <time title="Created: 2018-08-26 15:19:09 / Modified: 16:25:18" itemprop="dateCreated datePublished" datetime="2018-08-26T15:19:09+08:00">2018-08-26</time>
             
 
             
@@ -1022,7 +1022,7 @@
 
 <h2 id="GRU-Gated-Recurrent-Units"><a href="#GRU-Gated-Recurrent-Units" class="headerlink" title="GRU(Gated Recurrent Units)"></a>GRU(Gated Recurrent Units)</h2><p>GRU则是将输入门和遗忘门合为了一个更新门，同时加入了一个reset门，去除了输出门。同时将输入的隐层状态\(h_{t-1}\)、\(C_{t-1}\)也耦合为一个状态。  </p>
 <p><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fueuwtxgknj31eq0fognw.jpg" alt=""></p>
-<center>图11 GRU</center><br>### 每个门的作用<br><em> \(\tilde{h_{t-1}}\)是候选的隐层状态
+<center>图11 GRU</center><br>### 每个门的作用<br><em> \(\tilde{h}_{t-1}\)是候选的隐层状态
 </em> \(r_t\)是一个reset门，它决定在候选隐层状态中加入多少新的信息<br><em>  \(z_t\)是一个update门，它决定最终的隐层状态中要加入多少候选隐层状态的新信息
 </em>  需要注意的是GRU没有输出门，它直接将输出传递到下一个神经单元<br><br><br>## BI-LSTM<br>LSTM固然强大，但其也因只能记忆前向信息而有所局限。若再添加一个反向的LSTM岂不是就可以学习到后来的信息？BI-LSTM应运而生。BI-LSTM添加了另一层LSTM，方向完全相反，与之对应的，每个神经元输出的状态\(y\)也要综合双向单元的输出计算。<br><br><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fueux2ndilj30ih09ewfn.jpg" alt=""><br><center>图12 BI-lSTM</center>  
 
@@ -1034,7 +1034,7 @@
 </ul>
 </li>
 <li>不同点<ul>
-<li>计算\(\tilde{C_{t}}\)时，LSTM没有用到\(\tilde{C_{t-1}}\)的信息，而GRU计算\(\tilde{h_{t}}\)则用到了\(\tilde{h_{t-1}}\)</li>
+<li>计算$\tilde{C_{t}}$时，LSTM没有用到$\tilde{C}<em>{t-1}$的信息，而GRU计算$\tilde{h</em>{t}}$则用到了$\tilde{h}_{t-1}$</li>
 <li>输出时LSTM要经过输出门的筛选，而GRU则是直接输出</li>
 </ul>
 </li>
