@@ -306,7 +306,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jiayu Zhang">
       <meta itemprop="description" content="生如逆旅 不止行人">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="https://ws4.sinaimg.cn/large/006tNbRwgy1fune5u0h7aj31jk1jknpd.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -393,6 +393,16 @@
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/25/Word2Vec/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/08/25/Word2Vec/" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -590,6 +600,9 @@
           
 
   
+    <div class="comments" id="comments">
+    </div>
+  
 
 
 
@@ -625,6 +638,10 @@
       <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://ws4.sinaimg.cn/large/006tNbRwgy1fune5u0h7aj31jk1jknpd.jpg"
+                alt="Jiayu Zhang" />
             
               <p class="site-author-name" itemprop="name">Jiayu Zhang</p>
               <p class="site-description motion-element" itemprop="description">生如逆旅 不止行人</p>
@@ -733,6 +750,20 @@
 
           
 
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Jiayuforfreeo" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:jiayuforfree@163.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
           
 
           
@@ -922,6 +953,31 @@
 
 
 
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'QRQFzUMCcnDaigj86KpQqEnn-gzGzoHsz',
+        appKey: 'Wiik8UEXXMR2O0VEj8vy2R19',
+        placeholder: '让我们一起探索宇宙吧',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
 
 
   
@@ -981,6 +1037,7 @@
   
 
   
+
 
 </body>
 </html>
