@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="GBDT详解1. 传统机器学习分析路线想要对经典机器学习方法做一个总结，回看之前做的总结较为杂乱，没有一个清晰的思路。综合思考了下，接下来的文章都按照模型-&amp;gt;目标函数设计及求解的路线走。   2. GBDT &amp;amp;&amp;amp; XGBoostGBDT是一种boosting方法，xgboost则是针对GBDT做的优化，考虑到xgboost的推导更为tricky，这里主要介绍xgboost，最">
+  <meta name="description" content="GBDT详解传统机器学习分析路线想要对经典机器学习方法做一个总结，回看之前做的总结较为杂乱，没有一个清晰的思路。综合思考了下，接下来的文章都按照模型-&amp;gt;目标函数设计及求解的路线走。   GBDT &amp;amp;&amp;amp; XGBoostGBDT是一种boosting方法，xgboost则是针对GBDT做的优化，考虑到xgboost的推导更为tricky，这里主要介绍xgboost，最后则会指出G">
 <meta name="keywords" content="GBDT,xgboost,boosting">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GBDT and XGBoost">
 <meta property="og:url" content="http://yoursite.com/2018/08/19/GBDT-and-XGBoost/index.html">
 <meta property="og:site_name" content="Jiayu | Blog">
-<meta property="og:description" content="GBDT详解1. 传统机器学习分析路线想要对经典机器学习方法做一个总结，回看之前做的总结较为杂乱，没有一个清晰的思路。综合思考了下，接下来的文章都按照模型-&amp;gt;目标函数设计及求解的路线走。   2. GBDT &amp;amp;&amp;amp; XGBoostGBDT是一种boosting方法，xgboost则是针对GBDT做的优化，考虑到xgboost的推导更为tricky，这里主要介绍xgboost，最">
+<meta property="og:description" content="GBDT详解传统机器学习分析路线想要对经典机器学习方法做一个总结，回看之前做的总结较为杂乱，没有一个清晰的思路。综合思考了下，接下来的文章都按照模型-&amp;gt;目标函数设计及求解的路线走。   GBDT &amp;amp;&amp;amp; XGBoostGBDT是一种boosting方法，xgboost则是针对GBDT做的优化，考虑到xgboost的推导更为tricky，这里主要介绍xgboost，最后则会指出G">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-08-26T12:38:20.951Z">
+<meta property="og:updated_time" content="2018-08-27T04:57:08.071Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GBDT and XGBoost">
-<meta name="twitter:description" content="GBDT详解1. 传统机器学习分析路线想要对经典机器学习方法做一个总结，回看之前做的总结较为杂乱，没有一个清晰的思路。综合思考了下，接下来的文章都按照模型-&amp;gt;目标函数设计及求解的路线走。   2. GBDT &amp;amp;&amp;amp; XGBoostGBDT是一种boosting方法，xgboost则是针对GBDT做的优化，考虑到xgboost的推导更为tricky，这里主要介绍xgboost，最">
+<meta name="twitter:description" content="GBDT详解传统机器学习分析路线想要对经典机器学习方法做一个总结，回看之前做的总结较为杂乱，没有一个清晰的思路。综合思考了下，接下来的文章都按照模型-&amp;gt;目标函数设计及求解的路线走。   GBDT &amp;amp;&amp;amp; XGBoostGBDT是一种boosting方法，xgboost则是针对GBDT做的优化，考虑到xgboost的推导更为tricky，这里主要介绍xgboost，最后则会指出G">
 
 
 
@@ -356,7 +356,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-08-26 20:38:20" itemprop="dateModified" datetime="2018-08-26T20:38:20+08:00">2018-08-26</time>
+                <time title="Modified: 2018-08-27 12:57:08" itemprop="dateModified" datetime="2018-08-27T12:57:08+08:00">2018-08-27</time>
               
             
           </span>
@@ -424,13 +424,13 @@
       
 
       
-        <h1 id="GBDT详解"><a href="#GBDT详解" class="headerlink" title="GBDT详解"></a>GBDT详解</h1><h1 id="1-传统机器学习分析路线"><a href="#1-传统机器学习分析路线" class="headerlink" title="1. 传统机器学习分析路线"></a>1. 传统机器学习分析路线</h1><p>想要对经典机器学习方法做一个总结，回看之前做的总结较为杂乱，没有一个清晰的思路。<br>综合思考了下，接下来的文章都按照模型-&gt;目标函数设计及求解的路线走。</p>
+        <h1 id="GBDT详解"><a href="#GBDT详解" class="headerlink" title="GBDT详解"></a>GBDT详解</h1><h1 id="传统机器学习分析路线"><a href="#传统机器学习分析路线" class="headerlink" title="传统机器学习分析路线"></a>传统机器学习分析路线</h1><p>想要对经典机器学习方法做一个总结，回看之前做的总结较为杂乱，没有一个清晰的思路。<br>综合思考了下，接下来的文章都按照模型-&gt;目标函数设计及求解的路线走。</p>
 <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 
-<h1 id="2-GBDT-amp-amp-XGBoost"><a href="#2-GBDT-amp-amp-XGBoost" class="headerlink" title="2. GBDT &amp;&amp; XGBoost"></a>2. GBDT &amp;&amp; XGBoost</h1><p>GBDT是一种boosting方法，xgboost则是针对GBDT做的优化，考虑到xgboost的推导更为tricky，这里主要介绍xgboost，最后则会指出GBDT与xgboost的异同。</p>
-<h2 id="2-1-xgbost模型"><a href="#2-1-xgbost模型" class="headerlink" title="2.1 xgbost模型"></a>2.1 xgbost模型</h2><p>Boosting模型通用公式为：<br>$$\check{y}_i = \sum_{i=1}^K f_k(x_i) \tag{1}$$   </p>
+<h1 id="GBDT-amp-amp-XGBoost"><a href="#GBDT-amp-amp-XGBoost" class="headerlink" title="GBDT &amp;&amp; XGBoost"></a>GBDT &amp;&amp; XGBoost</h1><p>GBDT是一种boosting方法，xgboost则是针对GBDT做的优化，考虑到xgboost的推导更为tricky，这里主要介绍xgboost，最后则会指出GBDT与xgboost的异同。</p>
+<h2 id="xgbost模型"><a href="#xgbost模型" class="headerlink" title="xgbost模型"></a>xgbost模型</h2><p>Boosting模型通用公式为：<br>$$\check{y}_i = \sum_{i=1}^K f_k(x_i) \tag{1}$$   </p>
 <p>传统的boosting模型如AdaBoost，构造每一个模型是基于不同权重的样本，GBDT则是通过拟合上一轮模型的损失构造出当前的新模型.模型的基学习器一般是CART树，xgboost也可以选择线性学习器。<br>那么假设已经获取了t-1个模型，如何获取第t个模型呢？按照上述的“拟合损失”来说，则是通过最小化目标损失函数来获得\(f_t(x_i)\)。</p>
-<h2 id="2-2-目标函数及其求解"><a href="#2-2-目标函数及其求解" class="headerlink" title="2.2 目标函数及其求解"></a>2.2 目标函数及其求解</h2><ul>
+<h2 id="目标函数及其求解"><a href="#目标函数及其求解" class="headerlink" title="目标函数及其求解"></a>目标函数及其求解</h2><ul>
 <li><p><strong>损失函数</strong><br>损失函数的设计是很重要的一步。关于损失函数，需要视不同的应用选择不同的损失函数</p>
 <ul>
 <li><strong>用于分类</strong><ul>
@@ -464,7 +464,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="2-3-应用"><a href="#2-3-应用" class="headerlink" title="2.3 应用"></a>2.3 应用</h2><ul>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><ul>
 <li><strong>分类</strong><ul>
 <li><strong>二分类</strong><br>用于分类时，其思路也是回归，即每个决策树预测出的值最后加起来转换为一个概率值。<br>此时样本的loss可以用logloss来表示。</li>
 <li><strong>多分类</strong><br>用于K(K&gt;2)分类时，需要注意的是：每一轮都训练K个树，表示每个类别的输出，再用softmax归一化得到每一个类别的概率，使用logloss得到每一个类别的残差，计算出梯度供下一轮学习。</li>
@@ -472,7 +472,7 @@
 </li>
 <li><strong>回归</strong><br>回归自然就是2.2节所述。</li>
 </ul>
-<h2 id="2-4-GBDT与xgboost的异同、优缺点"><a href="#2-4-GBDT与xgboost的异同、优缺点" class="headerlink" title="2.4 GBDT与xgboost的异同、优缺点"></a>2.4 GBDT与xgboost的异同、优缺点</h2><ul>
+<h2 id="GBDT与xgboost的异同、优缺点"><a href="#GBDT与xgboost的异同、优缺点" class="headerlink" title="GBDT与xgboost的异同、优缺点"></a>GBDT与xgboost的异同、优缺点</h2><ul>
 <li><strong>相同点</strong><ul>
 <li>支持Shrinkage，相当于学习速率，主要是为了削弱每棵树的影响，让后面有更大的学习空间 </li>
 <li>其实相同点太多了，毕竟xgboost是GBDT的优化版，这里主要讲一下不同点</li>
@@ -763,7 +763,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GBDT详解"><span class="nav-number">1.</span> <span class="nav-text">GBDT详解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-传统机器学习分析路线"><span class="nav-number">2.</span> <span class="nav-text">1. 传统机器学习分析路线</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-GBDT-amp-amp-XGBoost"><span class="nav-number">3.</span> <span class="nav-text">2. GBDT &amp;&amp; XGBoost</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-xgbost模型"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 xgbost模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-目标函数及其求解"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 目标函数及其求解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-应用"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-GBDT与xgboost的异同、优缺点"><span class="nav-number">3.4.</span> <span class="nav-text">2.4 GBDT与xgboost的异同、优缺点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GBDT详解"><span class="nav-number">1.</span> <span class="nav-text">GBDT详解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#传统机器学习分析路线"><span class="nav-number">2.</span> <span class="nav-text">传统机器学习分析路线</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GBDT-amp-amp-XGBoost"><span class="nav-number">3.</span> <span class="nav-text">GBDT &amp;&amp; XGBoost</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#xgbost模型"><span class="nav-number">3.1.</span> <span class="nav-text">xgbost模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目标函数及其求解"><span class="nav-number">3.2.</span> <span class="nav-text">目标函数及其求解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">3.3.</span> <span class="nav-text">应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GBDT与xgboost的异同、优缺点"><span class="nav-number">3.4.</span> <span class="nav-text">GBDT与xgboost的异同、优缺点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
             
 
           </div>

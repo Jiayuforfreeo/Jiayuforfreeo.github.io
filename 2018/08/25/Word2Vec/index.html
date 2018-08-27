@@ -108,21 +108,21 @@
 
 
 
-  <meta name="description" content="带加速的word2vec详解1. CBOW模型的Hierarchical Softmax这也算是一个神经网络吧，在此也说明一下以后关于深度学习方法的总结路线：网络结构-&amp;gt;梯度计算-&amp;gt;Tricks。 1.1 网络结构 CBOW With Hierarchical Softmax    结构综述与神经概率语言的结构类似，以下是带有Hierarchical Softmax的CBOW模型的结构">
+  <meta name="description" content="带加速的word2vec详解CBOW模型的Hierarchical Softmax这也算是一个神经网络吧，在此也说明一下以后关于深度学习方法的总结路线：网络结构-&amp;gt;梯度计算-&amp;gt;Tricks。 网络结构 CBOW With Hierarchical Softmax    结构综述与神经概率语言的结构类似，以下是带有Hierarchical Softmax的CBOW模型的结构：图1  CB">
 <meta name="keywords" content="word2vec,skip-gram,cbow,negative sampling,hierarchical softmax">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Word2Vec">
 <meta property="og:url" content="http://yoursite.com/2018/08/25/Word2Vec/index.html">
 <meta property="og:site_name" content="Jiayu | Blog">
-<meta property="og:description" content="带加速的word2vec详解1. CBOW模型的Hierarchical Softmax这也算是一个神经网络吧，在此也说明一下以后关于深度学习方法的总结路线：网络结构-&amp;gt;梯度计算-&amp;gt;Tricks。 1.1 网络结构 CBOW With Hierarchical Softmax    结构综述与神经概率语言的结构类似，以下是带有Hierarchical Softmax的CBOW模型的结构">
+<meta property="og:description" content="带加速的word2vec详解CBOW模型的Hierarchical Softmax这也算是一个神经网络吧，在此也说明一下以后关于深度学习方法的总结路线：网络结构-&amp;gt;梯度计算-&amp;gt;Tricks。 网络结构 CBOW With Hierarchical Softmax    结构综述与神经概率语言的结构类似，以下是带有Hierarchical Softmax的CBOW模型的结构：图1  CB">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNbRwgy1fuizukpgs0j312e0wqju3.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNbRwgy1fultqhtnd6j30ee0hymxq.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNbRwgy1fuluocoa2gj30q409aacx.jpg">
-<meta property="og:updated_time" content="2018-08-26T12:38:23.188Z">
+<meta property="og:updated_time" content="2018-08-27T04:57:49.528Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Word2Vec">
-<meta name="twitter:description" content="带加速的word2vec详解1. CBOW模型的Hierarchical Softmax这也算是一个神经网络吧，在此也说明一下以后关于深度学习方法的总结路线：网络结构-&amp;gt;梯度计算-&amp;gt;Tricks。 1.1 网络结构 CBOW With Hierarchical Softmax    结构综述与神经概率语言的结构类似，以下是带有Hierarchical Softmax的CBOW模型的结构">
+<meta name="twitter:description" content="带加速的word2vec详解CBOW模型的Hierarchical Softmax这也算是一个神经网络吧，在此也说明一下以后关于深度学习方法的总结路线：网络结构-&amp;gt;梯度计算-&amp;gt;Tricks。 网络结构 CBOW With Hierarchical Softmax    结构综述与神经概率语言的结构类似，以下是带有Hierarchical Softmax的CBOW模型的结构：图1  CB">
 <meta name="twitter:image" content="https://ws2.sinaimg.cn/large/006tNbRwgy1fuizukpgs0j312e0wqju3.jpg">
 
 
@@ -360,7 +360,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-08-26 20:38:23" itemprop="dateModified" datetime="2018-08-26T20:38:23+08:00">2018-08-26</time>
+                <time title="Modified: 2018-08-27 12:57:49" itemprop="dateModified" datetime="2018-08-27T12:57:49+08:00">2018-08-27</time>
               
             
           </span>
@@ -428,8 +428,8 @@
       
 
       
-        <h1 id="带加速的word2vec详解"><a href="#带加速的word2vec详解" class="headerlink" title="带加速的word2vec详解"></a>带加速的word2vec详解</h1><h1 id="1-CBOW模型的Hierarchical-Softmax"><a href="#1-CBOW模型的Hierarchical-Softmax" class="headerlink" title="1. CBOW模型的Hierarchical Softmax"></a>1. CBOW模型的Hierarchical Softmax</h1><p>这也算是一个神经网络吧，在此也说明一下以后关于深度学习方法的总结路线：网络结构-&gt;梯度计算-&gt;Tricks。</p>
-<h2 id="1-1-网络结构"><a href="#1-1-网络结构" class="headerlink" title="1.1 网络结构"></a>1.1 网络结构</h2><ul>
+        <h1 id="带加速的word2vec详解"><a href="#带加速的word2vec详解" class="headerlink" title="带加速的word2vec详解"></a>带加速的word2vec详解</h1><h1 id="CBOW模型的Hierarchical-Softmax"><a href="#CBOW模型的Hierarchical-Softmax" class="headerlink" title="CBOW模型的Hierarchical Softmax"></a>CBOW模型的Hierarchical Softmax</h1><p>这也算是一个神经网络吧，在此也说明一下以后关于深度学习方法的总结路线：网络结构-&gt;梯度计算-&gt;Tricks。</p>
+<h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><ul>
 <li><p><strong>CBOW With Hierarchical Softmax</strong>  </p>
 <ul>
 <li><p><strong>结构综述</strong><br>与神经概率语言的结构类似，以下是带有Hierarchical Softmax的CBOW模型的结构：<br><img src="https://ws2.sinaimg.cn/large/006tNbRwgy1fuizukpgs0j312e0wqju3.jpg" alt="CBOW Structure With Hierarchical Softmax"><br><center>图1  CBOW With Hierarchical Softmax模型的结构</center><br>概括地来看，CBOW模型是输入2C个单词的词向量（C为前后窗口的大小），在投影层将其简单地相加求平均，输出到输出层后经由Hierarchical Softmax结构选取到最有可能的单词作为中心词w。</p>
@@ -441,7 +441,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="1-2-梯度计算"><a href="#1-2-梯度计算" class="headerlink" title="1.2 梯度计算"></a>1.2 梯度计算</h2><ul>
+<h2 id="梯度计算"><a href="#梯度计算" class="headerlink" title="梯度计算"></a>梯度计算</h2><ul>
 <li><p><strong>变量预定义</strong><br>需要明确的是，神经概率语言模型的目标函数是：<br>$$Obj = \sum_{w\in C}\log{P(w|Context(w)} \tag{1}$$<br>在梯度计算前，非常有必要定义好各个变量的数学定义。故针对此霍夫曼树，有：  </p>
 <ul>
 <li>\(p^w\): 根节点至某个叶节点的w的路径</li>
@@ -483,7 +483,7 @@
 </li>
 </ul>
 <p>\(\theta _{j-1}^w\)的更新必须在\(x^w\)的更新后。</p>
-<h1 id="2-CBOW模型的Negative-Sampling"><a href="#2-CBOW模型的Negative-Sampling" class="headerlink" title="2. CBOW模型的Negative Sampling"></a>2. CBOW模型的Negative Sampling</h1><h2 id="2-1-网络结构"><a href="#2-1-网络结构" class="headerlink" title="2.1 网络结构"></a>2.1 网络结构</h2><ul>
+<h1 id="CBOW模型的Negative-Sampling"><a href="#CBOW模型的Negative-Sampling" class="headerlink" title="CBOW模型的Negative Sampling"></a>CBOW模型的Negative Sampling</h1><h2 id="网络结构-1"><a href="#网络结构-1" class="headerlink" title="网络结构"></a>网络结构</h2><ul>
 <li><p><strong>结构综述</strong><br>负采样算法与Hierarchical Softmax算法原理不同，它试图凑出\(||NEG||+1\)个样本，其中的”1”代表的是正样本，即\(Context(w)\)中的w，另外的\(||NEG||\)个样本为随机采样的带有类别为0的负样本，即从语料库中抽取出来的非w的\(\check {w}\)。<br><img src="https://ws1.sinaimg.cn/large/006tNbRwgy1fultqhtnd6j30ee0hymxq.jpg" alt="CBOW Model"></p>
 <center>图2  CBOW With Negative Sampling模型的结构</center>
 </li>
@@ -496,8 +496,8 @@
 <ul>
 <li><strong>原理阐述</strong><br>看了其希望最大化的目标函数就可知道，其实思想很简单：<br>$$g(w) = \prod _{u \in \ {w} \bigcup NEG(w)} p(u|Context(w))  \tag{11} $$<br>其中：<br>$$p(u|Context(w)) = \sigma (x_w^T \theta^u)\ if\ L^w(u) = 1\ else\ (1- \sigma (x_w^T \theta^u))  \tag{12} $$<br>这里的\(L^w(u)\)是指u的标签，正样本为0，负样本为1。<br>将g(w)展开会发现：<br>$$g(w) =  \sigma (x_w^T \theta^w) \prod _{u \in NEG(w)} (1 -  \sigma (x_w^T \theta^u)) \tag{13} $$<br>故可以发现最大化$g$$的过程即是最大化正样本标签为$1$、负样本标签为$0$的过程。</li>
 </ul>
-<h2 id="2-2-梯度计算"><a href="#2-2-梯度计算" class="headerlink" title="2.2 梯度计算"></a>2.2 梯度计算</h2><p>针对一个给定的语料库C，整体优化的目标函数为：<br>$$\log G =  \log [ \prod _{w \in C} g(w)]  \tag{14} $$<br>梯度计算同$1.2$</p>
-<h1 id="3-若干源码细节"><a href="#3-若干源码细节" class="headerlink" title="3. 若干源码细节"></a>3. 若干源码细节</h1><ul>
+<h2 id="梯度计算-1"><a href="#梯度计算-1" class="headerlink" title="梯度计算"></a>梯度计算</h2><p>针对一个给定的语料库C，整体优化的目标函数为：<br>$$\log G =  \log [ \prod _{w \in C} g(w)]  \tag{14} $$<br>梯度计算同$1.2$</p>
+<h1 id="若干源码细节"><a href="#若干源码细节" class="headerlink" title="若干源码细节"></a>若干源码细节</h1><ul>
 <li><p><strong>\(\sigma (x)\)的近似计算</strong></p>
 <ul>
 <li>避免指数运算，在$[-6,6]$区间的x按照步长计算其值，区间之外的则为0或1，可加快运算速度</li>
@@ -792,7 +792,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#带加速的word2vec详解"><span class="nav-number">1.</span> <span class="nav-text">带加速的word2vec详解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-CBOW模型的Hierarchical-Softmax"><span class="nav-number">2.</span> <span class="nav-text">1. CBOW模型的Hierarchical Softmax</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-网络结构"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 网络结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-梯度计算"><span class="nav-number">2.2.</span> <span class="nav-text">1.2 梯度计算</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-CBOW模型的Negative-Sampling"><span class="nav-number">3.</span> <span class="nav-text">2. CBOW模型的Negative Sampling</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-网络结构"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 网络结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-梯度计算"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 梯度计算</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-若干源码细节"><span class="nav-number">4.</span> <span class="nav-text">3. 若干源码细节</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#不带加速的Word2Vec"><span class="nav-number">5.</span> <span class="nav-text">不带加速的Word2Vec</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#带加速的word2vec详解"><span class="nav-number">1.</span> <span class="nav-text">带加速的word2vec详解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CBOW模型的Hierarchical-Softmax"><span class="nav-number">2.</span> <span class="nav-text">CBOW模型的Hierarchical Softmax</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#网络结构"><span class="nav-number">2.1.</span> <span class="nav-text">网络结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度计算"><span class="nav-number">2.2.</span> <span class="nav-text">梯度计算</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CBOW模型的Negative-Sampling"><span class="nav-number">3.</span> <span class="nav-text">CBOW模型的Negative Sampling</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#网络结构-1"><span class="nav-number">3.1.</span> <span class="nav-text">网络结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度计算-1"><span class="nav-number">3.2.</span> <span class="nav-text">梯度计算</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#若干源码细节"><span class="nav-number">4.</span> <span class="nav-text">若干源码细节</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#不带加速的Word2Vec"><span class="nav-number">5.</span> <span class="nav-text">不带加速的Word2Vec</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
             
 
           </div>
