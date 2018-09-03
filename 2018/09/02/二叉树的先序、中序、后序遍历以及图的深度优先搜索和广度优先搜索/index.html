@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=6.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '6.4.0',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="二叉树的遍历及图的搜索 二叉树的遍历图1左侧是一个二叉树，根据父亲节点被访问到的次序依次称为先序、中序、后序遍历，而层次遍历则是秉承着“先上后下、先左右后”的原则。由图1右侧可见其各个遍历的输出。图1 二叉树及其层次、先序、中序、后序遍历输出关于先序、中序、后序遍历，每个遍历都有递归版以及迭代版，以下会逐一介绍。同时也会探索这三个遍历之间的关系。  图的搜索其实二叉树也可以看做是一个有向无环图，那">
+<meta name="keywords" content="剑指">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二叉树的先序、中序、后序遍历以及图的深度优先搜索和广度优先搜索">
+<meta property="og:url" content="http://yoursite.com/2018/09/02/二叉树的先序、中序、后序遍历以及图的深度优先搜索和广度优先搜索/index.html">
+<meta property="og:site_name" content="Jiayu | Blog">
+<meta property="og:description" content="二叉树的遍历及图的搜索 二叉树的遍历图1左侧是一个二叉树，根据父亲节点被访问到的次序依次称为先序、中序、后序遍历，而层次遍历则是秉承着“先上后下、先左右后”的原则。由图1右侧可见其各个遍历的输出。图1 二叉树及其层次、先序、中序、后序遍历输出关于先序、中序、后序遍历，每个遍历都有递归版以及迭代版，以下会逐一介绍。同时也会探索这三个遍历之间的关系。  图的搜索其实二叉树也可以看做是一个有向无环图，那">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://ws4.sinaimg.cn/large/0069RVTdgy1fuvkox43hnj315a0kun1u.jpg">
+<meta property="og:updated_time" content="2018-09-03T02:48:53.481Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="二叉树的先序、中序、后序遍历以及图的深度优先搜索和广度优先搜索">
+<meta name="twitter:description" content="二叉树的遍历及图的搜索 二叉树的遍历图1左侧是一个二叉树，根据父亲节点被访问到的次序依次称为先序、中序、后序遍历，而层次遍历则是秉承着“先上后下、先左右后”的原则。由图1右侧可见其各个遍历的输出。图1 二叉树及其层次、先序、中序、后序遍历输出关于先序、中序、后序遍历，每个遍历都有递归版以及迭代版，以下会逐一介绍。同时也会探索这三个遍历之间的关系。  图的搜索其实二叉树也可以看做是一个有向无环图，那">
+<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/0069RVTdgy1fuvkox43hnj315a0kun1u.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/02/二叉树的先序、中序、后序遍历以及图的深度优先搜索和广度优先搜索/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>二叉树的先序、中序、后序遍历以及图的深度优先搜索和广度优先搜索 | Jiayu | Blog</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jiayu | Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/02/二叉树的先序、中序、后序遍历以及图的深度优先搜索和广度优先搜索/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jiayu Zhang">
+      <meta itemprop="description" content="生如逆旅 不止行人">
+      <meta itemprop="image" content="https://ws4.sinaimg.cn/large/006tNbRwgy1fune5u0h7aj31jk1jknpd.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jiayu | Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">二叉树的先序、中序、后序遍历以及图的深度优先搜索和广度优先搜索
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-09-02 22:23:06" itemprop="dateCreated datePublished" datetime="2018-09-02T22:23:06+08:00">2018-09-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-09-03 10:48:53" itemprop="dateModified" datetime="2018-09-03T10:48:53+08:00">2018-09-03</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据结构/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据结构/剑指/" itemprop="url" rel="index"><span itemprop="name">剑指</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/09/02/二叉树的先序、中序、后序遍历以及图的深度优先搜索和广度优先搜索/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/09/02/二叉树的先序、中序、后序遍历以及图的深度优先搜索和广度优先搜索/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="二叉树的遍历及图的搜索"><a href="#二叉树的遍历及图的搜索" class="headerlink" title="二叉树的遍历及图的搜索"></a>二叉树的遍历及图的搜索</h1><ul>
+<li><p><strong>二叉树的遍历</strong><br>图1左侧是一个二叉树，根据父亲节点被访问到的次序依次称为先序、中序、后序遍历，而层次遍历则是秉承着“先上后下、先左右后”的原则。由图1右侧可见其各个遍历的输出。<br><img src="https://ws4.sinaimg.cn/large/0069RVTdgy1fuvkox43hnj315a0kun1u.jpg" alt=""><br><center><strong>图1 二叉树及其层次、先序、中序、后序遍历输出</strong></center><br>关于先序、中序、后序遍历，每个遍历都有递归版以及迭代版，以下会逐一介绍。同时也会探索这三个遍历之间的关系。</p>
+</li>
+<li><p><strong>图的搜索</strong><br>其实二叉树也可以看做是一个有向无环图，那么其广度优先搜索就是二叉树的层次遍历，用一句话来说则是：“优先访问最先被访问到的顶点的邻居”；而图的深度优先搜索则是：“优先搜索最后被访问到的顶点的邻居”。</p>
+</li>
+<li><p><strong>树的预定义</strong></p>
+</li>
+<li><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> *<span class="title">left</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span> *<span class="title">right</span>;</span></span><br><span class="line">    TreeNode(<span class="keyword">int</span> x) :</span><br><span class="line">            val(x), left(<span class="literal">NULL</span>), right(<span class="literal">NULL</span>) &#123;</span><br><span class="line">            &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="先序遍历"><a href="#先序遍历" class="headerlink" title="先序遍历"></a>先序遍历</h1><ul>
+<li>递归版<br>递归版的最直观  </li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">traverse</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">preOrder</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root)&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; root.val &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        preOrder(root-&gt;left);</span><br><span class="line">        preOrder(root-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">```  </span><br><span class="line">* 迭代版</span><br><span class="line">迭代版则是需要一些tricks，如果手推先序遍历的话会发现，其实是从根节点开始沿着左节点一直向下（沿途输出节点的值），然后从最后一个节点开始先查看同级的右节点，若右节点已遍历完，则回到倒数第二个左节点，然后继续啊查看同级的右节点。这样的遍历顺序则是父节点-&gt;左节点-&gt;右节点。具体代码如下：  </span><br><span class="line"></span><br><span class="line">```C++</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">traverse</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">preOrder</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="comment">//存储左节点的栈</span></span><br><span class="line">        <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; leftStack;</span><br><span class="line">        <span class="keyword">while</span> (!leftStack.empty() || root)&#123;</span><br><span class="line">            <span class="keyword">while</span> (root)&#123;</span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; root-&gt;val &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">                leftStack.push(root-&gt;left);</span><br><span class="line">                root = root.left;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (!leftStack.empty())&#123;</span><br><span class="line">               root = leftStack.top();</span><br><span class="line">               leftStack.pop;</span><br><span class="line">               root = root-&gt;right; </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h1><ul>
+<li>递归版<br>“Talk is cheap, show you my code”</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">traverse</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">midOrder</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root)&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; root.val &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        midOrder(root-&gt;left);</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; root-&gt;val &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        midOrder(root-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>迭代版<br>其实迭代版和先序的很类似，区别在于因为父节点是第二个遍历的，所以在用栈装左节点时不能输出，而是在出栈之后开始输出。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">traverse</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">midOrder</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; leftStack;</span><br><span class="line">        <span class="keyword">while</span> (root || !leftStack.empty())&#123;</span><br><span class="line">            <span class="keyword">while</span> (root)&#123;</span><br><span class="line">                 leftStack.push(root);</span><br><span class="line">                 root = root.left;       </span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (!leftStack.empty())&#123;</span><br><span class="line">                root = leftStack.top;</span><br><span class="line">                leftStack.pop();</span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; root.val &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">                root = root.right;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h1><ul>
+<li>递归版<br>递归拯救世界，奈何复杂度略高</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">traverse</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">postOrder</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root)&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; root.val &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        postOrder(root-&gt;left);</span><br><span class="line">        postOrder(root-&gt;right);</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; root-&gt;val &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>迭代版<br>后序的迭代版比前序和后序稍微复杂了一个度，因为当存储完左节点后，这个时候需要按照左节点-&gt;右节点-&gt;父节点的顺序访问，可是访问完右节点后如何索引到父节点进行访问呢？有些许种方法，这里介绍一种比较“事前诸葛亮”的解法：定义一个当前节点和前访问节点，在从根节点开始压入栈的过程中，按照先压右节点，再压左节点的顺序压入，如此这般，在压完最左侧节点开始出栈时，判断是否要输出当前节点的条件为以下任意一个：</p>
+<ul>
+<li>当前节点的左右节点为空</li>
+<li>前访问节点不为空，且当前节点的左节点为前访问节点（易知此时当前节点的右节点比为空，因为我们是按照先左后右的顺序压入栈的）</li>
+<li><p>当前节点不为空，且当前节点的右节点为前访问节点  </p>
+<p>若需要输出当前节点的值，则之后需要将当前节点置为前输入节点；若不需输出当前节点的值，则按顺序将右节点、左节点压入栈中。</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">class <span class="title">traverse</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">postOrder</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; leftStack;</span><br><span class="line">        TreeNode* curNode;</span><br><span class="line">        TreeNode* preNode;</span><br><span class="line">        leftStack.push(root);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> (!leftStack.empty())&#123;</span><br><span class="line">            curNode = leftStack.top();</span><br><span class="line">            <span class="keyword">if</span> ((!curNode-&gt;left &amp;&amp; curNode-&gt;right)   </span><br><span class="line">                || ((!preNode &amp;&amp;(preNode == curNode- &gt;left </span><br><span class="line">                ||curNode-&gt;right == <span class="literal">NULL</span>)))&#123;</span><br><span class="line">                    <span class="built_in">cout</span> &lt;&lt; curNode-&gt;val &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">                    leftStack.pop();</span><br><span class="line">                    preNode = curNode;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (curNode-&gt;right)&#123;</span><br><span class="line">                leftStack.push(curNode-&gt;right);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (curNode-&gt;left)&#123;</span><br><span class="line">                leftStack.push(curNode-&gt;left);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="层次遍历"><a href="#层次遍历" class="headerlink" title="层次遍历"></a>层次遍历</h1><p>层次遍历就很简单了，因为是从上至下、从左至右的原则，所以与广度遍历的“优先访问最先访问到的节点的邻居”相同，即先访问的先出列，然后访问其邻居入列，从而联想到使用队列：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">class <span class="title">traverse</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">hierarchical</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; nodeStack;</span><br><span class="line">        nodeStack.push(root);</span><br><span class="line">        TreeNode* tmpNode;</span><br><span class="line">        <span class="keyword">while</span> (!nodeStack.empty())&#123;</span><br><span class="line">            tmpNode = nodeStack.top;</span><br><span class="line">            nodeStack.pop();</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; tmp-&gt;val &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">            <span class="keyword">if</span> (tmpNode-&gt;left)&#123;</span><br><span class="line">                nodeStack.push(tmpNode-&gt;left);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (tmpNode-&gt;left)&#123;</span><br><span class="line">                nodeStack.push(tmpNode-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="广度优先搜索"><a href="#广度优先搜索" class="headerlink" title="广度优先搜索"></a>广度优先搜索</h1><p>同上“层次遍历”</p>
+<p>#深度优先搜索<br>深度优先搜索的原理是“优先访问最后被访问到的节点的邻居节点”，则很容易想到是利用栈：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">class <span class="title">GraphSearch</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">DepthFirstSearch</span><span class="params">(TreeNode* root)</span></span>&#123;</span><br><span class="line">        <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; nodeStack;</span><br><span class="line">        nodeStack.push(root);</span><br><span class="line">        TreeNode* tmpNode;</span><br><span class="line">        <span class="keyword">while</span> (!nodeStack.empty())&#123;</span><br><span class="line">            tmpNode = nodeStack.top();</span><br><span class="line">            nodeStack.pop();</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; node-&gt;val &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">            <span class="keyword">if</span> (tmpNode-&gt;right)&#123;</span><br><span class="line">                nodeStack.push(tmpNode-&gt;right);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (tmpNode-&gt;left)&#123;</span><br><span class="line">                modeStack.push(tmpNode-left);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/剑指/" rel="tag"><i class="fas fa-child"></i> 剑指</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/29/剑指offer之“栈和队列之间的相互构造”/" rel="next" title="剑指offer之“栈和队列之间的相互构造”">
+                <i class="fa fa-chevron-left"></i> 剑指offer之“栈和队列之间的相互构造”
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/9999/12/31/报上名来/" rel="prev" title="报上名来">
+                报上名来 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://ws4.sinaimg.cn/large/006tNbRwgy1fune5u0h7aj31jk1jknpd.jpg"
+                alt="Jiayu Zhang" />
+            
+              <p class="site-author-name" itemprop="name">Jiayu Zhang</p>
+              <p class="site-description motion-element" itemprop="description">生如逆旅 不止行人</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Jiayuforfreeo" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:jiayuforfree@163.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=556224729&auto=1&height=66"></iframe>
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#二叉树的遍历及图的搜索"><span class="nav-number">1.</span> <span class="nav-text">二叉树的遍历及图的搜索</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#先序遍历"><span class="nav-number">2.</span> <span class="nav-text">先序遍历</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#中序遍历"><span class="nav-number">3.</span> <span class="nav-text">中序遍历</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后序遍历"><span class="nav-number">4.</span> <span class="nav-text">后序遍历</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#层次遍历"><span class="nav-number">5.</span> <span class="nav-text">层次遍历</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#广度优先搜索"><span class="nav-number">6.</span> <span class="nav-text">广度优先搜索</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jiayu Zhang</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Muse</a> v6.4.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'QRQFzUMCcnDaigj86KpQqEnn-gzGzoHsz',
+        appKey: 'Wiik8UEXXMR2O0VEj8vy2R19',
+        placeholder: '让我们一起探索宇宙吧',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: false
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      },
+      TeX: {equationNumbers: { autoNumber: "AMS" }}
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+    
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
