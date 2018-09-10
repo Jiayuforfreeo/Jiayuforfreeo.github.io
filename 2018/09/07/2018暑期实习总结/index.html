@@ -108,38 +108,28 @@
 
 
 
-  <meta name="description" content="RNN详解  RNNRNN(Recurrent Neural Network)是递归神经网络，又称循环神经网络，用来解决序列问题，如命名实体识别、语音文字转换、机器翻译等。RNN的思想说起来其实就是当前的判断用到了之前的信息，下图是RNN的结构：    图1 RNN横铺结构    但是RNN有个缺点：当层数过多时，会发生梯度消失，这样比较远的信息就难以“记住”，替换激活函数只是治标不治本。而使用L">
-<meta name="keywords" content="RNN,LSTM,BI-LSTM,GRU,梯度消失">
+  <meta name="description" content="历史渊源暑期实习阴差阳错来到了一家Fintech公司妙盈科技做算法实习生，遇到的每个人都很棒，个人在工程和算法方面都跟着leader学习了很多，记录在这里，记录这个夏天。 菜鸡打怪实习期间做的事情是NLP项目。三个月的时间里，基础太差用了很多时间在学习基础知识和工具上面，直到实习后期才开始跟踪一些领域的前沿论文并思考。实习事务的流程如下： 图1 实习事务流程以下针对上述流程中的每一个环节简述： S">
+<meta name="keywords" content="总结,妙盈,实习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RNNs">
-<meta property="og:url" content="http://yoursite.com/2018/08/18/RNNs/index.html">
+<meta property="og:title" content="2018暑期实习总结">
+<meta property="og:url" content="http://yoursite.com/2018/09/07/2018暑期实习总结/index.html">
 <meta property="og:site_name" content="Jiayu | Blog">
-<meta property="og:description" content="RNN详解  RNNRNN(Recurrent Neural Network)是递归神经网络，又称循环神经网络，用来解决序列问题，如命名实体识别、语音文字转换、机器翻译等。RNN的思想说起来其实就是当前的判断用到了之前的信息，下图是RNN的结构：    图1 RNN横铺结构    但是RNN有个缺点：当层数过多时，会发生梯度消失，这样比较远的信息就难以“记住”，替换激活函数只是治标不治本。而使用L">
+<meta property="og:description" content="历史渊源暑期实习阴差阳错来到了一家Fintech公司妙盈科技做算法实习生，遇到的每个人都很棒，个人在工程和算法方面都跟着leader学习了很多，记录在这里，记录这个夏天。 菜鸡打怪实习期间做的事情是NLP项目。三个月的时间里，基础太差用了很多时间在学习基础知识和工具上面，直到实习后期才开始跟踪一些领域的前沿论文并思考。实习事务的流程如下： 图1 实习事务流程以下针对上述流程中的每一个环节简述： S">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNbRwly1fueustrosqj31kw0eywgr.jpg">
-<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNbRwly1fueute20s9j31kw0ldag0.jpg">
-<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNbRwly1fueuue4zbaj31eq0fo0tv.jpg">
-<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNbRwly1fueuun8qeyj305i06q3yd.jpg">
-<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNbRwly1fueuuwffgjj31eq0fogn3.jpg">
-<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNbRwly1fueuv4k810j31eq0fomz1.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNbRwly1fueuvfq8fkj31eq0fo0ub.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNbRwly1fueuw8izi4j31eq0fomz1.jpg">
-<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNbRwly1fueuwfqng8j31eq0foq5e.jpg">
-<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNbRwly1fueuwlyp3vj31eq0fodhg.jpg">
-<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNbRwly1fueuwtxgknj31eq0fognw.jpg">
-<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNbRwly1fueux2ndilj30ih09ewfn.jpg">
-<meta property="og:updated_time" content="2018-08-26T12:38:19.023Z">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/0069RVTdgy1fv1zn8aljcj31f60es0v8.jpg">
+<meta property="og:image" content="http://7xraal.com1.z0.glb.clouddn.com/Scrapy%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89--%20Scrapy%E5%85%A5%E9%97%A8scrapy_architecture.png">
+<meta property="og:updated_time" content="2018-09-10T09:49:10.632Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="RNNs">
-<meta name="twitter:description" content="RNN详解  RNNRNN(Recurrent Neural Network)是递归神经网络，又称循环神经网络，用来解决序列问题，如命名实体识别、语音文字转换、机器翻译等。RNN的思想说起来其实就是当前的判断用到了之前的信息，下图是RNN的结构：    图1 RNN横铺结构    但是RNN有个缺点：当层数过多时，会发生梯度消失，这样比较远的信息就难以“记住”，替换激活函数只是治标不治本。而使用L">
-<meta name="twitter:image" content="https://ws4.sinaimg.cn/large/006tNbRwly1fueustrosqj31kw0eywgr.jpg">
+<meta name="twitter:title" content="2018暑期实习总结">
+<meta name="twitter:description" content="历史渊源暑期实习阴差阳错来到了一家Fintech公司妙盈科技做算法实习生，遇到的每个人都很棒，个人在工程和算法方面都跟着leader学习了很多，记录在这里，记录这个夏天。 菜鸡打怪实习期间做的事情是NLP项目。三个月的时间里，基础太差用了很多时间在学习基础知识和工具上面，直到实习后期才开始跟踪一些领域的前沿论文并思考。实习事务的流程如下： 图1 实习事务流程以下针对上述流程中的每一个环节简述： S">
+<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/0069RVTdgy1fv1zn8aljcj31f60es0v8.jpg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/18/RNNs/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/07/2018暑期实习总结/"/>
 
 
 
@@ -149,7 +139,7 @@
   };
 </script>
 
-  <title>RNNs | Jiayu | Blog</title>
+  <title>2018暑期实习总结 | Jiayu | Blog</title>
   
 
 
@@ -310,7 +300,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/18/RNNs/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/07/2018暑期实习总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jiayu Zhang">
@@ -327,7 +317,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">RNNs
+          <h1 class="post-title" itemprop="name headline">2018暑期实习总结
               
             
           </h1>
@@ -352,7 +342,7 @@
                 
               
 
-              <time title="Created: 2018-08-18 13:18:09" itemprop="dateCreated datePublished" datetime="2018-08-18T13:18:09+08:00">2018-08-18</time>
+              <time title="Created: 2018-09-07 13:53:42" itemprop="dateCreated datePublished" datetime="2018-09-07T13:53:42+08:00">2018-09-07</time>
             
 
             
@@ -369,7 +359,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-08-26 20:38:19" itemprop="dateModified" datetime="2018-08-26T20:38:19+08:00">2018-08-26</time>
+                <time title="Modified: 2018-09-10 17:49:10" itemprop="dateModified" datetime="2018-09-10T17:49:10+08:00">2018-09-10</time>
               
             
           </span>
@@ -386,14 +376,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/RNN/" itemprop="url" rel="index"><span itemprop="name">RNN</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/张加语的历史进程/" itemprop="url" rel="index"><span itemprop="name">张加语的历史进程</span></a></span>
 
                 
                 
@@ -408,8 +391,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/18/RNNs/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/08/18/RNNs/" itemprop="commentCount"></span>
+                <a href="/2018/09/07/2018暑期实习总结/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/09/07/2018暑期实习总结/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -437,76 +420,47 @@
       
 
       
-        <h1 id="RNN详解"><a href="#RNN详解" class="headerlink" title="RNN详解"></a>RNN详解</h1><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
-
-<h2 id="RNN"><a href="#RNN" class="headerlink" title="RNN"></a>RNN</h2><p>RNN(Recurrent Neural Network)是递归神经网络，又称循环神经网络，用来解决序列问题，如命名实体识别、语音文字转换、机器翻译等。<br>RNN的思想说起来其实就是当前的判断用到了之前的信息，下图是RNN的结构：</p>
-<p><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fueustrosqj31kw0eywgr.jpg" alt="">  </p>
-<center>图1 RNN横铺结构</center>  
-
-<p>但是RNN有个缺点：当层数过多时，会发生梯度消失，这样比较远的信息就难以“记住”，替换激活函数只是治标不治本。而使用LSTM(Long Short Term Memory)则可以避免这个问题。</p>
-<h2 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h2><p>LSTM之所以可以解决长期记忆问题，是因为其特有的结构：遗忘门、输入门、输出门，当然还要加上一个记忆细胞C。<br>其单元内部结构为  </p>
-<p><img src="https://ws2.sinaimg.cn/large/006tNbRwly1fueute20s9j31kw0ldag0.jpg" alt=""></p>
-<center>图2 LSTM单元结构</center>  
-
-<p>概括地来说，记忆细胞C的状态经过遗忘门会遗忘一些不需要的信息，而输入门会对输入的候选\(\tilde{C}\)决定其中哪些可以输入，将遗忘门的输出与输入门的输出相加，经过输出门筛选后，即作为本轮隐状态\(h_t\)的输出，也即下一轮的输入。<br>下面将逐步介绍LSTM中，信息在一个单元中从输入到输出的过程。</p>
-<h3 id="记忆细胞"><a href="#记忆细胞" class="headerlink" title="记忆细胞"></a>记忆细胞</h3><p>LSTM中比较核心的一点就是记忆细胞。记忆中细信息的流向横穿整个单元。如下图所示：  </p>
-<p><img src="https://ws2.sinaimg.cn/large/006tNbRwly1fueuue4zbaj31eq0fo0tv.jpg" alt=""></p>
-<center>图3 记忆细胞</center>  
-
-<h3 id="门"><a href="#门" class="headerlink" title="门"></a>门</h3><p>门，用数学的语言表达，就是一个Sigmoid函数，经过这个函数会输出一个0~1的比例数字，实现筛选的功能。而LSTM单元中门的输入，都是由上一个单元的输出\(h_{t-1}\)与本单元的输入\(x\)经过线性组合得到的。也就是说，决定遗忘、输入、输出的门都是由前面的信息和本轮的信息决定的，直觉上还是有些道理的。  </p>
-<p><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fueuun8qeyj305i06q3yd.jpg" alt=""></p>
-<center>图4 门控单元</center>  
-
-<h4 id="遗忘门"><a href="#遗忘门" class="headerlink" title="遗忘门"></a>遗忘门</h4><p>遗忘门，顾名思义，即决定遗忘哪些信息的门。这里的信息是指记忆细胞\(C\)带有的前面若干单元的信息\(C_{t-1}\)。  </p>
-<p><img src="https://ws2.sinaimg.cn/large/006tNbRwly1fueuuwffgjj31eq0fogn3.jpg" alt=""></p>
-<center>图5 遗忘门</center>
-
-<h4 id="输入门"><a href="#输入门" class="headerlink" title="输入门"></a>输入门</h4><p>输入门，决定哪些信息会被输入进来。  </p>
-<p><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fueuv4k810j31eq0fomz1.jpg" alt=""></p>
-<center>图6 输入门</center>
-
-<h4 id="输出门"><a href="#输出门" class="headerlink" title="输出门"></a>输出门</h4><p>输出门决定输出哪些信息，有趣的是输出门的输入，在将遗忘门和输入门输出的信息相加后，需要用Tanh函数激活，使其值在\([-1,1]\)之间，然后再由输出门决定输出的信息。  </p>
-<p><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fueuvfq8fkj31eq0fo0ub.jpg" alt=""></p>
-<center>图7 本轮神经单元的细胞状态</center>  
-
-<p><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fueuw8izi4j31eq0fomz1.jpg" alt=""></p>
-<center>图8 输出门</center>  
-
-<h3 id="误差传播的BPTT-Back-Propagation-Through-Time-算法"><a href="#误差传播的BPTT-Back-Propagation-Through-Time-算法" class="headerlink" title="误差传播的BPTT(Back Propagation Through Time)算法"></a>误差传播的BPTT(Back Propagation Through Time)算法</h3><p>BPTT是RNN的反向传播算法，梯度消失也是从这里引出来的。推荐一篇讲的很清楚的<a href="http://www.wildml.com/2015/10/recurrent-neural-networks-tutorial-part-3-backpropagation-through-time-and-vanishing-gradients/" target="_blank" rel="noopener">文章</a>吧。我就不献丑了，以及公式是真的多。</p>
-<h2 id="Peephole-LSTM"><a href="#Peephole-LSTM" class="headerlink" title="Peephole LSTM"></a>Peephole LSTM</h2><p>针对Standard LSTM，有很多变种，Peephole LSTM则是其中的一种。它的思想是将门控单元的控制功能分出些许给上个单元记忆细胞的输出。  </p>
-<p><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fueuwfqng8j31eq0foq5e.jpg" alt=""></p>
-<center>图9 Peephole LSTM</center>
-
-<h2 id="Coupled-Input-Gates-and-Forget-Gates"><a href="#Coupled-Input-Gates-and-Forget-Gates" class="headerlink" title="Coupled Input Gates and Forget Gates"></a>Coupled Input Gates and Forget Gates</h2><p>Standard LSTM的遗忘门和输入门是独立决断的。这里将其耦合：只在输入新信息的时候遗忘旧信息，只在遗忘旧信息的时候输入新信息。  </p>
-<p><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fueuwlyp3vj31eq0fodhg.jpg" alt=""></p>
-<center>图10 Coupled Input Gates and Forget Gates</center>
-
-<h2 id="GRU-Gated-Recurrent-Units"><a href="#GRU-Gated-Recurrent-Units" class="headerlink" title="GRU(Gated Recurrent Units)"></a>GRU(Gated Recurrent Units)</h2><p>GRU则是将输入门和遗忘门合为了一个更新门，同时加入了一个reset门，去除了输出门。同时将输入的隐层状态\(h_{t-1}\)、\(C_{t-1}\)也耦合为一个状态。  </p>
-<p><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fueuwtxgknj31eq0fognw.jpg" alt=""></p>
-<center>图11 GRU</center>  
-
-<h3 id="每个门的作用"><a href="#每个门的作用" class="headerlink" title="每个门的作用"></a>每个门的作用</h3><ul>
-<li>\(\tilde{h}_{t-1}\)是候选的隐层状态</li>
-<li>\(r_t\)是一个reset门，它决定在候选隐层状态中加入多少新的信息</li>
-<li>\(z_t\)是一个update门，它决定最终的隐层状态中要加入多少候选隐层状态的新信息</li>
-<li>需要注意的是GRU没有输出门，它直接将输出传递到下一个神经单元</li>
+        <h1 id="历史渊源"><a href="#历史渊源" class="headerlink" title="历史渊源"></a>历史渊源</h1><p>暑期实习阴差阳错来到了一家Fintech公司<a href="https://www.miotech.com/en-US/" target="_blank" rel="noopener">妙盈科技</a>做算法实习生，遇到的每个人都很棒，个人在工程和算法方面都跟着leader学习了很多，记录在这里，记录这个夏天。</p>
+<h1 id="菜鸡打怪"><a href="#菜鸡打怪" class="headerlink" title="菜鸡打怪"></a>菜鸡打怪</h1><p>实习期间做的事情是NLP项目。三个月的时间里，基础太差用了很多时间在学习基础知识和工具上面，直到实习后期才开始跟踪一些领域的前沿论文并思考。实习事务的流程如下：<br><img src="https://ws3.sinaimg.cn/large/0069RVTdgy1fv1zn8aljcj31f60es0v8.jpg" alt=""></p>
+<p><center>图1 实习事务流程</center><br>以下针对上述流程中的每一个环节简述：</p>
+<h2 id="Scrapy"><a href="#Scrapy" class="headerlink" title="Scrapy"></a>Scrapy</h2><p>Scrapy是一个爬虫框架，可定制化、高效化爬虫流程。也是我实习项目的基础了，毕竟机器学习的基础就是数据。<br>实习过程中主要使用Scrapy获取金融新闻数据。<br>下图是Scrapy组件结构及爬虫流程</p>
+<p><img src="http://7xraal.com1.z0.glb.clouddn.com/Scrapy%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89--%20Scrapy%E5%85%A5%E9%97%A8scrapy_architecture.png" alt=""></p>
+<p><center>图2 Scrapy结构及爬虫流程</center><br>以下逐一介绍各个组件的功能，并给出spider爬取的流程：</p>
+<h3 id="Spiders"><a href="#Spiders" class="headerlink" title="Spiders"></a>Spiders</h3><p>Spiders是编写的爬虫主体，在这里会产生网页爬取请求、网页爬取响应及处理等。</p>
+<h3 id="Scrapy-Engine"><a href="#Scrapy-Engine" class="headerlink" title="Scrapy Engine"></a>Scrapy Engine</h3><p>Scrapy Engine是爬虫引擎，从图2可以看出，引擎是中枢，负责所有模块之间的调度。</p>
+<h3 id="Scheduler"><a href="#Scheduler" class="headerlink" title="Scheduler"></a>Scheduler</h3><p>Sceduler称为调度器，他存储所有待调度的爬虫，并将下一个需要爬取的爬虫返回给Scrapy Engine。</p>
+<h3 id="Downloader"><a href="#Downloader" class="headerlink" title="Downloader"></a>Downloader</h3><p>从网上下载网页内容</p>
+<h3 id="Item-Pipeline"><a href="#Item-Pipeline" class="headerlink" title="Item Pipeline"></a>Item Pipeline</h3><p>处理Spiders返回的item，经过一系列操作（pipeline）会对爬取的内容作出一些存储的操作。</p>
+<h3 id="Spider-Middlewares-and-Downloader-Middlewares"><a href="#Spider-Middlewares-and-Downloader-Middlewares" class="headerlink" title="Spider Middlewares and Downloader Middlewares"></a>Spider Middlewares and Downloader Middlewares</h3><p>顾名思义，作为爬虫中间件、下载中间件，二者的工作即是在Spidre<->Scrapy Engine<->Downloader这两个过程扮演一些中间操作。比如前者可以设置多个pip对item进行操作，后者可以设置爬取过程中的uer-agent、ip等</-></-></p>
+<h3 id="爬虫流程"><a href="#爬虫流程" class="headerlink" title="爬虫流程"></a>爬虫流程</h3><ul>
+<li>SCrapy Engine打开需要处理的第一个网站，找到处理该网站的Spider并请求第一个需要爬取的URL</li>
+<li>Scrapy Engine获取到需要爬取的URL并传递给Scheduler，同时Scheduler传递接下来需要爬取的URL给Scrapy Engine</li>
+<li>Scrapy Engine将URL通过下载中间件转发给Downloader，后者则开始从Internet上爬取内容</li>
+<li>Downloader将爬取的Response转发给Scrapy Engine，后者通过Spider Middlewares转给Spiders。</li>
+<li>Spiders将处理Response得到的Item和新的URL传给Scrapy Engine</li>
+<li>Scrapy Engine将Item转给Item Pipeline，并将新的URL传给Scheduler</li>
+<li>重复第二步直至Scheduler无新的URL返回给Scrapy Engine</li>
 </ul>
-<h2 id="BI-LSTM"><a href="#BI-LSTM" class="headerlink" title="BI-LSTM"></a>BI-LSTM</h2><p>LSTM固然强大，但其也因只能记忆前向信息而有所局限。若再添加一个反向的LSTM岂不是就可以学习到后来的信息？BI-LSTM应运而生。BI-LSTM添加了另一层LSTM，方向完全相反，与之对应的，每个神经元输出的状态\(y\)也要综合双向单元的输出计算。  </p>
-<p><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fueux2ndilj30ih09ewfn.jpg" alt=""></p>
-<center>图12 BI-lSTM</center>  
-
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这里比较LSTM与GRU的异同点  </p>
+<h2 id="Project1之NER、Similarity"><a href="#Project1之NER、Similarity" class="headerlink" title="Project1之NER、Similarity"></a>Project1之NER、Similarity</h2><p>利用Scrapy爬取原始新闻数据后，所做的第一个Project则是对新闻中的实体进行命名实体识别，然后计算识别出来的实体与标签库中标签的距离，从而对新闻中的实体进行舆论分析，比如妙盈的每周创新公司榜单。<br>以下为project的流程。</p>
 <ul>
-<li>相同点  <ul>
-<li>在从t-1到t的更新过程中都引入了加法，可以防止梯度弥散</li>
+<li><strong>Anafora</strong><br>Anafora是一个在线多人文章标注系统。标注的金融新闻太稀少，遂自己动手丰衣足食。具体搭建见<a href="https://github.com/Jiayuforfreeo/Anafora-Deploy" target="_blank" rel="noopener">这里</a>。</li>
+<li><strong>Named Entity Recognization</strong><br>NER为命名实体识别。另一个实习生在调的网络，我也自己跑了一下模型。这里主要采用了Bi-LSTM+CRF的神经网络模型。详情见我的博客<a href="">Named Entity Recognization</a>。</li>
+<li><strong>Similarity Count</strong><br>相似度计算是一个很有意思的小课题。给出两个字符串，计算相似度，这个问题有两个解决方向：<ul>
+<li><strong>编辑距离</strong><br>编辑距离是指从字符串1至字符串2经过最少的替换、插入、删除次数。具体实现在这里<a href="">字符串的编辑距离</a>。</li>
+<li><strong>神经网络</strong><br>这个部分是另一个实习生在做，没去深入了解。  </li>
 </ul>
 </li>
-<li>不同点<ul>
-<li>计算$\tilde{C} _{t}$时，LSTM没有用到$\tilde{C} _{t-1}$的信息，而GRU计算$\tilde{h} _{t}$则用到了$\tilde{h} _{t-1}$</li>
-<li>输出时LSTM要经过输出门的筛选，而GRU则是直接输出</li>
 </ul>
-</li>
+<h2 id="Project2之Sentiment-Analysis"><a href="#Project2之Sentiment-Analysis" class="headerlink" title="Project2之Sentiment Analysis"></a>Project2之Sentiment Analysis</h2><p>情感分析是NLP在金融领域里的一个热门应用方向。我这个项目的主要目的是对一篇新闻判断其情感倾向是做多还是做空，与传统的positive、negative分类无异，皆是二分类。Project流程如下：</p>
+<ul>
+<li><strong>数据获取</strong><br>情感分类的模型有很多可以选择，但每个领域的数据不一样，训练集最好使用想要应用领域的数据，故采用了Scrapy从<a href="https://seekingalpha.com/stock-ideas/long-ideas" target="_blank" rel="noopener">SeekingAlpha</a>获取带有Long or Short Ideas的新闻。</li>
+<li><strong>模型选择</strong><br>情感分类的模型说到底就是一个分类模型，故可以使用传统的机器学习方法如贝叶斯、支持向量机等，也可以使用基于CNN、RNN的各种深度学习方法，经过一番调研，我选择了<a href="https://www.cs.cmu.edu/~diyiy/docs/naacl16.pdf" target="_blank" rel="noopener">这篇文章</a>中描述到的Hierarchical Attention Bi-RNN模型，具体原理在这篇<a href="">博客</a>中</li>
+<li><strong>参数调优</strong><br>在对上述模型调优的过程中，发现使用传统贝叶斯的准确率在80%，比我使用模型调出的65%高了很多，于是就在不停地调优过程中，实习期到了。</li>
+</ul>
+<h1 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h1><p>感谢CTO刘涛，面我的时候我那么菜还给了实习offer；感谢leader周游，对我实习菜鸟的耐心指导；感谢女朋友，与我共度这学生时期的最后一个夏天；感谢这个夏天，让我找到了一些方向。</p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ul>
+<li><a href="http://woodenrobot.me/2017/01/01/scrapy%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89-Scrapy%E5%85%A5%E9%97%A8/" target="_blank" rel="noopener">WoodenRobot的博客</a></li>
+<li><a href="http://scrapy-chs.readthedocs.io/zh_CN/latest/" target="_blank" rel="noopener">Scrapy中文文档</a></li>
 </ul>
 
       
@@ -528,15 +482,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/RNN/" rel="tag"><i class="fas fa-child"></i> RNN</a>
+            <a href="/tags/总结/" rel="tag"><i class="fas fa-child"></i> 总结</a>
           
-            <a href="/tags/LSTM/" rel="tag"><i class="fas fa-child"></i> LSTM</a>
+            <a href="/tags/妙盈/" rel="tag"><i class="fas fa-child"></i> 妙盈</a>
           
-            <a href="/tags/BI-LSTM/" rel="tag"><i class="fas fa-child"></i> BI-LSTM</a>
-          
-            <a href="/tags/GRU/" rel="tag"><i class="fas fa-child"></i> GRU</a>
-          
-            <a href="/tags/梯度消失/" rel="tag"><i class="fas fa-child"></i> 梯度消失</a>
+            <a href="/tags/实习/" rel="tag"><i class="fas fa-child"></i> 实习</a>
           
         </div>
       
@@ -549,8 +499,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/17/机器学习之激活函数/" rel="next" title="机器学习之激活函数">
-                <i class="fa fa-chevron-left"></i> 机器学习之激活函数
+              <a href="/2018/09/02/二叉树的先序、中序、后序遍历以及图的深度优先搜索和广度优先搜索/" rel="next" title="二叉树的先序、中序、后序遍历以及图的深度优先搜索和广度优先搜索">
+                <i class="fa fa-chevron-left"></i> 二叉树的先序、中序、后序遍历以及图的深度优先搜索和广度优先搜索
               </a>
             
           </div>
@@ -559,8 +509,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/19/GBDT-and-XGBoost/" rel="prev" title="GBDT and XGBoost">
-                GBDT and XGBoost <i class="fa fa-chevron-right"></i>
+              <a href="/9999/12/31/报上名来/" rel="prev" title="报上名来">
+                报上名来 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -782,7 +732,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RNN详解"><span class="nav-number">1.</span> <span class="nav-text">RNN详解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RNN"><span class="nav-number">1.1.</span> <span class="nav-text">RNN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LSTM"><span class="nav-number">1.2.</span> <span class="nav-text">LSTM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#记忆细胞"><span class="nav-number">1.2.1.</span> <span class="nav-text">记忆细胞</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#门"><span class="nav-number">1.2.2.</span> <span class="nav-text">门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#遗忘门"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">遗忘门</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输入门"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">输入门</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#输出门"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">输出门</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#误差传播的BPTT-Back-Propagation-Through-Time-算法"><span class="nav-number">1.2.3.</span> <span class="nav-text">误差传播的BPTT(Back Propagation Through Time)算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Peephole-LSTM"><span class="nav-number">1.3.</span> <span class="nav-text">Peephole LSTM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Coupled-Input-Gates-and-Forget-Gates"><span class="nav-number">1.4.</span> <span class="nav-text">Coupled Input Gates and Forget Gates</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GRU-Gated-Recurrent-Units"><span class="nav-number">1.5.</span> <span class="nav-text">GRU(Gated Recurrent Units)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#每个门的作用"><span class="nav-number">1.5.1.</span> <span class="nav-text">每个门的作用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BI-LSTM"><span class="nav-number">1.6.</span> <span class="nav-text">BI-LSTM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.7.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#历史渊源"><span class="nav-number">1.</span> <span class="nav-text">历史渊源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#菜鸡打怪"><span class="nav-number">2.</span> <span class="nav-text">菜鸡打怪</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Scrapy"><span class="nav-number">2.1.</span> <span class="nav-text">Scrapy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Spiders"><span class="nav-number">2.1.1.</span> <span class="nav-text">Spiders</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scrapy-Engine"><span class="nav-number">2.1.2.</span> <span class="nav-text">Scrapy Engine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scheduler"><span class="nav-number">2.1.3.</span> <span class="nav-text">Scheduler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Downloader"><span class="nav-number">2.1.4.</span> <span class="nav-text">Downloader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Item-Pipeline"><span class="nav-number">2.1.5.</span> <span class="nav-text">Item Pipeline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spider-Middlewares-and-Downloader-Middlewares"><span class="nav-number">2.1.6.</span> <span class="nav-text">Spider Middlewares and Downloader Middlewares</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#爬虫流程"><span class="nav-number">2.1.7.</span> <span class="nav-text">爬虫流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Project1之NER、Similarity"><span class="nav-number">2.2.</span> <span class="nav-text">Project1之NER、Similarity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Project2之Sentiment-Analysis"><span class="nav-number">2.3.</span> <span class="nav-text">Project2之Sentiment Analysis</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#致谢"><span class="nav-number">3.</span> <span class="nav-text">致谢</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
             
 
           </div>
