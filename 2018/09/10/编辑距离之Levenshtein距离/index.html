@@ -108,28 +108,25 @@
 
 
 
-  <meta name="description" content="历史渊源暑期实习阴差阳错来到了一家Fintech公司妙盈科技做算法实习生，遇到的每个人都很棒，个人在工程和算法方面都跟着leader学习了很多，记录在这里，记录这个夏天。 菜鸡打怪实习期间做的事情是NLP项目。三个月的时间里，基础太差用了很多时间在学习基础知识和工具上面，直到实习后期才开始跟踪一些领域的前沿论文并思考。实习事务的流程如下： 图1 实习事务流程以下针对上述流程中的每一个环节简述： S">
-<meta name="keywords" content="总结,妙盈,实习">
+  <meta name="description" content="Levenshtein距离是基于字符串的距离计算尺度，其值为字符串a经过多少次“删除”、“增加”、“替换”操作可以变为字符串b。算法实现的思想很简单，需要两次判断：设dp[i][j]为a[0:i+1]与b[0:j+1]的编辑距离，则  若a[i] = b[j], dp[i][j] = dp[i-1][j-1] 否则取以下三个值中的最小值 dp[i-1][j]+1，此代表插入或删除   dp[i][">
+<meta name="keywords" content="妙盈,实习,数据结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2018暑期实习总结">
-<meta property="og:url" content="http://yoursite.com/2018/09/07/2018暑期实习总结/index.html">
+<meta property="og:title" content="编辑距离之Levenshtein距离">
+<meta property="og:url" content="http://yoursite.com/2018/09/10/编辑距离之Levenshtein距离/index.html">
 <meta property="og:site_name" content="Jiayu | Blog">
-<meta property="og:description" content="历史渊源暑期实习阴差阳错来到了一家Fintech公司妙盈科技做算法实习生，遇到的每个人都很棒，个人在工程和算法方面都跟着leader学习了很多，记录在这里，记录这个夏天。 菜鸡打怪实习期间做的事情是NLP项目。三个月的时间里，基础太差用了很多时间在学习基础知识和工具上面，直到实习后期才开始跟踪一些领域的前沿论文并思考。实习事务的流程如下： 图1 实习事务流程以下针对上述流程中的每一个环节简述： S">
+<meta property="og:description" content="Levenshtein距离是基于字符串的距离计算尺度，其值为字符串a经过多少次“删除”、“增加”、“替换”操作可以变为字符串b。算法实现的思想很简单，需要两次判断：设dp[i][j]为a[0:i+1]与b[0:j+1]的编辑距离，则  若a[i] = b[j], dp[i][j] = dp[i-1][j-1] 否则取以下三个值中的最小值 dp[i-1][j]+1，此代表插入或删除   dp[i][">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://ws3.sinaimg.cn/large/0069RVTdgy1fv1zn8aljcj31f60es0v8.jpg">
-<meta property="og:image" content="http://7xraal.com1.z0.glb.clouddn.com/Scrapy%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89--%20Scrapy%E5%85%A5%E9%97%A8scrapy_architecture.png">
-<meta property="og:updated_time" content="2018-09-10T09:49:10.632Z">
+<meta property="og:updated_time" content="2018-09-10T15:32:28.861Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="2018暑期实习总结">
-<meta name="twitter:description" content="历史渊源暑期实习阴差阳错来到了一家Fintech公司妙盈科技做算法实习生，遇到的每个人都很棒，个人在工程和算法方面都跟着leader学习了很多，记录在这里，记录这个夏天。 菜鸡打怪实习期间做的事情是NLP项目。三个月的时间里，基础太差用了很多时间在学习基础知识和工具上面，直到实习后期才开始跟踪一些领域的前沿论文并思考。实习事务的流程如下： 图1 实习事务流程以下针对上述流程中的每一个环节简述： S">
-<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/0069RVTdgy1fv1zn8aljcj31f60es0v8.jpg">
+<meta name="twitter:title" content="编辑距离之Levenshtein距离">
+<meta name="twitter:description" content="Levenshtein距离是基于字符串的距离计算尺度，其值为字符串a经过多少次“删除”、“增加”、“替换”操作可以变为字符串b。算法实现的思想很简单，需要两次判断：设dp[i][j]为a[0:i+1]与b[0:j+1]的编辑距离，则  若a[i] = b[j], dp[i][j] = dp[i-1][j-1] 否则取以下三个值中的最小值 dp[i-1][j]+1，此代表插入或删除   dp[i][">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/09/07/2018暑期实习总结/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/10/编辑距离之Levenshtein距离/"/>
 
 
 
@@ -139,7 +136,7 @@
   };
 </script>
 
-  <title>2018暑期实习总结 | Jiayu | Blog</title>
+  <title>编辑距离之Levenshtein距离 | Jiayu | Blog</title>
   
 
 
@@ -300,7 +297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/07/2018暑期实习总结/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/10/编辑距离之Levenshtein距离/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jiayu Zhang">
@@ -317,7 +314,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">2018暑期实习总结
+          <h1 class="post-title" itemprop="name headline">编辑距离之Levenshtein距离
               
             
           </h1>
@@ -342,24 +339,12 @@
                 
               
 
-              <time title="Created: 2018-09-07 13:53:42" itemprop="dateCreated datePublished" datetime="2018-09-07T13:53:42+08:00">2018-09-07</time>
+              <time title="Created: 2018-09-10 22:06:40 / Modified: 23:32:28" itemprop="dateCreated datePublished" datetime="2018-09-10T22:06:40+08:00">2018-09-10</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-09-10 17:49:10" itemprop="dateModified" datetime="2018-09-10T17:49:10+08:00">2018-09-10</time>
               
             
           </span>
@@ -376,7 +361,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/张加语的历史进程/" itemprop="url" rel="index"><span itemprop="name">张加语的历史进程</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据结构/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a></span>
 
                 
                 
@@ -391,8 +376,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/09/07/2018暑期实习总结/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/09/07/2018暑期实习总结/" itemprop="commentCount"></span>
+                <a href="/2018/09/10/编辑距离之Levenshtein距离/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/09/10/编辑距离之Levenshtein距离/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -420,47 +405,31 @@
       
 
       
-        <h1 id="历史渊源"><a href="#历史渊源" class="headerlink" title="历史渊源"></a>历史渊源</h1><p>暑期实习阴差阳错来到了一家Fintech公司<a href="https://www.miotech.com/en-US/" target="_blank" rel="noopener">妙盈科技</a>做算法实习生，遇到的每个人都很棒，个人在工程和算法方面都跟着leader学习了很多，记录在这里，记录这个夏天。</p>
-<h1 id="菜鸡打怪"><a href="#菜鸡打怪" class="headerlink" title="菜鸡打怪"></a>菜鸡打怪</h1><p>实习期间做的事情是NLP项目。三个月的时间里，基础太差用了很多时间在学习基础知识和工具上面，直到实习后期才开始跟踪一些领域的前沿论文并思考。实习事务的流程如下：<br><img src="https://ws3.sinaimg.cn/large/0069RVTdgy1fv1zn8aljcj31f60es0v8.jpg" alt=""></p>
-<p><center>图1 实习事务流程</center><br>以下针对上述流程中的每一个环节简述：</p>
-<h2 id="Scrapy"><a href="#Scrapy" class="headerlink" title="Scrapy"></a>Scrapy</h2><p>Scrapy是一个爬虫框架，可定制化、高效化爬虫流程。也是我实习项目的基础了，毕竟机器学习的基础就是数据。<br>实习过程中主要使用Scrapy获取金融新闻数据。<br>下图是Scrapy组件结构及爬虫流程</p>
-<p><img src="http://7xraal.com1.z0.glb.clouddn.com/Scrapy%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89--%20Scrapy%E5%85%A5%E9%97%A8scrapy_architecture.png" alt=""></p>
-<p><center>图2 Scrapy结构及爬虫流程</center><br>以下逐一介绍各个组件的功能，并给出spider爬取的流程：</p>
-<h3 id="Spiders"><a href="#Spiders" class="headerlink" title="Spiders"></a>Spiders</h3><p>Spiders是编写的爬虫主体，在这里会产生网页爬取请求、网页爬取响应及处理等。</p>
-<h3 id="Scrapy-Engine"><a href="#Scrapy-Engine" class="headerlink" title="Scrapy Engine"></a>Scrapy Engine</h3><p>Scrapy Engine是爬虫引擎，从图2可以看出，引擎是中枢，负责所有模块之间的调度。</p>
-<h3 id="Scheduler"><a href="#Scheduler" class="headerlink" title="Scheduler"></a>Scheduler</h3><p>Sceduler称为调度器，他存储所有待调度的爬虫，并将下一个需要爬取的爬虫返回给Scrapy Engine。</p>
-<h3 id="Downloader"><a href="#Downloader" class="headerlink" title="Downloader"></a>Downloader</h3><p>从网上下载网页内容</p>
-<h3 id="Item-Pipeline"><a href="#Item-Pipeline" class="headerlink" title="Item Pipeline"></a>Item Pipeline</h3><p>处理Spiders返回的item，经过一系列操作（pipeline）会对爬取的内容作出一些存储的操作。</p>
-<h3 id="Spider-Middlewares-and-Downloader-Middlewares"><a href="#Spider-Middlewares-and-Downloader-Middlewares" class="headerlink" title="Spider Middlewares and Downloader Middlewares"></a>Spider Middlewares and Downloader Middlewares</h3><p>顾名思义，作为爬虫中间件、下载中间件，二者的工作即是在Spidre<->Scrapy Engine<->Downloader这两个过程扮演一些中间操作。比如前者可以设置多个pip对item进行操作，后者可以设置爬取过程中的uer-agent、ip等</-></-></p>
-<h3 id="爬虫流程"><a href="#爬虫流程" class="headerlink" title="爬虫流程"></a>爬虫流程</h3><ul>
-<li>SCrapy Engine打开需要处理的第一个网站，找到处理该网站的Spider并请求第一个需要爬取的URL</li>
-<li>Scrapy Engine获取到需要爬取的URL并传递给Scheduler，同时Scheduler传递接下来需要爬取的URL给Scrapy Engine</li>
-<li>Scrapy Engine将URL通过下载中间件转发给Downloader，后者则开始从Internet上爬取内容</li>
-<li>Downloader将爬取的Response转发给Scrapy Engine，后者通过Spider Middlewares转给Spiders。</li>
-<li>Spiders将处理Response得到的Item和新的URL传给Scrapy Engine</li>
-<li>Scrapy Engine将Item转给Item Pipeline，并将新的URL传给Scheduler</li>
-<li>重复第二步直至Scheduler无新的URL返回给Scrapy Engine</li>
-</ul>
-<h2 id="Project1之NER、Similarity"><a href="#Project1之NER、Similarity" class="headerlink" title="Project1之NER、Similarity"></a>Project1之NER、Similarity</h2><p>利用Scrapy爬取原始新闻数据后，所做的第一个Project则是对新闻中的实体进行命名实体识别，然后计算识别出来的实体与标签库中标签的距离，从而对新闻中的实体进行舆论分析，比如妙盈的每周创新公司榜单。<br>以下为project的流程。</p>
+        <p>Levenshtein距离是基于字符串的距离计算尺度，其值为字符串a经过多少次“删除”、“增加”、“替换”操作可以变为字符串b。算法实现的思想很简单，需要两次判断：<br>设dp[i][j]为a[0:i+1]与b[0:j+1]的编辑距离，则</p>
 <ul>
-<li><strong>Anafora</strong><br>Anafora是一个在线多人文章标注系统。标注的金融新闻太稀少，遂自己动手丰衣足食。具体搭建见<a href="https://github.com/Jiayuforfreeo/Anafora-Deploy" target="_blank" rel="noopener">这里</a>。</li>
-<li><strong>Named Entity Recognization</strong><br>NER为命名实体识别。另一个实习生在调的网络，我也自己跑了一下模型。这里主要采用了Bi-LSTM+CRF的神经网络模型。详情见我的博客<a href="">Named Entity Recognization</a>。</li>
-<li><strong>Similarity Count</strong><br>相似度计算是一个很有意思的小课题。给出两个字符串，计算相似度，这个问题有两个解决方向：<ul>
-<li><strong>编辑距离</strong><br>编辑距离是指从字符串1至字符串2经过最少的替换、插入、删除次数。具体实现在这里<a href="">字符串的编辑距离</a>。</li>
-<li><strong>神经网络</strong><br>这个部分是另一个实习生在做，没去深入了解。  </li>
+<li>若a[i] = b[j], dp[i][j] = dp[i-1][j-1]</li>
+<li>否则取以下三个值中的最小值<ul>
+<li>dp[i-1][j]+1，此代表插入或删除  </li>
+<li>dp[i][j-1]+1，此代表插入或删除</li>
+<li>dp[i-1][j-1]+1，此代表替换</li>
 </ul>
 </li>
+<li>这里使用的递归基为d[i][0] = i， d[0][j] = j </li>
 </ul>
-<h2 id="Project2之Sentiment-Analysis"><a href="#Project2之Sentiment-Analysis" class="headerlink" title="Project2之Sentiment Analysis"></a>Project2之Sentiment Analysis</h2><p>情感分析是NLP在金融领域里的一个热门应用方向。我这个项目的主要目的是对一篇新闻判断其情感倾向是做多还是做空，与传统的positive、negative分类无异，皆是二分类。Project流程如下：</p>
+<p>由此可得以下算法代码：</p>
+<h1 id="递归版"><a href="#递归版" class="headerlink" title="递归版"></a>递归版</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">i, j = len(a), len(n)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Levenshtein</span><span class="params">(str_a, str_b, i, j)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> j</span><br><span class="line">    <span class="keyword">if</span> j == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> i</span><br><span class="line">    <span class="keyword">if</span> str_a[i<span class="number">-1</span>] == strb[j<span class="number">-1</span>]:</span><br><span class="line">        <span class="keyword">return</span> Levenshtein(str_a, str_b, i<span class="number">-1</span>, j<span class="number">-1</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> min(min(Levenshtein(str_a, str_b, i<span class="number">-1</span>, j)+ , Levenshtein(str_a, str_b, i, j<span class="number">-1</span>)+<span class="number">1</span>), Levenshtein(str_a, str_b, i<span class="number">-1</span>, j<span class="number">-1</span>)+<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="动态规划之空间复杂度为O-lena-lenb-版"><a href="#动态规划之空间复杂度为O-lena-lenb-版" class="headerlink" title="动态规划之空间复杂度为O(lena*lenb)版"></a>动态规划之空间复杂度为O(lena*lenb)版</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Levenshtein</span><span class="params">(str_a, str_b)</span>:</span></span><br><span class="line">    lena, lenb = len(a), len(b)</span><br><span class="line">    dp = [([<span class="number">0</span>*lena] <span class="keyword">for</span> i <span class="keyword">in</span> range(lenb)]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(lena):</span><br><span class="line">        dp[i][<span class="number">0</span>] = i</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(lenb):</span><br><span class="line">        dp[<span class="number">0</span>][j] = j</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(lena):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(lenb):</span><br><span class="line">            <span class="keyword">if</span> str_a[i] == str_b[j]:</span><br><span class="line">                dp[i][j] = dp[i<span class="number">-1</span>][j<span class="number">-1</span>]</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                dp[i][j] = min(dp[i<span class="number">-1</span>][j]+<span class="number">1</span>, min(dp[i][j<span class="number">-1</span>]+<span class="number">1</span>, dp[i<span class="number">-1</span>][j<span class="number">-1</span>]+<span class="number">1</span>))</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> dp[lena<span class="number">-1</span>][lenb<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
+<p>易知上述算法的空间复杂度由dp[lena][lenb]空间大小决定。</p>
+<h1 id="动态规划之空间复杂度为O-lenb-版"><a href="#动态规划之空间复杂度为O-lenb-版" class="headerlink" title="动态规划之空间复杂度为O(lenb)版"></a>动态规划之空间复杂度为O(lenb)版</h1><p>考虑到上述的空间复杂度实际上可以缩减，因为每次计算dp[i][j]时，我们所需的是其上方、左方和左上方的dp元素，如果我们知道dp[i][j]的这三个元素，便可只采用一行lenb大小的空间记载dp。<br>关于d[j]所需的三个元素分析如下：</p>
 <ul>
-<li><strong>数据获取</strong><br>情感分类的模型有很多可以选择，但每个领域的数据不一样，训练集最好使用想要应用领域的数据，故采用了Scrapy从<a href="https://seekingalpha.com/stock-ideas/long-ideas" target="_blank" rel="noopener">SeekingAlpha</a>获取带有Long or Short Ideas的新闻。</li>
-<li><strong>模型选择</strong><br>情感分类的模型说到底就是一个分类模型，故可以使用传统的机器学习方法如贝叶斯、支持向量机等，也可以使用基于CNN、RNN的各种深度学习方法，经过一番调研，我选择了<a href="https://www.cs.cmu.edu/~diyiy/docs/naacl16.pdf" target="_blank" rel="noopener">这篇文章</a>中描述到的Hierarchical Attention Bi-RNN模型，具体原理在这篇<a href="">博客</a>中</li>
-<li><strong>参数调优</strong><br>在对上述模型调优的过程中，发现使用传统贝叶斯的准确率在80%，比我使用模型调出的65%高了很多，于是就在不停地调优过程中，实习期到了。</li>
+<li>左方： d[j-1]</li>
+<li>上方：使用尚未赋值完成的上次d[j]的值</li>
+<li>左上方：将上次的d[j-1]值赋给old</li>
 </ul>
-<h1 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h1><p>感谢CTO刘涛，面我的时候我那么菜还给了实习offer；感谢leader周游，对我实习菜鸟的耐心指导；感谢女朋友，与我共度这学生时期的最后一个夏天；感谢这个夏天，让我找到了一些方向。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Levenshtein</span><span class="params">(str_a, str_b)</span>:</span></span><br><span class="line">    lena, lenb = len(a), len(b)</span><br><span class="line">    dp = [<span class="number">0</span>] * lenb</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(lenb):</span><br><span class="line">        dp[j] = j</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(lena):</span><br><span class="line">        old = i<span class="number">-1</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(lenb):</span><br><span class="line">            tmp = d[j]</span><br><span class="line">            <span class="keyword">if</span> str_a[i] == str_b[j]:</span><br><span class="line">                d[j] = old</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                d[j] = min(min(d[j]+<span class="number">1</span>, d[j<span class="number">-1</span>]+<span class="number">1</span>), old+<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> d[lenb<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
 <h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ul>
-<li><a href="http://woodenrobot.me/2017/01/01/scrapy%E7%88%AC%E8%99%AB%E6%A1%86%E6%9E%B6%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89-Scrapy%E5%85%A5%E9%97%A8/" target="_blank" rel="noopener">WoodenRobot的博客</a></li>
-<li><a href="http://scrapy-chs.readthedocs.io/zh_CN/latest/" target="_blank" rel="noopener">Scrapy中文文档</a></li>
+<li><a href="https://www.dreamxu.com/books/dsa/dp/edit-distance.html" target="_blank" rel="noopener">明无梦的博客</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/%E8%90%8A%E6%96%87%E6%96%AF%E5%9D%A6%E8%B7%9D%E9%9B%A2" target="_blank" rel="noopener">维基百科</a></li>
 </ul>
 
       
@@ -482,11 +451,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/总结/" rel="tag"><i class="fas fa-child"></i> 总结</a>
-          
             <a href="/tags/妙盈/" rel="tag"><i class="fas fa-child"></i> 妙盈</a>
           
             <a href="/tags/实习/" rel="tag"><i class="fas fa-child"></i> 实习</a>
+          
+            <a href="/tags/数据结构/" rel="tag"><i class="fas fa-child"></i> 数据结构</a>
           
         </div>
       
@@ -499,8 +468,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/02/二叉树的先序、中序、后序遍历以及图的深度优先搜索和广度优先搜索/" rel="next" title="二叉树的先序、中序、后序遍历以及图的深度优先搜索和广度优先搜索">
-                <i class="fa fa-chevron-left"></i> 二叉树的先序、中序、后序遍历以及图的深度优先搜索和广度优先搜索
+              <a href="/2018/09/07/2018暑期实习总结/" rel="next" title="2018暑期实习总结">
+                <i class="fa fa-chevron-left"></i> 2018暑期实习总结
               </a>
             
           </div>
@@ -509,8 +478,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/10/编辑距离之Levenshtein距离/" rel="prev" title="编辑距离之Levenshtein距离">
-                编辑距离之Levenshtein距离 <i class="fa fa-chevron-right"></i>
+              <a href="/9999/12/31/报上名来/" rel="prev" title="报上名来">
+                报上名来 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -734,7 +703,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#历史渊源"><span class="nav-number">1.</span> <span class="nav-text">历史渊源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#菜鸡打怪"><span class="nav-number">2.</span> <span class="nav-text">菜鸡打怪</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Scrapy"><span class="nav-number">2.1.</span> <span class="nav-text">Scrapy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Spiders"><span class="nav-number">2.1.1.</span> <span class="nav-text">Spiders</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scrapy-Engine"><span class="nav-number">2.1.2.</span> <span class="nav-text">Scrapy Engine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scheduler"><span class="nav-number">2.1.3.</span> <span class="nav-text">Scheduler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Downloader"><span class="nav-number">2.1.4.</span> <span class="nav-text">Downloader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Item-Pipeline"><span class="nav-number">2.1.5.</span> <span class="nav-text">Item Pipeline</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spider-Middlewares-and-Downloader-Middlewares"><span class="nav-number">2.1.6.</span> <span class="nav-text">Spider Middlewares and Downloader Middlewares</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#爬虫流程"><span class="nav-number">2.1.7.</span> <span class="nav-text">爬虫流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Project1之NER、Similarity"><span class="nav-number">2.2.</span> <span class="nav-text">Project1之NER、Similarity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Project2之Sentiment-Analysis"><span class="nav-number">2.3.</span> <span class="nav-text">Project2之Sentiment Analysis</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#致谢"><span class="nav-number">3.</span> <span class="nav-text">致谢</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#递归版"><span class="nav-number">1.</span> <span class="nav-text">递归版</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动态规划之空间复杂度为O-lena-lenb-版"><span class="nav-number">2.</span> <span class="nav-text">动态规划之空间复杂度为O(lena*lenb)版</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动态规划之空间复杂度为O-lenb-版"><span class="nav-number">3.</span> <span class="nav-text">动态规划之空间复杂度为O(lenb)版</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
             
 
           </div>
