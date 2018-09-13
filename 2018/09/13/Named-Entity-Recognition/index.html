@@ -108,25 +108,28 @@
 
 
 
-  <meta name="description" content="栈和队列之间的相互构造1：给定两个栈，实现队列的$push$和$pop$操作2：给定一个队列，实现栈的$push$和$pop$ 解考虑构造的时候，一个基本点是将二者的pop、push操作放在一起，比如要实现队列的pop，必然要用到栈的pop，因为二者结构不同，所以为了对同一个数进行相同的操作，必然要构造相应的结构变换。1：队列的push是将数放在队列的左边，pop是将最右边的数弹出。那么联想到栈，">
-<meta name="keywords" content="剑指">
+  <meta name="description" content="命名实体识别是NLP的“hello world”，不过这个“你好”还是需要一些技巧才能说得“state of art”。以下介绍经典的命名实体算法，包括传统的基于特征模板的方法和近来兴起的深度学习方法。 NER之传统特征模板算法在深度学习未兴起之前，工程师们用的主要是词典和规则，再然后是传统的机器学习，如线性统计模型，如隐马尔科夫模型(HMM)、最大熵马尔可夫模型(MEMM)以及条件随机场模型(C">
+<meta name="keywords" content="总结,妙盈,实习,NLP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="剑指offer之“栈和队列之间的相互构造”">
-<meta property="og:url" content="http://yoursite.com/2018/08/29/剑指offer之“栈和队列之间的相互构造”/index.html">
+<meta property="og:title" content="Named Entity Recognition">
+<meta property="og:url" content="http://yoursite.com/2018/09/13/Named-Entity-Recognition/index.html">
 <meta property="og:site_name" content="Jiayu | Blog">
-<meta property="og:description" content="栈和队列之间的相互构造1：给定两个栈，实现队列的$push$和$pop$操作2：给定一个队列，实现栈的$push$和$pop$ 解考虑构造的时候，一个基本点是将二者的pop、push操作放在一起，比如要实现队列的pop，必然要用到栈的pop，因为二者结构不同，所以为了对同一个数进行相同的操作，必然要构造相应的结构变换。1：队列的push是将数放在队列的左边，pop是将最右边的数弹出。那么联想到栈，">
+<meta property="og:description" content="命名实体识别是NLP的“hello world”，不过这个“你好”还是需要一些技巧才能说得“state of art”。以下介绍经典的命名实体算法，包括传统的基于特征模板的方法和近来兴起的深度学习方法。 NER之传统特征模板算法在深度学习未兴起之前，工程师们用的主要是词典和规则，再然后是传统的机器学习，如线性统计模型，如隐马尔科夫模型(HMM)、最大熵马尔可夫模型(MEMM)以及条件随机场模型(C">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-08-29T16:17:07.406Z">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNbRwly1fv7qt84cdgj30b40693ye.jpg">
+<meta property="og:image" content="https://github.com/Determined22/zh-NER-TF/raw/master/pics/pic1.png">
+<meta property="og:updated_time" content="2018-09-13T16:16:48.579Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="剑指offer之“栈和队列之间的相互构造”">
-<meta name="twitter:description" content="栈和队列之间的相互构造1：给定两个栈，实现队列的$push$和$pop$操作2：给定一个队列，实现栈的$push$和$pop$ 解考虑构造的时候，一个基本点是将二者的pop、push操作放在一起，比如要实现队列的pop，必然要用到栈的pop，因为二者结构不同，所以为了对同一个数进行相同的操作，必然要构造相应的结构变换。1：队列的push是将数放在队列的左边，pop是将最右边的数弹出。那么联想到栈，">
+<meta name="twitter:title" content="Named Entity Recognition">
+<meta name="twitter:description" content="命名实体识别是NLP的“hello world”，不过这个“你好”还是需要一些技巧才能说得“state of art”。以下介绍经典的命名实体算法，包括传统的基于特征模板的方法和近来兴起的深度学习方法。 NER之传统特征模板算法在深度学习未兴起之前，工程师们用的主要是词典和规则，再然后是传统的机器学习，如线性统计模型，如隐马尔科夫模型(HMM)、最大熵马尔可夫模型(MEMM)以及条件随机场模型(C">
+<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/006tNbRwly1fv7qt84cdgj30b40693ye.jpg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/29/剑指offer之“栈和队列之间的相互构造”/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/13/Named-Entity-Recognition/"/>
 
 
 
@@ -136,7 +139,7 @@
   };
 </script>
 
-  <title>剑指offer之“栈和队列之间的相互构造” | Jiayu | Blog</title>
+  <title>Named Entity Recognition | Jiayu | Blog</title>
   
 
 
@@ -297,7 +300,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/29/剑指offer之“栈和队列之间的相互构造”/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/13/Named-Entity-Recognition/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jiayu Zhang">
@@ -314,7 +317,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">剑指offer之“栈和队列之间的相互构造”
+          <h1 class="post-title" itemprop="name headline">Named Entity Recognition
               
             
           </h1>
@@ -339,7 +342,7 @@
                 
               
 
-              <time title="Created: 2018-08-29 23:54:22" itemprop="dateCreated datePublished" datetime="2018-08-29T23:54:22+08:00">2018-08-29</time>
+              <time title="Created: 2018-09-13 01:18:03" itemprop="dateCreated datePublished" datetime="2018-09-13T01:18:03+08:00">2018-09-13</time>
             
 
             
@@ -356,7 +359,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-08-30 00:17:07" itemprop="dateModified" datetime="2018-08-30T00:17:07+08:00">2018-08-30</time>
+                <time title="Modified: 2018-09-14 00:16:48" itemprop="dateModified" datetime="2018-09-14T00:16:48+08:00">2018-09-14</time>
               
             
           </span>
@@ -373,14 +376,14 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据结构/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
 
                 
                 
                   , 
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/数据结构/剑指/" itemprop="url" rel="index"><span itemprop="name">剑指</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/NLP/" itemprop="url" rel="index"><span itemprop="name">NLP</span></a></span>
 
                 
                 
@@ -395,8 +398,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/29/剑指offer之“栈和队列之间的相互构造”/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/08/29/剑指offer之“栈和队列之间的相互构造”/" itemprop="commentCount"></span>
+                <a href="/2018/09/13/Named-Entity-Recognition/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/09/13/Named-Entity-Recognition/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -424,11 +427,56 @@
       
 
       
-        <h1 id="栈和队列之间的相互构造"><a href="#栈和队列之间的相互构造" class="headerlink" title="栈和队列之间的相互构造"></a>栈和队列之间的相互构造</h1><p>1：给定两个栈，实现队列的$push$和$pop$操作<br>2：给定一个队列，实现栈的$push$和$pop$</p>
-<h1 id="解"><a href="#解" class="headerlink" title="解"></a>解</h1><p>考虑构造的时候，一个基本点是将二者的pop、push操作放在一起，比如要实现队列的pop，必然要用到栈的pop，因为二者结构不同，所以为了对同一个数进行相同的操作，必然要构造相应的结构变换。<br>1：队列的push是将数放在队列的左边，pop是将最右边的数弹出。那么联想到栈，如果只用一个栈的话，队列的push可以直接操作，然而pop则不能按照栈的逻辑，且整体看来栈是单口，所以单个栈没法实现队列的pop。<br>如果给另一个栈，若想实现队列的pop，即将栈底的元素pop出，则可将栈1的元素悉数从上往下放至栈2中，此时栈2的top元素即是栈1的栈底元素，也即目标队列需要pop的最右端元素。<br>故可以观察到，用stack1进行push，用stack2进行pop，但需要注意的是，每次都需要保证当前栈拥有全部元素，否则数据势必混乱。</p>
-<p>2：为什么一个队列就可以实现一个栈呢？因为队列是双口的。<br>考虑一下栈的操作。push是将元素放至栈的顶部，pop是将栈顶部的元素弹出。那么队列的pop操作是将最右端的元素弹出。如果直接使用队列的pop来实现栈的pop，则意味着由队列push到最左端的元素必然要通过某种操作到队列的最右端。这就是我们实现栈push所要做的事情：用队列将元素push到最左端后，将其前面的元素全部按照原来的顺序移到其后。</p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>1：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> node)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (!stack2.empty())&#123;</span><br><span class="line">            stack1.push(stack2.top());</span><br><span class="line">            stack2.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        stack1.push(node);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> tmp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (!stack1.empty())&#123;</span><br><span class="line">            stack2.push(stack1.top());</span><br><span class="line">            stack1.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> res = stack2.top();</span><br><span class="line">        stack2.pop();</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; stack1;</span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; stack2;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>2：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyStack</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q1;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Push element x onto stack. */</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">        q1.push(x);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; q1.size()<span class="number">-1</span>; ++i)&#123;</span><br><span class="line">            q1.push(q1.front());</span><br><span class="line">            q1.pop();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Removes the element on top of the stack and returns that element. */</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> res = q1.front();</span><br><span class="line">        q1.pop();</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Get the top element. */</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">top</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> q1.front();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/** Returns whether the stack is empty. */</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">empty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> q1.empty();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+        <p>命名实体识别是NLP的“hello world”，不过这个“你好”还是需要一些技巧才能说得“state of art”。以下介绍经典的命名实体算法，包括传统的基于特征模板的方法和近来兴起的深度学习方法。</p>
+<h1 id="NER之传统特征模板算法"><a href="#NER之传统特征模板算法" class="headerlink" title="NER之传统特征模板算法"></a>NER之传统特征模板算法</h1><p>在深度学习未兴起之前，工程师们用的主要是词典和规则，再然后是传统的机器学习，如线性统计模型，如隐马尔科夫模型(HMM)、最大熵马尔可夫模型(MEMM)以及条件随机场模型(CRF)。这里先简要介绍一下马尔可夫模型的原理，再主要介绍一下条件随机场模型用于标注的原理及场景。</p>
+<h2 id="HMM简介"><a href="#HMM简介" class="headerlink" title="HMM简介"></a>HMM简介</h2><p>隐马尔科夫模型是一个关于时序的概率模型，描述的是一个隐藏的马尔科夫链随机生成一个随机的状态序列，然后再由该状态序列随机生成随机观测序列的过程。<br>一个HMM模型可以用$(\pi, A, B)$来表示，其中</p>
+<ul>
+<li>$\pi$代表初始状态概率向量，描述的是生成某个初始状态的概率</li>
+<li>$A$表示状态转移概率矩阵，描述的是有一个状态转移到另一个状态的概率</li>
+<li>$B$表示观测概率矩阵，描述的是由某个状态生成某个观测的概率</li>
+</ul>
+<p>由此可以得到HMM衍生出的三个问题：</p>
+<ul>
+<li>概率计算问题：预测在给定模型用$(\pi, A, B)$下某个观测序列出现的概率，一般是前向后向算法</li>
+<li>学习问题：给定某个观测序列，求使得观测序列出现概率最大的模型参数用$(\pi, A, B)$，一般是使用最大似然法求解</li>
+<li>预测/解码问题：给定观测序列和模型用$(\pi, A, B)$，预测概率最大的状态序列（标注问题中，观测序列是句子，状态序列是标注）</li>
+</ul>
+<h2 id="CRF简介"><a href="#CRF简介" class="headerlink" title="CRF简介"></a>CRF简介</h2><h3 id="CRF定义"><a href="#CRF定义" class="headerlink" title="CRF定义"></a>CRF定义</h3><p>若要说到CRF定义，就需要预定义很多变量：</p>
+<ul>
+<li>概率无向图：联合分布概率$P(Y)$，可由无向图用$G(V,E)$表示，其中V表示节点，代表一个随机变量，E表示边，代表随机变量之间的概率关系。若联合概率$P(Y)$满足成对马尔科夫性、局部马尔科夫性或全局马尔科夫性，就称此联合分布概率为概率无向图模型或马尔科夫随机场</li>
+<li>最大团:无向图中任意两个节点皆有边连接的子集称为团，最大的子集称为最大团</li>
+<li>因子分解：将概率无向图模型的联合分布概率表示为其最大团上随机变量的函数的乘积形式的操作，称为概率无向图模型的因子分解，即：$$P(Y) = \frac{1}{Z} \prod_C \Psi_c(Y_C) \tag{1}$$<br>其中$$Z = \sum_Y  \prod_C \Psi_c(Y_C) \tag{2}$$<br>$\Psi_C(Y_C)$为势函数，要求势函数为严格正的，一般为指数函数</li>
+</ul>
+<p>那么便可得到CRF的定义：<strong>给定随机变量X条件下，随机变量Y的条件随机场即为条件随机场</strong>。这里主要介绍定义在线性链上的特殊的条件随机场，称为线性链条件随机场，此随机场便可用于标注问题。用于标注问题时，X是待标注序列，对应HMM中的观测序列；Y是标注序列，对应于HMM中的状态序列。训练时利用数据集通过极大似然估计（可带正则）得到条件概率模型$P(\hat{Y}|X)$；预测时，对于给定的输入序列x，求出条件概率$P(\hat{y}|x)$最大的输出序列$\hat{y}$。<br>现实中一般设X和Y具有相同的图结构，以下是线性链条件随机场结构图：</p>
+<p><center><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fv7qt84cdgj30b40693ye.jpg" alt=""></center></p>
+<p><center>图1 线性链条件随机场</center><br>则可得</p>
+<ul>
+<li>线性链条件随机场的定义为：设$X = (X_1,X_2,…X_n), Y = (Y_1, Y_2,…Y_n)$均为线性链表示的随机变量序列，若在给定随机变量序列X的条件下，随机变量Y的条件概率$P(Y|X)$构成条件随机场，即满足马尔科夫性：$$P(Y_i|X,Y_1…Y_{i-1},Y_{i+1},…Y_n) = P(Y_i|X,Y_{i-1},Y_{i+1})\tag{3}$$<br>则称$P(Y|X)$为线性链条件随机场。在标注问题中，X表示输入观测序列，Y表示输出标记序列或状态序列。</li>
+</ul>
+<h3 id="CRF参数模型"><a href="#CRF参数模型" class="headerlink" title="CRF参数模型"></a>CRF参数模型</h3><p>条件随机场的参数化形式为：<br>$$P(y|x) = \frac{1}{Z}exp(\sum_{i,k}\lambda_kt_k(x,y_{i-1},y_i,i)+\sum_{l,k}\mu_ls_l(x,y_i,i))\tag{4}$$<br>其中，函数t为定义在边上的特征函数，为转移特征，$\lambda_k$为其权重；函数s为定义在顶点上的特征函数，为状态特征，$\mu_l$为其权重。k、l分别为其个数。CRF完全由特征函数和权重确定，一般来说满足特征条件时特征函数取值为1，否则为0。也由此可以看出CRF也是对数线性模型。</p>
+<h3 id="CRF预测算法"><a href="#CRF预测算法" class="headerlink" title="CRF预测算法"></a>CRF预测算法</h3><p>针对条件随机场，也有与HMM相同的相应的三个问题，这里主要数一下预测问题。<br>预测问题是给定条件随机场$P{Y|X}$和输入序列（观测序列）x，求条件概率最大的输出序列（状态序列）$y^<em>$，即对观测序列进行标注，解决方法是著名的维特比算法。<br>维特比算法的原理本质上就是动态规划。假设每个状态有三种可能，要输出10个状态，最暴力的方法是计算$3^{10}$个概率后取最大的概率所对应的路径，而动态规划的思想是每次都取上一个最大的概率，那么就相当于每个状态需要计算$3^2$次，最终的复杂度为$O(3</em>3*10)$大大缩减了复杂度。<br>关于维特比算法的例子写得比较容易理解的在<a href="https://www.zhihu.com/question/20136144" target="_blank" rel="noopener">知乎这里</a>。</p>
+<h1 id="NER之深度学习版"><a href="#NER之深度学习版" class="headerlink" title="NER之深度学习版"></a>NER之深度学习版</h1><p>深度学习在NLP里的应用一发不可收拾，尤其是LSTM。这里首先介绍最为经典的模型：Bi_LSTM+CRF模型。</p>
+<h2 id="Bi-LSTM简介"><a href="#Bi-LSTM简介" class="headerlink" title="Bi-LSTM简介"></a>Bi-LSTM简介</h2><p>在<a href="https://jiayustar.net/2018/08/18/RNNs/" target="_blank" rel="noopener">RNNs</a>里介绍过。</p>
+<h2 id="Bi-LSTM-CRF结构详解"><a href="#Bi-LSTM-CRF结构详解" class="headerlink" title="Bi-LSTM+CRF结构详解"></a>Bi-LSTM+CRF结构详解</h2><p>下图是Bi-LSTM+CRF结构图：<br><img src="https://github.com/Determined22/zh-NER-TF/raw/master/pics/pic1.png" alt=""></p>
+<p><center>图2 Bi-LSTM+CRF结构</center><br>以下按照结构层次逐一介绍Bi-LSTM+CRF用于NER的过程。</p>
+<h3 id="One-Hot-Vector层"><a href="#One-Hot-Vector层" class="headerlink" title="One Hot Vector层"></a>One Hot Vector层</h3><p>根据词库编号可以为每个词分配一个one hot向量</p>
+<h3 id="Lookup层"><a href="#Lookup层" class="headerlink" title="Lookup层"></a>Lookup层</h3><p>Lookup层是深度学习应用于NLP的前提，它将一个个具象化的词或字符转化为具有数学内涵的固定维度的向量，然后作为样本输入至神经网络训练、学习。<br>Lookup层的词向量有三种。</p>
+<ul>
+<li>随机初始化</li>
+<li>预训练词向量</li>
+<li>预训练词向量+训练的字符向量（二者拼接）</li>
+</ul>
+<h3 id="Bi-LSTM层"><a href="#Bi-LSTM层" class="headerlink" title="Bi-LSTM层"></a>Bi-LSTM层</h3><p>这一层利用了双向RNN可以获取样本前后信息来帮助得到当前某个神经单元输出的特性，输出的隐层单元为前向后向的隐层输出拼接而成，然后经过输出层得到整个Bi-LSTM的输出。</p>
+<h3 id="CRF层"><a href="#CRF层" class="headerlink" title="CRF层"></a>CRF层</h3><p>这一层主要是学习了一个概率转移矩阵A[k+2,k+2]，这样的话在打分时由x得到y的分数则由两部分组成（从隐层的单个神经元输出看）：</p>
+<ul>
+<li>单个神经元输出的向量为k维向量，其中k为标签的个数，每一维代表标记为某个标签的可能性大小，也是打分的一个要素</li>
+<li>另一个打分要素则是标签转移概率，从矩阵A中得来<br>其实这一层结束后还有一个softmax操作，将最终的k个概率归一化。</li>
+</ul>
+<p>这些就是NER一些经典算法的流程原理了，有些仓促，日后有空再好好整理。</p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ul>
+<li><a href="https://www.cnblogs.com/Determined22/p/7238342.html" target="_blank" rel="noopener">Determined22的博客</a></li>
+<li><a href="https://guillaumegenthial.github.io/sequence-tagging-with-tensorflow.html" target="_blank" rel="noopener">Guillaume Genthial blog</a></li>
+</ul>
 
       
     </div>
@@ -449,7 +497,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/剑指/" rel="tag"><i class="fas fa-child"></i> 剑指</a>
+            <a href="/tags/总结/" rel="tag"><i class="fas fa-child"></i> 总结</a>
+          
+            <a href="/tags/妙盈/" rel="tag"><i class="fas fa-child"></i> 妙盈</a>
+          
+            <a href="/tags/实习/" rel="tag"><i class="fas fa-child"></i> 实习</a>
+          
+            <a href="/tags/NLP/" rel="tag"><i class="fas fa-child"></i> NLP</a>
           
         </div>
       
@@ -462,8 +516,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/28/剑指offer之“连续子数组的最大和”/" rel="next" title="剑指offer之“连续子数组的最大和”">
-                <i class="fa fa-chevron-left"></i> 剑指offer之“连续子数组的最大和”
+              <a href="/2018/09/10/编辑距离之Levenshtein距离/" rel="next" title="编辑距离之Levenshtein距离">
+                <i class="fa fa-chevron-left"></i> 编辑距离之Levenshtein距离
               </a>
             
           </div>
@@ -472,8 +526,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/02/二叉树的先序、中序、后序遍历以及图的深度优先搜索和广度优先搜索/" rel="prev" title="二叉树的先序、中序、后序遍历以及图的深度优先搜索和广度优先搜索">
-                二叉树的先序、中序、后序遍历以及图的深度优先搜索和广度优先搜索 <i class="fa fa-chevron-right"></i>
+              <a href="/9999/12/31/报上名来/" rel="prev" title="报上名来">
+                报上名来 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -699,7 +753,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#栈和队列之间的相互构造"><span class="nav-number">1.</span> <span class="nav-text">栈和队列之间的相互构造</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解"><span class="nav-number">2.</span> <span class="nav-text">解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NER之传统特征模板算法"><span class="nav-number">1.</span> <span class="nav-text">NER之传统特征模板算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HMM简介"><span class="nav-number">1.1.</span> <span class="nav-text">HMM简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CRF简介"><span class="nav-number">1.2.</span> <span class="nav-text">CRF简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CRF定义"><span class="nav-number">1.2.1.</span> <span class="nav-text">CRF定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CRF参数模型"><span class="nav-number">1.2.2.</span> <span class="nav-text">CRF参数模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CRF预测算法"><span class="nav-number">1.2.3.</span> <span class="nav-text">CRF预测算法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NER之深度学习版"><span class="nav-number">2.</span> <span class="nav-text">NER之深度学习版</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Bi-LSTM简介"><span class="nav-number">2.1.</span> <span class="nav-text">Bi-LSTM简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bi-LSTM-CRF结构详解"><span class="nav-number">2.2.</span> <span class="nav-text">Bi-LSTM+CRF结构详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#One-Hot-Vector层"><span class="nav-number">2.2.1.</span> <span class="nav-text">One Hot Vector层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lookup层"><span class="nav-number">2.2.2.</span> <span class="nav-text">Lookup层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bi-LSTM层"><span class="nav-number">2.2.3.</span> <span class="nav-text">Bi-LSTM层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CRF层"><span class="nav-number">2.2.4.</span> <span class="nav-text">CRF层</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">3.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
             
 
           </div>
