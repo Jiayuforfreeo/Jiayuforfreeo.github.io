@@ -118,7 +118,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNbRwly1fv7qt84cdgj30b40693ye.jpg">
 <meta property="og:image" content="https://github.com/Determined22/zh-NER-TF/raw/master/pics/pic1.png">
-<meta property="og:updated_time" content="2018-09-13T16:16:48.579Z">
+<meta property="og:updated_time" content="2018-09-14T02:20:09.291Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Named Entity Recognition">
 <meta name="twitter:description" content="命名实体识别是NLP的“hello world”，不过这个“你好”还是需要一些技巧才能说得“state of art”。以下介绍经典的命名实体算法，包括传统的基于特征模板的方法和近来兴起的深度学习方法。 NER之传统特征模板算法在深度学习未兴起之前，工程师们用的主要是词典和规则，再然后是传统的机器学习，如线性统计模型，如隐马尔科夫模型(HMM)、最大熵马尔可夫模型(MEMM)以及条件随机场模型(C">
@@ -359,7 +359,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-09-14 00:16:48" itemprop="dateModified" datetime="2018-09-14T00:16:48+08:00">2018-09-14</time>
+                <time title="Modified: 2018-09-14 10:20:09" itemprop="dateModified" datetime="2018-09-14T10:20:09+08:00">2018-09-14</time>
               
             
           </span>
@@ -454,7 +454,7 @@
 <li>线性链条件随机场的定义为：设$X = (X_1,X_2,…X_n), Y = (Y_1, Y_2,…Y_n)$均为线性链表示的随机变量序列，若在给定随机变量序列X的条件下，随机变量Y的条件概率$P(Y|X)$构成条件随机场，即满足马尔科夫性：$$P(Y_i|X,Y_1…Y_{i-1},Y_{i+1},…Y_n) = P(Y_i|X,Y_{i-1},Y_{i+1})\tag{3}$$<br>则称$P(Y|X)$为线性链条件随机场。在标注问题中，X表示输入观测序列，Y表示输出标记序列或状态序列。</li>
 </ul>
 <h3 id="CRF参数模型"><a href="#CRF参数模型" class="headerlink" title="CRF参数模型"></a>CRF参数模型</h3><p>条件随机场的参数化形式为：<br>$$P(y|x) = \frac{1}{Z}exp(\sum_{i,k}\lambda_kt_k(x,y_{i-1},y_i,i)+\sum_{l,k}\mu_ls_l(x,y_i,i))\tag{4}$$<br>其中，函数t为定义在边上的特征函数，为转移特征，$\lambda_k$为其权重；函数s为定义在顶点上的特征函数，为状态特征，$\mu_l$为其权重。k、l分别为其个数。CRF完全由特征函数和权重确定，一般来说满足特征条件时特征函数取值为1，否则为0。也由此可以看出CRF也是对数线性模型。</p>
-<h3 id="CRF预测算法"><a href="#CRF预测算法" class="headerlink" title="CRF预测算法"></a>CRF预测算法</h3><p>针对条件随机场，也有与HMM相同的相应的三个问题，这里主要数一下预测问题。<br>预测问题是给定条件随机场$P{Y|X}$和输入序列（观测序列）x，求条件概率最大的输出序列（状态序列）$y^<em>$，即对观测序列进行标注，解决方法是著名的维特比算法。<br>维特比算法的原理本质上就是动态规划。假设每个状态有三种可能，要输出10个状态，最暴力的方法是计算$3^{10}$个概率后取最大的概率所对应的路径，而动态规划的思想是每次都取上一个最大的概率，那么就相当于每个状态需要计算$3^2$次，最终的复杂度为$O(3</em>3*10)$大大缩减了复杂度。<br>关于维特比算法的例子写得比较容易理解的在<a href="https://www.zhihu.com/question/20136144" target="_blank" rel="noopener">知乎这里</a>。</p>
+<h3 id="CRF预测算法"><a href="#CRF预测算法" class="headerlink" title="CRF预测算法"></a>CRF预测算法</h3><p>针对条件随机场，也有与HMM相同的相应的三个问题，这里主要数一下预测问题。<br>预测问题是给定条件随机场$P{Y|X}$和输入序列（观测序列）x，求条件概率最大的输出序列（状态序列）$y^*$，即对观测序列进行标注，解决方法是著名的维特比算法。<br>维特比算法的原理本质上就是动态规划。假设每个状态有三种可能，要输出10个状态，最暴力的方法是计算$3^{10}$个概率后取最大的概率所对应的路径，而动态规划的思想是每次都取上一个最大的概率，那么就相当于每个状态需要计算$3^2$次，最终的复杂度为$O(3*3*10)$，大大缩减了复杂度。<br>关于维特比算法的例子写得比较容易理解的在<a href="https://www.zhihu.com/question/20136144" target="_blank" rel="noopener">知乎这里</a>。</p>
 <h1 id="NER之深度学习版"><a href="#NER之深度学习版" class="headerlink" title="NER之深度学习版"></a>NER之深度学习版</h1><p>深度学习在NLP里的应用一发不可收拾，尤其是LSTM。这里首先介绍最为经典的模型：Bi_LSTM+CRF模型。</p>
 <h2 id="Bi-LSTM简介"><a href="#Bi-LSTM简介" class="headerlink" title="Bi-LSTM简介"></a>Bi-LSTM简介</h2><p>在<a href="https://jiayustar.net/2018/08/18/RNNs/" target="_blank" rel="noopener">RNNs</a>里介绍过。</p>
 <h2 id="Bi-LSTM-CRF结构详解"><a href="#Bi-LSTM-CRF结构详解" class="headerlink" title="Bi-LSTM+CRF结构详解"></a>Bi-LSTM+CRF结构详解</h2><p>下图是Bi-LSTM+CRF结构图：<br><img src="https://github.com/Determined22/zh-NER-TF/raw/master/pics/pic1.png" alt=""></p>
