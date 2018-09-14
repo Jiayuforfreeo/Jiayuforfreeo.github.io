@@ -108,32 +108,27 @@
 
 
 
-  <meta name="description" content="机器学习中的激活函数  激活函数的必要性最简单的感知机其实就是一个线性单元，输入\(x\)，输出\(y=w*x+b\)，如果在深度学习中简单地将多个感知机串联起来，很明显最后一定可以用一个感知机表示这个”深度网络”。而如果在感知机的输出端加上一个激活函数，是非线性变为线性，则深度神经网络可以探索到的空间就大大增加了，不再是输入元素的线性组合。以下则介绍各个神经网络及其应用的优缺点。 Sigmoid">
-<meta name="keywords" content="梯度消失,激活函数">
+  <meta name="description" content="逻辑斯蒂回归真的是经典的不能再经典的机器学习模型了。正值找工作之际，按照模型-&amp;gt;目标函数设计及求解的路线讲完模型后，还会加一些模型的特性，比如优缺点、和相似的模型相比下算法和应用场景的不同等。也可能加入一些面试题。 LR模型名称由来虽然名字里有regression，但实际上逻辑回归是一个分类算法，既然是分类，为何又叫分类呢？据考究是高尔顿研究父母及其子女身高时，返现整体人类的身高会回归到一个">
+<meta name="keywords" content="总结,机器学习,Logistic,算法面试">
 <meta property="og:type" content="article">
-<meta property="og:title" content="机器学习之激活函数">
-<meta property="og:url" content="http://yoursite.com/2018/08/17/机器学习之激活函数/index.html">
+<meta property="og:title" content="经典模型之Logostic Regression">
+<meta property="og:url" content="http://yoursite.com/2018/09/14/经典模型之Logostic-Regression/index.html">
 <meta property="og:site_name" content="Jiayu | Blog">
-<meta property="og:description" content="机器学习中的激活函数  激活函数的必要性最简单的感知机其实就是一个线性单元，输入\(x\)，输出\(y=w*x+b\)，如果在深度学习中简单地将多个感知机串联起来，很明显最后一定可以用一个感知机表示这个”深度网络”。而如果在感知机的输出端加上一个激活函数，是非线性变为线性，则深度神经网络可以探索到的空间就大大增加了，不再是输入元素的线性组合。以下则介绍各个神经网络及其应用的优缺点。 Sigmoid">
+<meta property="og:description" content="逻辑斯蒂回归真的是经典的不能再经典的机器学习模型了。正值找工作之际，按照模型-&amp;gt;目标函数设计及求解的路线讲完模型后，还会加一些模型的特性，比如优缺点、和相似的模型相比下算法和应用场景的不同等。也可能加入一些面试题。 LR模型名称由来虽然名字里有regression，但实际上逻辑回归是一个分类算法，既然是分类，为何又叫分类呢？据考究是高尔顿研究父母及其子女身高时，返现整体人类的身高会回归到一个">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNbRwgy1fuctycwx78j311w0cqt9p.jpg">
-<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNbRwgy1fud3vad5ftj30i80gcjrs.jpg">
-<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNbRwgy1fud3gyqqnlj30y00eo75b.jpg">
-<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNbRwgy1fud6t4zcfgj31080bggm9.jpg">
-<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNbRwgy1fud7ueqrhwj30xk0bcjry.jpg">
-<meta property="og:image" content="https://ws4.sinaimg.cn/large/006tNbRwgy1fud86m0tuhj31080dm0ti.jpg">
-<meta property="og:updated_time" content="2018-08-27T04:57:57.574Z">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNbRwly1fv9egmzh19j30xi0aadgt.jpg">
+<meta property="og:updated_time" content="2018-09-14T16:10:03.724Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="机器学习之激活函数">
-<meta name="twitter:description" content="机器学习中的激活函数  激活函数的必要性最简单的感知机其实就是一个线性单元，输入\(x\)，输出\(y=w*x+b\)，如果在深度学习中简单地将多个感知机串联起来，很明显最后一定可以用一个感知机表示这个”深度网络”。而如果在感知机的输出端加上一个激活函数，是非线性变为线性，则深度神经网络可以探索到的空间就大大增加了，不再是输入元素的线性组合。以下则介绍各个神经网络及其应用的优缺点。 Sigmoid">
-<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/006tNbRwgy1fuctycwx78j311w0cqt9p.jpg">
+<meta name="twitter:title" content="经典模型之Logostic Regression">
+<meta name="twitter:description" content="逻辑斯蒂回归真的是经典的不能再经典的机器学习模型了。正值找工作之际，按照模型-&amp;gt;目标函数设计及求解的路线讲完模型后，还会加一些模型的特性，比如优缺点、和相似的模型相比下算法和应用场景的不同等。也可能加入一些面试题。 LR模型名称由来虽然名字里有regression，但实际上逻辑回归是一个分类算法，既然是分类，为何又叫分类呢？据考究是高尔顿研究父母及其子女身高时，返现整体人类的身高会回归到一个">
+<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/006tNbRwly1fv9egmzh19j30xi0aadgt.jpg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/17/机器学习之激活函数/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/14/经典模型之Logostic-Regression/"/>
 
 
 
@@ -143,7 +138,7 @@
   };
 </script>
 
-  <title>机器学习之激活函数 | Jiayu | Blog</title>
+  <title>经典模型之Logostic Regression | Jiayu | Blog</title>
   
 
 
@@ -304,7 +299,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/17/机器学习之激活函数/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/14/经典模型之Logostic-Regression/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jiayu Zhang">
@@ -321,7 +316,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">机器学习之激活函数
+          <h1 class="post-title" itemprop="name headline">经典模型之Logostic Regression
               
             
           </h1>
@@ -346,7 +341,7 @@
                 
               
 
-              <time title="Created: 2018-08-17 00:01:49" itemprop="dateCreated datePublished" datetime="2018-08-17T00:01:49+08:00">2018-08-17</time>
+              <time title="Created: 2018-09-14 11:52:45" itemprop="dateCreated datePublished" datetime="2018-09-14T11:52:45+08:00">2018-09-14</time>
             
 
             
@@ -363,7 +358,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-08-27 12:57:57" itemprop="dateModified" datetime="2018-08-27T12:57:57+08:00">2018-08-27</time>
+                <time title="Modified: 2018-09-15 00:10:03" itemprop="dateModified" datetime="2018-09-15T00:10:03+08:00">2018-09-15</time>
               
             
           </span>
@@ -387,7 +382,7 @@
                   , 
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/tricks/" itemprop="url" rel="index"><span itemprop="name">tricks</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/机器学习/经典模型/" itemprop="url" rel="index"><span itemprop="name">经典模型</span></a></span>
 
                 
                 
@@ -402,8 +397,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/17/机器学习之激活函数/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/08/17/机器学习之激活函数/" itemprop="commentCount"></span>
+                <a href="/2018/09/14/经典模型之Logostic-Regression/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">Comments: </span> <span class="post-comments-count valine-comment-count" data-xid="/2018/09/14/经典模型之Logostic-Regression/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -431,95 +426,39 @@
       
 
       
-        <h1 id="机器学习中的激活函数"><a href="#机器学习中的激活函数" class="headerlink" title="机器学习中的激活函数"></a>机器学习中的激活函数</h1><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
-
-<h2 id="激活函数的必要性"><a href="#激活函数的必要性" class="headerlink" title="激活函数的必要性"></a>激活函数的必要性</h2><p>最简单的感知机其实就是一个线性单元，输入\(x\)，输出\(y=w*x+b\)，如果在深度学习中简单地将多个感知机串联起来，很明显最后一定可以用一个感知机表示这个”深度网络”。<br>而如果在感知机的输出端加上一个激活函数，是非线性变为线性，则深度神经网络可以探索到的空间就大大增加了，不再是输入元素的线性组合。<br>以下则介绍各个神经网络及其应用的优缺点。</p>
-<h2 id="Sigmoid"><a href="#Sigmoid" class="headerlink" title="Sigmoid"></a>Sigmoid</h2><p>Sigmiod函数公式为$$g(x) = \frac{1}{1 + e^{-x}} \tag{1}$$<br>其导数公式为$$g{‘}(x) = g(x) * (1-g(x)) \tag{2}$$<br>其图像为  </p>
-<p><img src="https://ws3.sinaimg.cn/large/006tNbRwgy1fuctycwx78j311w0cqt9p.jpg" alt="sigmoid及其导数"></p>
-<center>图1 Sigmoid函数及其导数</center>
-
+        <p>逻辑斯蒂回归真的是经典的不能再经典的机器学习模型了。正值找工作之际，按照模型-&gt;目标函数设计及求解的路线讲完模型后，还会加一些模型的特性，比如优缺点、和相似的模型相比下算法和应用场景的不同等。也可能加入一些面试题。</p>
+<h1 id="LR模型"><a href="#LR模型" class="headerlink" title="LR模型"></a>LR模型</h1><h2 id="名称由来"><a href="#名称由来" class="headerlink" title="名称由来"></a>名称由来</h2><p>虽然名字里有regression，但实际上逻辑回归是一个分类算法，既然是分类，为何又叫分类呢？据考究是高尔顿研究父母及其子女身高时，返现整体人类的身高会回归到一个均线上，便在讨论中将回归一词引入，后面大家讨论线性回归时也就沿用了。逻辑回归其实是由线性回归得来（后面可以看到），故便称为逻辑回归。</p>
+<h2 id="线性回归"><a href="#线性回归" class="headerlink" title="线性回归"></a>线性回归</h2><p>首先介绍线性回归，后面再介绍逻辑回归时会从此处引出。</p>
+<h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><p>线性回归是一个回归方法，其表达式为：$$y = w^T * x + b \tag{1}$$<br>其中，w和b为模型参数。当x时多维时，便为多元线性回归。</p>
+<h3 id="目标函数设计"><a href="#目标函数设计" class="headerlink" title="目标函数设计"></a>目标函数设计</h3><p>线性回归的目标函数为回归值与真实值平方差之和：$$Obj(\theta) = \frac{1}{2} \sum(y-\hat{y})^2 \tag{2}$$<br>可以通过惩罚与真实值相差较大的回归值使得此目标函数最小，从而得到最优参数。</p>
+<h3 id="目标函数求解"><a href="#目标函数求解" class="headerlink" title="目标函数求解"></a>目标函数求解</h3><p>目标函数求解有两种方法：最小二乘法、梯度下降法，前者可以获得解析解，后者一般是设置阈值以获得近似解。</p>
+<h4 id="最小二乘法"><a href="#最小二乘法" class="headerlink" title="最小二乘法"></a>最小二乘法</h4><p>最小二乘法求解目标函数有两种求解方式，一种是非矩阵形式求解(一元)，另一种则是以矩阵形式求解（多元）</p>
+<h5 id="非矩阵形式最小二乘法"><a href="#非矩阵形式最小二乘法" class="headerlink" title="非矩阵形式最小二乘法"></a>非矩阵形式最小二乘法</h5><p>由式1可得：<br><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fv9egmzh19j30xi0aadgt.jpg" alt=""><br>令上式为0，即可得到：<br>$$w = \frac{\sum_{i=1}^n x_i*y_i - \bar{y}\sum_{i=1}^nx_i}{\sum_{i=1}^n x_i^2 - \bar{x}\sum_{i=1}^nx_i}\tag{5}$$<br>$$b = \bar{y} - w\bar{x} \tag{6}$$</p>
+<h5 id="矩阵形式求解最小二乘法"><a href="#矩阵形式求解最小二乘法" class="headerlink" title="矩阵形式求解最小二乘法"></a>矩阵形式求解最小二乘法</h5><p>易知若要使得Obj最小，目的肯定是使得$X*W = Y$，由此即可得$$W = (X^TX)^{-1}X^TY\tag{7}$$。<br>当然也可以用梯度来计算：<br>$$obj = (Y-W^TX)^T(Y-W^TX)$$</p>
+<h4 id="梯度下降法"><a href="#梯度下降法" class="headerlink" title="梯度下降法"></a>梯度下降法</h4><p>梯度下降法和前面原理类似，不同的是它随机给参数赋值，之后用梯度来更新参数，直至小于等于给定的阈值。</p>
+<h2 id="Logistic-regression"><a href="#Logistic-regression" class="headerlink" title="Logistic regression"></a>Logistic regression</h2><h3 id="模型-1"><a href="#模型-1" class="headerlink" title="模型"></a>模型</h3><p>针对上述的线性回归，若将输出经过非线性激活函数sigmoid，则可得：<br>$$y = sigmoid(wx+b) = \frac{1}{1+e^{-(wx+b)}}\tag{11}$$<br>从而可将y映射到（0，1）区间。<br>换一种方式再来看Logistic Regression，定义p/(1-p)为几率，则可得：<br>$$\log\frac{p}{1-p} = wx+b \tag{12}$$<br>直观解释就是逻辑斯蒂回归本质上是使用线性回归来拟合对数几率。</p>
+<h3 id="损失函数设计及求解"><a href="#损失函数设计及求解" class="headerlink" title="损失函数设计及求解"></a>损失函数设计及求解</h3><p>逻辑斯蒂回归的损失函数很有意思，是交叉熵，由最大化后验概率推导而来。<br>$$cross_entropy = \sum_{i=1}^nP\log{P} \tag{13}$$</p>
+<h3 id="优点及缺点"><a href="#优点及缺点" class="headerlink" title="优点及缺点"></a>优点及缺点</h3><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>直接对分类可能性进行建模，无需事先假设数据分布，避免了假设分布不准确所带来的问题</li>
+<li>输出的决策是类别，但是以概率的形式，对需要利用概率辅助决策的任务很有用</li>
+<li>对数几率函数（这里的sigmoid函数）是凸函数，现有的许多数值优化算法都可直接用于求取最优解</li>
+<li>形式简单，可解释性好</li>
+<li>对观测样本的概率输出可设置不容的阈值进行截断，对分类不平衡样本也算一个超参数</li>
+<li>相比于线性回归来说，因为经过了一个非线性映射，将距离分类平面较远的点的权重进行了压缩，相当于每个点的权重都一样，不因距离分类平面的远近而有所改变。线性回归则是距离平面越远，样本权重越高；SVM则是更为极端，将不在分类间隔平面上的点的权重皆设为0。</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>对于非线性数据需要进行数值转换</li>
+<li>对多重共线性较为敏感，原因是因为当存在多重共线性时，解析解W中的组元$X^TX$不满秩，从而会使W方差大，从而过拟合，使用正则化方法则可以解决这个问题。</li>
+<li>容易欠拟合，分类精度不高</li>
+<li>不能处理缺失值，需要进行一些填充处理</li>
+<li>对异常点敏感，但比线性回归好得多，因为只会造成与正确样本同权重的影响，而不是像线性回归那样距离分类平面越远造成影响越大</li>
+</ul>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>关于logistic回归的变量筛选方法，有较为常见的三种：</p>
 <ul>
-<li><p><strong>特点</strong><br>从左图可以看出，Sigmoid函数输出值一定非负，且在\([-5,5]\)区间内的值变化较为迅速，而此区间之外的值则趋向0或1，这一点对应到右图其导数来看，则反映为\([-5,5]\)区间内的导数变化较为明显且大于0，而区间之外的值则趋向于0。</p>
-</li>
-<li><p><strong>优点</strong>  </p>
-<ul>
-<li>化线性为非线性</li>
+<li>向前引入法</li>
+<li>向后剔除法</li>
+<li>逐步回归法</li>
 </ul>
-</li>
-<li><p><strong>缺点</strong>  </p>
-<ul>
-<li><p><strong>梯度消失</strong><br>如图1右部所示，实数范围内，梯度最大值为0.25，则当网络层数较多时，假设层数为50且所有层的梯度绝对值都是0.25，则梯度回传到首层时变为\(0.25^{50}=7.888609052210118e-31\)，梯度便“消失”了。<br>实际上梯度消失远远不用25层，一是因为\(0.25^{10}=9.5367431640625e-07\) ；二是因为绝大部分导数值难以取到0.25。</p>
-</li>
-<li><p><strong>输出不是zero-centered</strong><br>zero-centered是指数据有正有负，以零为中心。Sigmoid函数做不到这一点，Sigmoid的输出全是正值。这会带来优化上的问题。<br>具体来说，在误差反向传播计算梯度的过程中，我们可以得到$$\frac{\partial L}{\partial w} = \frac{\partial L}{\partial g} * \frac{\partial g}{\partial w} \tag{3}$$式(1)中\(\frac{\partial g}{\partial w} = x\)，\(\frac{\partial L}{\partial g} = g * (1-g) &gt; 0\)，从而式(1)的值完全取决于输入\(x\)的值。<br>那么假设现在有\(w_{1、2}\)， 为了达到最优的参数，当前的权值1、2分别需要增大、减小，然而因为输入全为正值或负值，导致二者更新方向总是同时增大或同时减小，优化的过程会变成经典的zig-zag过程。如图2所示：</p>
-<p><img src="https://ws2.sinaimg.cn/large/006tNbRwgy1fud3vad5ftj30i80gcjrs.jpg" alt="zig-zag-gradient"></p>
-<center>图2 zig-zag-gradient</center>  
-</li>
-<li><p><strong>计算耗时</strong><br>Sigmoid中有关于指数的运算，而Relu只是判断与阈值的大小比较，故相对来说计算比较耗时。</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Tanh函数"><a href="#Tanh函数" class="headerlink" title="Tanh函数"></a>Tanh函数</h2><p>Tanh函数公式为$$g(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}} \tag{4}$$其导数公式为$$g{‘}(x) = 1 - g(x)^2 \tag{5}$$<br>其图像为  </p>
-<p><img src="https://ws2.sinaimg.cn/large/006tNbRwgy1fud3gyqqnlj30y00eo75b.jpg" alt="Tanh及其导数"></p>
-<center>图3 Tanh及其导数</center>  
-
-<ul>
-<li><strong>特点</strong><br>输出的值从-1至正1，导数最大值也变成了1。</li>
-<li><strong>优点</strong><ul>
-<li>输出是zero-centered，能够有效缓解优化过程。</li>
-</ul>
-</li>
-<li><strong>缺点</strong><ul>
-<li>一样会发生梯度消失的问题；</li>
-<li>一样会有计算耗时的问题。</li>
-</ul>
-</li>
-</ul>
-<h2 id="ReLU函数"><a href="#ReLU函数" class="headerlink" title="ReLU函数"></a>ReLU函数</h2><p>ReLU函数的公式为$$g(x) = max(x, 0) \tag{6}$$其导数公式为$$g{‘}(x) = 1\ if x &gt; 0\ else\ 0 \tag{7}$$<br>其图像为： </p>
-<p><img src="https://ws1.sinaimg.cn/large/006tNbRwgy1fud6t4zcfgj31080bggm9.jpg" alt="ReLU及其导数"></p>
-<center>图4 ReLU及其导数</center>  
-
-<ul>
-<li><strong>特点</strong><br>以0为界，负值为0，正值为等值大小；导数则是负值为0，正值为1。  </li>
-<li><strong>优点</strong><ul>
-<li>避免了梯度消失，从而计算SGD时速度比较快；</li>
-<li>计算大大加快。</li>
-</ul>
-</li>
-<li><strong>缺点</strong>   <ul>
-<li>依然有输出非zero-centered的问题；</li>
-<li>“Dying ReLu” problem：<ul>
-<li>什么是“Dying ReLU” problem：指神经元“沉寂”下去不再被激活；  </li>
-<li>原因是：假设初始权值为\(w_0\)，乘上样本后对应着分布\(\theta_0\)，假设分布\(\theta_0\)是一个低方差、中心在0.1的高斯分布，假设有一个巨大的梯度经过一个‘打开的’神经元，使得梯度更新后，样本乘上新的梯度\(w_1\)变为了一个低方差、中心在-0.1的高斯分布\(\theta_1\)，这个时候\(\theta_1\)的大部分都为负值，那么\(\theta_1\)对应的样本通过ReLu后，很多会得到一个0的输出，从而不能通过反向传播得到更新的梯度，从而“get dying”。 </li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="变种之Leaky-ReLU"><a href="#变种之Leaky-ReLU" class="headerlink" title="变种之Leaky ReLU"></a>变种之Leaky ReLU</h2><p>Leaky ReLU公式为$$g(x) = max(\alpha x, x)\ ,\ 0 &lt; \alpha &lt; 1 \tag{8}$$其图像为：</p>
-<p><img src="https://ws3.sinaimg.cn/large/006tNbRwgy1fud7ueqrhwj30xk0bcjry.jpg" alt="Leaky ReLU及其导数"></p>
-<center>图5 Leaky ReLU及其导数</center>
-
-<ul>
-<li><strong>特点</strong><br>当x&lt;0时，y不再为0，而是一个比例函数。</li>
-<li><strong>优点</strong><ul>
-<li>理论上来说含有ReLU的一切优点，并且去除了“Dying ReLu” problem。</li>
-</ul>
-</li>
-<li><strong>缺点</strong><ul>
-<li>not zero-centered。</li>
-</ul>
-</li>
-</ul>
-<h2 id="ELU（Expontional-Linear-Units）"><a href="#ELU（Expontional-Linear-Units）" class="headerlink" title="ELU（Expontional Linear Units）"></a>ELU（Expontional Linear Units）</h2><p>ELU公式为$$g(x) = x\ if\ x &gt; 0\ else\ \alpha * (e^x - 1) \tag{9}$$其图像为:<br><img src="https://ws4.sinaimg.cn/large/006tNbRwgy1fud86m0tuhj31080dm0ti.jpg" alt="ELU及其导数"></p>
-<p align="center">图6 ELU及其导数</p>
-
-<ul>
-<li><strong>特点</strong><br>当x&lt;0时，y为指数函数。</li>
-<li><strong>优点</strong><br>理论上来说含有ReLU的一切优点，并且去除了“Dying ReLu” problem，同时输出近似zero-centered。</li>
-<li><strong>缺点</strong>  -<br>计算耗时。</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>建议使用ReLU函数，但要注意权值初始化以及学习率大小设置。</p>
 
       
     </div>
@@ -540,9 +479,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/梯度消失/" rel="tag"><i class="fas fa-child"></i> 梯度消失</a>
+            <a href="/tags/总结/" rel="tag"><i class="fas fa-child"></i> 总结</a>
           
-            <a href="/tags/激活函数/" rel="tag"><i class="fas fa-child"></i> 激活函数</a>
+            <a href="/tags/机器学习/" rel="tag"><i class="fas fa-child"></i> 机器学习</a>
+          
+            <a href="/tags/Logistic/" rel="tag"><i class="fas fa-child"></i> Logistic</a>
+          
+            <a href="/tags/算法面试/" rel="tag"><i class="fas fa-child"></i> 算法面试</a>
           
         </div>
       
@@ -555,8 +498,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/16/剑指offer之“和为S的连续正数数列”/" rel="next" title="剑指offer之“和为S的连续正数数列”">
-                <i class="fa fa-chevron-left"></i> 剑指offer之“和为S的连续正数数列”
+              <a href="/2018/09/13/Named-Entity-Recognition/" rel="next" title="Named Entity Recognition">
+                <i class="fa fa-chevron-left"></i> Named Entity Recognition
               </a>
             
           </div>
@@ -565,8 +508,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/18/RNNs/" rel="prev" title="RNNs">
-                RNNs <i class="fa fa-chevron-right"></i>
+              <a href="/9999/12/31/报上名来/" rel="prev" title="报上名来">
+                报上名来 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -800,7 +743,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#机器学习中的激活函数"><span class="nav-number">1.</span> <span class="nav-text">机器学习中的激活函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#激活函数的必要性"><span class="nav-number">1.1.</span> <span class="nav-text">激活函数的必要性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sigmoid"><span class="nav-number">1.2.</span> <span class="nav-text">Sigmoid</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tanh函数"><span class="nav-number">1.3.</span> <span class="nav-text">Tanh函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ReLU函数"><span class="nav-number">1.4.</span> <span class="nav-text">ReLU函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变种之Leaky-ReLU"><span class="nav-number">1.5.</span> <span class="nav-text">变种之Leaky ReLU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ELU（Expontional-Linear-Units）"><span class="nav-number">1.6.</span> <span class="nav-text">ELU（Expontional Linear Units）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.7.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LR模型"><span class="nav-number">1.</span> <span class="nav-text">LR模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#名称由来"><span class="nav-number">1.1.</span> <span class="nav-text">名称由来</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性回归"><span class="nav-number">1.2.</span> <span class="nav-text">线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型"><span class="nav-number">1.2.1.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目标函数设计"><span class="nav-number">1.2.2.</span> <span class="nav-text">目标函数设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目标函数求解"><span class="nav-number">1.2.3.</span> <span class="nav-text">目标函数求解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最小二乘法"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">最小二乘法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#非矩阵形式最小二乘法"><span class="nav-number">1.2.3.1.1.</span> <span class="nav-text">非矩阵形式最小二乘法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#矩阵形式求解最小二乘法"><span class="nav-number">1.2.3.1.2.</span> <span class="nav-text">矩阵形式求解最小二乘法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#梯度下降法"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">梯度下降法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Logistic-regression"><span class="nav-number">1.3.</span> <span class="nav-text">Logistic regression</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#损失函数设计及求解"><span class="nav-number">1.3.2.</span> <span class="nav-text">损失函数设计及求解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优点及缺点"><span class="nav-number">1.3.3.</span> <span class="nav-text">优点及缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#优点"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缺点"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充"><span class="nav-number">1.4.</span> <span class="nav-text">补充</span></a></li></ol></li></ol></div>
             
 
           </div>
