@@ -109,7 +109,7 @@
 
 
   <meta name="description" content="逻辑斯蒂回归真的是经典的不能再经典的机器学习模型了。正值找工作之际，按照模型-&amp;gt;目标函数设计及求解的路线讲完模型后，还会加一些模型的特性，比如优缺点、和相似的模型相比下算法和应用场景的不同等。也可能加入一些面试题。 LR模型名称由来虽然名字里有regression，但实际上逻辑回归是一个分类算法，既然是分类，为何又叫分类呢？据考究是高尔顿研究父母及其子女身高时，返现整体人类的身高会回归到一个">
-<meta name="keywords" content="总结,机器学习,Logistic,算法面试">
+<meta name="keywords" content="总结,机器学习,算法面试,Logistic">
 <meta property="og:type" content="article">
 <meta property="og:title" content="经典模型之Logostic Regression">
 <meta property="og:url" content="http://yoursite.com/2018/09/14/经典模型之Logostic-Regression/index.html">
@@ -117,7 +117,7 @@
 <meta property="og:description" content="逻辑斯蒂回归真的是经典的不能再经典的机器学习模型了。正值找工作之际，按照模型-&amp;gt;目标函数设计及求解的路线讲完模型后，还会加一些模型的特性，比如优缺点、和相似的模型相比下算法和应用场景的不同等。也可能加入一些面试题。 LR模型名称由来虽然名字里有regression，但实际上逻辑回归是一个分类算法，既然是分类，为何又叫分类呢？据考究是高尔顿研究父母及其子女身高时，返现整体人类的身高会回归到一个">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNbRwly1fv9egmzh19j30xi0aadgt.jpg">
-<meta property="og:updated_time" content="2018-09-14T16:10:03.724Z">
+<meta property="og:updated_time" content="2018-09-16T05:46:23.898Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="经典模型之Logostic Regression">
 <meta name="twitter:description" content="逻辑斯蒂回归真的是经典的不能再经典的机器学习模型了。正值找工作之际，按照模型-&amp;gt;目标函数设计及求解的路线讲完模型后，还会加一些模型的特性，比如优缺点、和相似的模型相比下算法和应用场景的不同等。也可能加入一些面试题。 LR模型名称由来虽然名字里有regression，但实际上逻辑回归是一个分类算法，既然是分类，为何又叫分类呢？据考究是高尔顿研究父母及其子女身高时，返现整体人类的身高会回归到一个">
@@ -358,7 +358,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2018-09-15 00:10:03" itemprop="dateModified" datetime="2018-09-15T00:10:03+08:00">2018-09-15</time>
+                <time title="Modified: 2018-09-16 13:46:23" itemprop="dateModified" datetime="2018-09-16T13:46:23+08:00">2018-09-16</time>
               
             
           </span>
@@ -440,6 +440,7 @@
 <h3 id="损失函数设计及求解"><a href="#损失函数设计及求解" class="headerlink" title="损失函数设计及求解"></a>损失函数设计及求解</h3><p>逻辑斯蒂回归的损失函数很有意思，是交叉熵，由最大化后验概率推导而来。<br>$$cross_entropy = \sum_{i=1}^nP\log{P} \tag{13}$$</p>
 <h3 id="优点及缺点"><a href="#优点及缺点" class="headerlink" title="优点及缺点"></a>优点及缺点</h3><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
 <li>直接对分类可能性进行建模，无需事先假设数据分布，避免了假设分布不准确所带来的问题</li>
+<li>计算时计算量较小，速度快，存储资源占用少</li>
 <li>输出的决策是类别，但是以概率的形式，对需要利用概率辅助决策的任务很有用</li>
 <li>对数几率函数（这里的sigmoid函数）是凸函数，现有的许多数值优化算法都可直接用于求取最优解</li>
 <li>形式简单，可解释性好</li>
@@ -448,6 +449,7 @@
 </ul>
 <h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
 <li>对于非线性数据需要进行数值转换</li>
+<li>预设的是数据必须线性可分</li>
 <li>对多重共线性较为敏感，原因是因为当存在多重共线性时，解析解W中的组元$X^TX$不满秩，从而会使W方差大，从而过拟合，使用正则化方法则可以解决这个问题。</li>
 <li>容易欠拟合，分类精度不高</li>
 <li>不能处理缺失值，需要进行一些填充处理</li>
@@ -483,9 +485,9 @@
           
             <a href="/tags/机器学习/" rel="tag"><i class="fas fa-child"></i> 机器学习</a>
           
-            <a href="/tags/Logistic/" rel="tag"><i class="fas fa-child"></i> Logistic</a>
-          
             <a href="/tags/算法面试/" rel="tag"><i class="fas fa-child"></i> 算法面试</a>
+          
+            <a href="/tags/Logistic/" rel="tag"><i class="fas fa-child"></i> Logistic</a>
           
         </div>
       
@@ -508,8 +510,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/9999/12/31/报上名来/" rel="prev" title="报上名来">
-                报上名来 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/16/经典模型之SVM/" rel="prev" title="经典模型之SVM">
+                经典模型之SVM <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -587,7 +589,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -620,7 +622,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">10</span>
+                      
+                    
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">categories</span>
                   </a>
                 </div>
@@ -691,7 +695,21 @@
                     
                       
                     
-                    <span class="site-state-item-count">29</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">36</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
